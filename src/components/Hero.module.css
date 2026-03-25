@@ -1,0 +1,72 @@
+.hero {
+  padding: 100px 10%;
+  background: url('../assets/hero3.png') no-repeat center center/cover;
+  color: #fff;
+  text-align: left;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+.textContent {
+  flex: 1;
+}
+
+.topLabel {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffb400;
+  margin-bottom: -10px;
+}
+
+.title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #eee;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+.cta {
+  background-color: #ffb400;
+  border: none;
+  padding: 15px 30px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.imageWrapper {
+  flex: 1;
+}
+
+.heroImg {
+  width: 100%;
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .container { flex-direction: column; text-align: left; }
+  .title { font-size: 3rem; }
+}

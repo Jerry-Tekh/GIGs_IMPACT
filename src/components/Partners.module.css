@@ -1,0 +1,5 @@
+.partners { padding: 60px 10%; text-align: center; background: #f9f9f9; border-top: 1px solid #eee; }
+.label { font-weight: bold; color: #666; font-size: 12px; }
+.logoGrid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin: 40px 0; }
+.logoPlaceholder { filter: grayscale(1); opacity: 0.6; font-weight: bold; font-size: 18px; }
+.btn { padding: 12px 25px; background: #ffb400; border: none; font-weight: bold; cursor: pointer; }

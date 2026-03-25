@@ -1,0 +1,4 @@
+.badgeSection { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 40px; background: #f4f4f4; text-align: left; }
+.circle { width: 80px; height: 80px; border: 4px solid #e68a00; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; flex-shrink: 0; }
+.num { font-weight: bold; color: #e68a00; font-size: 20px; }
+.label { font-size: 8px; }

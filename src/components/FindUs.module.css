@@ -1,0 +1,23 @@
+.section { padding: 60px 10%; background: #fff; }
+.container { display: flex; gap: 60px; align-items: flex-start; }
+.info { flex: 1; }
+.info h2 { font-size: 2.2rem; color: #333; margin-bottom: 10px; }
+.sub { margin-bottom: 40px; color: #666; }
+.item { display: flex; gap: 20px; margin-bottom: 30px; }
+.icon { font-size: 2rem; color: #e68a00; }
+.storyCard { flex: 1; position: relative; }
+.storyCard img { width: 100%; border-radius: 8px; }
+.quote { 
+  position: absolute; 
+  bottom: 180px; 
+  right: -20px; 
+  background: #3d4a25; 
+  color: white; 
+  padding: 20px; 
+  width: 80%; 
+  border-radius: 4px;
+}
+@media (max-width: 768px) {
+  .container { flex-direction: column; }
+  .quote { position: static; width: 100%; margin-top: 20px; }
+}

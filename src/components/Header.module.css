@@ -1,0 +1,13 @@
+.header { border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 1000; }
+.utility { display: flex; justify-content: flex-end; align-items: center; padding: 5px 10%; background: #f9f9f9; gap: 20px; font-size: 12px; }
+.donateTop { background: #a32a29; color: white; border: none; padding: 8px 20px; font-weight: bold; cursor: pointer; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 10%; }
+.logo { font-weight: 900; color: #e68a00; font-size: 24px; }
+.navLinks { display: flex; list-style: none; gap: 20px; font-weight: bold; font-size: 13px; }
+.hamburger { display: none; background: none; border: none; font-size: 24px; }
+
+@media (max-width: 850px) {
+  .hamburger { display: block; }
+  .navLinks { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; padding: 20px; }
+  .navLinks.open { display: flex; }
+}

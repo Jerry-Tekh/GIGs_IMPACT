@@ -1,0 +1,18 @@
+.section { padding: 80px 10%; background: #fff; }
+.topLabel { font-weight: bold; font-size: 12px; color: #666; margin-bottom: 10px; }
+.mainTitle { font-size: 32px; color: #3d4a25; margin-bottom: 60px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.card { margin-bottom: 40px; }
+.label { display: inline-block; padding: 5px 25px 5px 15px; color: white; font-weight: bold; font-size: 12px; clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%); margin-bottom: 15px; }
+.cardBody h3 { font-size: 24px; margin-bottom: 10px; }
+.imgContainer { position: relative; margin-top: 20px; }
+.imgContainer img { width: 100%; border-radius: 4px; height: 250px; object-fit: cover; }
+.imgName { position: absolute; bottom: 10px; left: 10px; color: white; background: rgba(0,0,0,0.5); padding: 2px 8px; font-size: 12px; }
+.learnMore { display: block; margin: 40px auto; padding: 12px 30px; background: #ffb400; border: none; font-weight: bold; cursor: pointer; }
+
+@media (min-width: 768px) {
+  .card:nth-child(even) { margin-top: 80px; }
+}
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+}

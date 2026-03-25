@@ -1,0 +1,12 @@
+.wrapper { background: #3d4a25; padding: 80px 10%; color: white; }
+.content { display: flex; gap: 40px; align-items: center; }
+.testimonial { flex: 1; border: 2px solid #fff; padding: 40px; position: relative; }
+.quote { font-size: 24px; font-style: italic; margin-bottom: 10px; }
+.grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card { background: #fff; color: #333; padding: 30px; border-radius: 4px; }
+.card h3 { color: #e68a00; font-size: 32px; margin: 0; }
+
+@media (max-width: 768px) {
+  .content { flex-direction: column; }
+  .grid { grid-template-columns: 1fr; width: 100%; }
+}

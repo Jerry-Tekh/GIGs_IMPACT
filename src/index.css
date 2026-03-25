@@ -1,0 +1,31 @@
+/* 1. Import the professional font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+/* 2. Remove browser default gaps */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 3. Set the global look */
+body {
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
+  line-height: 1.5;
+  background-color: #fff;
+}
+
+/* 4. Make sure images don't break the layout */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* 5. Clean up links */
+a {
+  text-decoration: none;
+  color: inherit;
+}

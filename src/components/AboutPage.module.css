@@ -1,0 +1,41 @@
+.pageWrapper {
+  padding: 80px 10%;
+  background-color: #fafafa; /* Light gray background to pop against white */
+}
+
+.parentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 80px; /* Space between the two main sections */
+  align-items: center;
+}
+
+/* Text Section Styling */
+.rightColumn {
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.storyTitle {
+  color: #3d4a25; /* Dark Green from branding */
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.storyContent p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 992px) {
+  .parentGrid {
+    grid-template-columns: 1fr; /* Stack vertically on small screens */
+    gap: 50px;
+  }
+}
