@@ -10,20 +10,20 @@ const WhatWeDo = () => {
   return (
     <section className={styles.section}>
       <p className={styles.topLabel}>WHAT WE DO</p>
-      <h2 className={styles.mainTitle}>We unite communities to end hunger.</h2>
+      <h2 className={styles.mainTitle}>We empower youth by helping them discover their purpose, developing their mindset and skills, and providing platforms to turn talents into income and impact.</h2>
       
       <div className={styles.grid}>
-        {siteData.whatWeDo.map((item, index) => (
+        {siteData.programs.stages.slice(0, 4).map((stage, index) => (
           <div key={index} className={styles.card}>
-            <div className={styles.label} style={{ backgroundColor: item.color }}>
-              {item.label}
+            <div className={styles.label} style={{ backgroundColor: siteData.whatWeDo[index % 4].color }}>
+              STAGE {stage.stage}
             </div>
             <div className={styles.cardBody}>
-              <h3>{item.title}</h3>
-              <p>We listen to neighbors facing hunger and share their stories to help shape real solutions.</p>
+              <h3>{stage.title}</h3>
+              <p>{stage.focus.join(', ')}</p>
               <div className={styles.imgContainer}>
-                <img src={`/person-${index}.jpg`} alt={item.name} />
-                <span className={styles.imgName}>{item.name}</span>
+                <img src={`/person-${index % 4}.jpg`} alt={`Stage ${stage.stage}`} />
+                <span className={styles.imgName}>Stage {stage.stage}</span>
               </div>
             </div>
           </div>

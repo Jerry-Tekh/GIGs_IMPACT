@@ -2,17 +2,17 @@ import React from 'react';
 import styles from './Partners.module.css';
 
 const Partners = () => {
-  const logos = ['General Mills', 'Google', 'H-E-B', 'Hannaford', 'Hy-Vee', 'Jersey Mikes'];
+  const values = ['Integrity – Doing what is right, even when no one is watching', 'Growth – Continuous personal and professional development', 'Independence – Building self-reliance through value creation', 'Impact – Creating solutions that improve lives', 'Community – Growing together and supporting one another'];
   return (
     <section className={styles.partners}>
-      <p className={styles.label}>OUR PARTNERS</p>
-      <h2>We Can End Hunger When We Work Together</h2>
+      <p className={styles.label}>OUR CORE VALUES</p>
+      <h2>We Build a Talent-Driven Ecosystem</h2>
       <div className={styles.logoGrid}>
-        {logos.map(logo => (
-          <div key={logo} className={styles.logoPlaceholder}>{logo}</div>
+        {values.map(value => (
+          <div key={value} className={styles.logoPlaceholder}>{value}</div>
         ))}
       </div>
-      <button className={styles.btn}>Learn More About Our Partners</button>
+      <button className={styles.btn}>Learn More About Our Mission</button>
     </section>
   );
 };

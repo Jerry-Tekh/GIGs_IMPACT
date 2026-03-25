@@ -8,8 +8,8 @@ const ImpactStats = () => (
   <section className={styles.wrapper}>
     <div className={styles.content}>
       <div className={styles.testimonial}>
-        <div className={styles.quote}>“I love that there’s no limit on the fruits and veggies.”</div>
-        <div className={styles.author}>Adriana, California</div>
+        <div className={styles.quote}>"We are building systems that transform potential into productivity and productivity into prosperity."</div>
+        <div className={styles.author}>GIGs Impact Community</div>
       </div>
       <div className={styles.grid}>
         {siteData.stats.map((stat, i) => (

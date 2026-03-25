@@ -6,22 +6,27 @@ const DonationForm = () => {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.formCard}>
-          <h3>$1 = 10 Meals</h3>
-          <div className={styles.tabs}>
-            <button className={styles.active}>One Time</button>
-            <button>Monthly</button>
-          </div>
-          <div className={styles.amountGrid}>
-            {['$1000', '$500', '$250', '$100', '$50', '$25'].map(amt => (
-              <button key={amt} className={styles.amtBtn}>{amt}</button>
-            ))}
-          </div>
-          <input type="text" placeholder="$ Add a custom donation amount" className={styles.input} />
-          <button className={styles.submit}>Continue with your donation</button>
+          <h3>Volunteer With Us</h3>
+          <p>Be part of a mission that is transforming lives and shaping the future of Nigeria and Africa.</p>
+          <form>
+            <input type="text" placeholder="Full Name" className={styles.input} />
+            <input type="email" placeholder="Email" className={styles.input} />
+            <input type="tel" placeholder="Phone" className={styles.input} />
+            <input type="text" placeholder="Skills" className={styles.input} />
+            <select className={styles.input}>
+              <option>How would you like to contribute?</option>
+              <option>Trainers and facilitators</option>
+              <option>Mentors and coaches</option>
+              <option>Event organizers</option>
+              <option>Content creators</option>
+              <option>Social media managers</option>
+            </select>
+            <button className={styles.submit}>Submit Application</button>
+          </form>
         </div>
         <div className={styles.imageCol}>
           <img src="/family.jpg" alt="Family" />
-          <p>Taylor & Family, Virginia</p>
+          <p>Requirements: Willingness to serve, Commitment to growth, Alignment with our values, Passion for impact</p>
         </div>
       </div>
     </section>

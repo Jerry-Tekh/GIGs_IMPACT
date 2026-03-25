@@ -7,31 +7,23 @@ export const siteData = {
   },
   
   // MAKE SURE THIS IS NAMED "whatWeDo"
+ programs: {
+    stages: [
+      { stage: 1, title: "FOUNDATION — SELF AWARENESS & PERSONAL MASTERY", focus: ["Emotional Intelligence", "Growth Mindset", "Time Management"] },
+      { stage: 2, title: "ESSENTIAL SOFT SKILLS", focus: ["Critical Thinking", "Communication", "Collaboration"] },
+      { stage: 3, title: "CORE HARD SKILLS", focus: ["Digital Literacy", "Data Analysis", "Project Management"] },
+      { stage: 4, title: "MARKETING & SALES COMPETENCE", focus: ["Sales & Persuasion", "Marketing", "Digital Marketing"] },
+      { stage: 5, title: "ADVANCED COMPETENCE — LEADERSHIP & MANAGEMENT", focus: ["Strategic Thinking", "Leadership", "Decision Making"] },
+      { stage: 6, title: "EXECUTIVE & GLOBAL COMPETENCE", focus: ["Systems Thinking", "Ethical Leadership", "Change Management"] },
+      { stage: 7, title: "LIFELONG GROWTH & IMPACT", focus: ["Continuous Development", "Mentorship", "Legacy Building"] }
+    ]
+  },
+
   whatWeDo: [
-    { 
-      label: 'WE HAVE THE INSIGHTS', 
-      title: 'Research For Solutions', 
-      color: '#FFB400', 
-      name: 'Alyce, Hawaii' 
-    },
-    { 
-      label: 'WE HAVE THE RELATIONSHIPS', 
-      title: 'Local Roots, National Impact', 
-      color: '#A0CED9', 
-      name: 'Loretta, New York' 
-    },
-    { 
-      label: 'WE HAVE THE SCALE', 
-      title: 'Nationwide Distribution', 
-      color: '#4A5D23', 
-      name: 'Mike, Arizona' 
-    },
-    { 
-      label: 'WE HAVE THE VISION', 
-      title: 'Nutrition for Every Plate', 
-      color: '#FFD100', 
-      name: 'Kaycee, Washington' 
-    }
+    { color: '#6fa8dc' },
+    { color: '#e06666' },
+    { color: '#f6b26b' },
+    { color: '#70ad47' }
   ],
 
   actions: [
@@ -42,11 +34,11 @@ export const siteData = {
   ],
 
 
-  stats: [
-    { value: '0 Billion', label: 'Meals', sub: 'distributed' },
-    { value: '0 Billion', label: 'Pounds', sub: 'of food rescued' },
-    { value: '0+ Programs', label: 'distributing food', sub: '' },
-    { value: '0+ Food Banks', label: 'in the network', sub: '' }
+ stats: [
+    { value: '1 Billion', label: 'Youth', sub: 'across Africa in 20 years' },
+    { value: 'Multiple', label: 'Industries', sub: 'talent-driven enterprises' },
+    { value: 'Reduce', label: 'Unemployment', sub: 'through skill activation' },
+    { value: 'Generation', label: 'Independent', sub: 'value-driven individuals' }
   ],
 
   // New About Section Data

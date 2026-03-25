@@ -6,18 +6,18 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.top}>
         <div className={styles.brand}>
-          <h2>FEEDING AMERICA</h2>
-          <div className={styles.socials}>f t i y</div>
+          <h2>GIGs Impact Community</h2>
+          <div className={styles.socials}>Instagram Facebook LinkedIn YouTube</div>
         </div>
         <div className={styles.links}>
-          <div><h4>ABOUT US</h4><ul><li>Careers</li><li>Programs</li><li>Leadership</li></ul></div>
-          <div><h4>RESEARCH</h4><ul><li>Map the Meal Gap</li><li>Hunger & Health</li></ul></div>
-          <div><h4>WAYS TO GIVE</h4><ul><li>Give Monthly</li><li>Fundraise</li></ul></div>
-          <div><h4>HUNGER FACTS</h4><ul><li>Seniors</li><li>Children</li></ul></div>
+          <div><h4>ABOUT US</h4><ul><li>Our Story</li><li>Mission</li><li>Vision</li></ul></div>
+          <div><h4>PROGRAMS</h4><ul><li>7-Stage Framework</li><li>Cohort Learning</li></ul></div>
+          <div><h4>GET INVOLVED</h4><ul><li>Volunteer</li><li>Partner</li></ul></div>
+          <div><h4>CONTACT</h4><ul><li>Email: gigsimpact@gmail.com</li><li>Phone: 08146163211</li></ul></div>
         </div>
       </div>
       <div className={styles.bottom}>
-        <p>© Copyright 2026 Feeding America. All Rights Reserved.</p>
+        <p>© Copyright 2026 GIGs Impact Community. All Rights Reserved.</p>
         <div className={styles.legal}>Privacy Policy | Contact Us</div>
       </div>
     </footer>
