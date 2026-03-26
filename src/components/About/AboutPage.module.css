@@ -1,0 +1,294 @@
+.container {
+  background-color: #fff;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+/* --- Hero Section --- */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroBg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  color: #fff;
+}
+
+.logo {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.navLinks a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.activeLink {
+  border-bottom: 1px solid #fff;
+  padding-bottom: 4px;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 6rem;
+  color: #fff;
+}
+
+.heroNumber {
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.heroContent h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 1rem 0;
+}
+
+.heroContent p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  font-weight: 300;
+}
+
+/* --- Features Grid --- */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  padding: 6rem;
+  border-bottom: 1px solid #eee;
+}
+
+.featureCard span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.featureCard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.featureCard p {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* --- Philosophy Section --- */
+.philosophySection {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 2rem;
+  padding: 8rem 6rem;
+}
+
+.philosophyHeading h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.philosophyContent {
+  max-width: 800px;
+}
+
+.philosophyContent h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 4rem;
+}
+
+.descriptionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.linksList {
+  margin-top: 6rem;
+  list-style: none;
+  padding: 0;
+}
+
+.linksList li {
+  margin-bottom: 1.5rem;
+}
+
+.linksList a {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 2px solid #000;
+  padding-bottom: 4px;
+  transition: opacity 0.2s;
+}
+
+.linksList a:hover {
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .featuresGrid, .philosophySection, .descriptionGrid {
+    grid-template-columns: 1fr;
+    padding: 3rem 2rem;
+  }
+  .heroContent { padding: 0 2rem; }
+}
+
+/* --- Stats Section --- */
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  padding: 6rem;
+  background: linear-gradient(135deg, #f0f7ff 0%, #fff9f0 100%);
+  text-align: center;
+}
+
+.statCard {
+  padding: 2rem;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(230, 138, 0, 0.15);
+}
+
+.statCard h3 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #e68a00;
+  margin-bottom: 0.5rem;
+}
+
+.statCard p {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 600;
+}
+
+/* --- Approach Section --- */
+.approachSection {
+  padding: 8rem 6rem;
+  background: white;
+}
+
+.approachSection h2 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 4rem;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.approachGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+}
+
+.approachCard {
+  padding: 2.5rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff9f0 0%, #ffffff 100%);
+  border: 1px solid #ffe6d5;
+  transition: all 0.3s ease;
+}
+
+.approachCard:hover {
+  background: linear-gradient(135deg, #ffe6d5 0%, #fff0e6 100%);
+  border-color: #e68a00;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(230, 138, 0, 0.2);
+}
+
+.approachCard h4 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.approachCard p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .approachSection, .statsSection {
+    padding: 5rem 4rem;
+  }
+  .approachSection h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .approachSection, .statsSection {
+    padding: 3rem 2rem;
+  }
+  .approachSection h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+  .approachGrid {
+    grid-template-columns: 1fr;
+  }
+}
