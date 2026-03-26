@@ -8,6 +8,13 @@ const Header = () => {
 
   const closeMenu = () => setIsOpen(false);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.utility}>
@@ -21,9 +28,9 @@ const Header = () => {
 
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-          <NavLink to="/" onClick={closeMenu} className={styles.brandLink}>
-            <img src={logo} alt="Organization Logo" />
-            <span>GigImpact</span>
+          <NavLink to="/" onClick={() => { closeMenu(); scrollToTop(); }} className={styles.brandLink}>
+            <img src={logo} style={{ width: '100px', height: 'auto' }} alt="Organization Logo" />
+         
           </NavLink>
         </div>
 
@@ -31,7 +38,7 @@ const Header = () => {
 
         <ul className={`${styles.navLinks} ${isOpen ? styles.open : ''}`}>
           <li>
-            <NavLink to="/" className={({isActive}) => isActive ? styles.activeLink : ''} onClick={closeMenu}>Home</NavLink>
+            <NavLink to="/" className={({isActive}) => isActive ? styles.activeLink : ''} onClick={() => { closeMenu(); scrollToTop(); }}>Home</NavLink>
           </li>
           <li>
             <NavLink to="/about" className={({isActive}) => isActive ? styles.activeLink : ''} onClick={closeMenu}>About</NavLink>

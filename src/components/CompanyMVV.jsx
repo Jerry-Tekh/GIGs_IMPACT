@@ -64,11 +64,22 @@ const CompanyMVV = () => {
           </div>
         ))}
       </div>
+      <div className={styles.scrollContainer}>
 
-      <footer className={styles.footer}>
+      <footer className={`${styles.footer} ${styles.scrollwrapper}`}>
         <span>30 | Slidelisting.com | Date 2021</span>
         <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
+        <span className={styles.logo}>slidelisting</span>
       </footer>
+      </div>
     </section>
   );
 };

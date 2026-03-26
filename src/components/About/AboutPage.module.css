@@ -8,11 +8,10 @@
 /* --- Hero Section --- */
 .hero {
   position: relative;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .heroBg {
@@ -69,7 +68,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 6rem;
+  padding: 100px 4rem 140px ;
   color: #fff;
 }
 
@@ -80,13 +79,14 @@
   text-transform: uppercase;
   margin-bottom: 1rem;
   display: block;
+  
 }
 
 .heroContent h1 {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: 3.2rem;
   font-weight: 800;
   line-height: 1.1;
-  margin: 1rem 0;
+  margin: 1.4rem 0;
 }
 
 .heroContent p {
@@ -128,12 +128,14 @@
   grid-template-columns: 1fr 3fr;
   gap: 2rem;
   padding: 8rem 6rem;
+  
 }
 
 .philosophyHeading h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 800;
   line-height: 1.2;
+  color: #1a1a1a;
 }
 
 .philosophyContent {
@@ -145,6 +147,7 @@
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 4rem;
+  color: #1a1a1a;
 }
 
 .descriptionGrid {

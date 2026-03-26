@@ -5,9 +5,9 @@ const VideoSection = () => {
   return (
     <section className={styles.videoSection}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Hunger in America is a crisis.</h2>
+        <h2 className={styles.title}>At Gigs Impact Our Focus is Simple.</h2>
         <div className={styles.description}>
-          <p>48 million people face hunger in the U.S.—including 14 million children. Hunger touches every U.S. community, including yours.</p>
+          <p>Close the gap between talent and opportunity, and unlock the full potential of individuals at scale.</p>
           <p><strong>Together, we can meet this moment.</strong></p>
         </div>
       </div>

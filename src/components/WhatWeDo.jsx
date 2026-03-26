@@ -13,7 +13,7 @@ const WhatWeDo = () => {
       <h2 className={styles.mainTitle}>We empower youth by helping them discover their purpose, developing their mindset and skills, and providing platforms to turn talents into income and impact.</h2>
       
       <div className={styles.grid}>
-        {siteData.programs.stages.slice(0, 4).map((stage, index) => (
+        {siteData.programs.stages.slice(0, 7).map((stage, index) => (
           <div key={index} className={styles.card}>
             <div className={styles.label} style={{ backgroundColor: siteData.whatWeDo[index % 4].color }}>
               STAGE {stage.stage}
@@ -27,7 +27,11 @@ const WhatWeDo = () => {
               </div>
             </div>
           </div>
+          
         ))}
+        <div>
+          <p>oh yes</p>
+        </div>
       </div>
       <button className={styles.learnMore}>Learn About Our Work</button>
     </section>

@@ -7,8 +7,9 @@ import  { siteData } from '../SiteData.js';
 const ActionCards = () => {
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading}>Make a Difference</h2>
-      <p className={styles.subheading}>We can end hunger when we all work together.</p>
+      <h2 className={styles.heading}>Bridge The Gap</h2>
+      <p className={styles.subheading}>At GIGs Impact Community, we are not waiting for change, we are
+creating an alternative system.</p>
       <div className={styles.grid}>
         {siteData.actions.map((action, index) => (
           <div 

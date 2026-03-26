@@ -133,6 +133,45 @@
   padding-top: 20px;
 }
 
+
+.scroll-container {
+  /* Hides the duplicate content initially */
+  overflow: hidden; 
+  white-space: nowrap; /* Keeps all p elements on one line */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.scrollwrapper {
+  
+  padding-left: 100%; /* Starts the animation from off-screen right */
+  /* Applies the animation */
+  animation: continuous-scroll 15s linear infinite; 
+}
+
+.scrollwrapper span {
+  /* Styles for your paragraph elements */
+  display: inline-block;
+  margin: 0 20px; /* Adjust spacing between elements */
+
+
+ 
+}
+
+/* Keyframe animation for continuous scrolling */
+@keyframes continuous-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  /* Moves the wrapper the width of the initial content */
+  100% {
+    transform: translateX(-100%); 
+  }
+}
+
+
+
+
 .logo {
   font-weight: bold;
 }

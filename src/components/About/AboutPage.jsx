@@ -34,10 +34,13 @@ const AboutPage = () => {
 
           <div className={styles.descriptionGrid}>
             <p>
-              We recognize the challenges faced by gig workers—lack of job security, limited benefits, and uncertainty about their future. GigImpact creates pathways for these hardworking individuals to build sustainable livelihoods through comprehensive training programs, mentorship, and access to resources.
+              To build a global community of independent, visionary individuals who believe in 
+              their ability to create change and empower others through the effective use of their talents.
             </p>
-            <p>
-              Our impact spans across multiple sectors including delivery, transportation, freelancing, and platform-based work. We've helped thousands of gig workers increase their earnings by 40%, develop entrepreneurial skills, and transition into stable opportunities when they're ready.
+            <p>To build a talent-driven ecosystem that develops individuals into skilled, value-driven, and independent contributors while creating
+              pathways for sustainable income, enterprise, and large-scale employment by: Developing strong values such as honesty, integrity, and
+              discipline, Equipping youth with the mindset and skills required for success, Empowering individuals to become productive and self-reliant
+              and Creating pathways for people to use their talents to impact
             </p>
           </div>
 
