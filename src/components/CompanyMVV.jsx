@@ -66,19 +66,35 @@ const CompanyMVV = () => {
       </div>
       <div className={styles.scrollContainer}>
 
-      <footer className={`${styles.footer} ${styles.scrollwrapper}`}>
-        <span>30 | Slidelisting.com | Date 2021</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-        <span className={styles.logo}>slidelisting</span>
-      </footer>
+<footer className={`${styles.footer} ${styles.scrollwrapper}`}>
+  {/* Original set of spans */}
+  <span>30 | Slidelisting.com | Date 2021</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  
+  {/* Duplicate set for seamless looping */}
+  <span>30 | Slidelisting.com | Date 2021</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+  <span className={styles.logo}>slidelisting</span>
+</footer>
+
+
       </div>
     </section>
   );
