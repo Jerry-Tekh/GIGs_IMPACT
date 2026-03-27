@@ -1,5 +1,50 @@
-.partners { padding: 60px 10%; text-align: center; background: #f9f9f9; border-top: 1px solid #eee; }
-.label { font-weight: bold; color: #666; font-size: 12px; }
-.logoGrid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin: 40px 0; }
-.logoPlaceholder { filter: grayscale(1); opacity: 0.6; font-weight: bold; font-size: 18px; }
-.btn { padding: 12px 25px; background: #ffb400; border: none; font-weight: bold; cursor: pointer; }
+.partners {
+  padding: 60px 10%;
+  text-align: center;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+  position: relative;
+  
+
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  background-image: url(../assets/sucesspath.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.8;
+  z-index: 0;
+  inset: 0;
+}
+
+
+.label {
+  font-weight: bold;
+  color: #666;
+  color: #000000;
+  font-size: 12px;
+  z-index: 30;
+}
+.logoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin: 40px 0;
+}
+.logoPlaceholder {
+  filter: grayscale(1);
+  opacity: 0.6;
+  font-weight: bold;
+  font-size: 18px;
+}
+.btn {
+  padding: 12px 25px;
+  background: #ffb400;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}

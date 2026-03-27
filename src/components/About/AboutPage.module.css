@@ -143,7 +143,7 @@
 }
 
 .philosophyContent h2 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 4rem;
@@ -228,12 +228,12 @@
 
 /* --- Approach Section --- */
 .approachSection {
-  padding: 8rem 6rem;
+  padding: 5rem 6rem;
   background: white;
 }
 
 .approachSection h2 {
-  font-size: 3rem;
+  font-size:2rem;
   font-weight: 900;
   margin-bottom: 4rem;
   text-align: center;

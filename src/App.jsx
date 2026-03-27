@@ -23,8 +23,8 @@ function HomeContent() {
     <main className={styles.pageContent}>
       <Hero />
       <CompanyMVV />
-      <ActionCards />
       <VideoSection />
+      <ActionCards />
       <WhatWeDo />
       <ImpactStats />
       <Partners />

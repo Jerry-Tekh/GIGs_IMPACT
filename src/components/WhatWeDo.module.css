@@ -72,4 +72,12 @@
   .grid {
     grid-template-columns: 1fr;
   }
+  .section {
+  padding-top: 10px;
+
+}
+.mainTitle {
+  font-size: 1.3rem;
+
+}
 }

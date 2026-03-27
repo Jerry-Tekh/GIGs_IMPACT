@@ -11,7 +11,7 @@ const Footer = () => {
         </div>
         <div className={styles.links}>
           <div><h4>ABOUT US</h4><ul><li>Our Story</li><li>Mission</li><li>Vision</li></ul></div>
-          <div><h4>PROGRAMS</h4><ul><li>7-Stage Framework</li><li>Cohort Learning</li></ul></div>
+          <div><h4>PROGRAMS</h4><ul><li>7-Stage Framework</li><li>Cohort Learning</li><li>Blog</li></ul></div>
           <div><h4>GET INVOLVED</h4><ul><li>Volunteer</li><li>Partner</li></ul></div>
           <div><h4>CONTACT</h4><ul><li>Email: gigsimpact@gmail.com</li><li>Phone: 08146163211</li></ul></div>
         </div>

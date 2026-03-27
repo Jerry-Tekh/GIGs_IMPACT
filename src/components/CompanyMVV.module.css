@@ -7,14 +7,10 @@
 
 .header {
   margin-bottom: 30px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-
-
 
 
 .ctaWrapper {
@@ -46,19 +42,6 @@
   margin-bottom: 50px;
 }
 
-@media (max-width: 992px) {
-  .gridContainer {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-}
-
-@media (max-width: 700px) {
-  .gridContainer {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
 
 .mvvColumn {
   text-align: center;
@@ -71,10 +54,22 @@
   height: 250px;
   overflow: hidden;
   border-radius: 4px;
-  border: 1px solid transparent;
+  /*border: 1px solid transparent;*/
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
+
+.imageCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
 
 .bgImage {
   width: 100%;
@@ -88,10 +83,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: #0b2f58;
+  color: #fff;
   font-size: 1.8rem;
-  font-weight: 800;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.2em;
+  z-index: 20;
 }
 
 .iconHex {
@@ -173,4 +170,43 @@
 
 .logo {
   font-weight: bold;
+}
+
+
+
+@media (max-width: 992px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .mainTitle{
+    font-size: 1.5rem;
+  }
+  .ctaWrapper {
+
+  margin-top: 15px;
+}
+.ctaLink {
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  font-weight: bold;
+ 
+}
+.ctaWrapper {
+
+  margin-top: 15px;
+}
+.header {
+
+  align-items: flex-start;
+}
+
 }

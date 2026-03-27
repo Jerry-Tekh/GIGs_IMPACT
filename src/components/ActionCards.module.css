@@ -26,6 +26,11 @@
   flex-direction: column;
   min-height: 280px;
   cursor: pointer;
+
+  /*background:url('./../assets/ACTIONCARDS/partnener.jpg') ;*/
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
 }
 
 .icon {

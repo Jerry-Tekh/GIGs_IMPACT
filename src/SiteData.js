@@ -3,7 +3,7 @@ export const siteData = {
   hero: {
     title: ["Activating Talents", "Building Independent Minds", "Creating Global Impact"],
     subtitle: "We are building a generation of independent thinkers and creators who do not wait for opportunities but create them..",
-    cta: "Learn More"
+    cta: "About Us"
   },
   
   // MAKE SURE THIS IS NAMED "whatWeDo"
