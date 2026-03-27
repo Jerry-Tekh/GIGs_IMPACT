@@ -27,10 +27,10 @@ export const siteData = {
   ],
 
   actions: [
-    { title: 'Join the Community', text: 'Become part of a movement that is redefining success.', color: '#3d4a25', textColor: '#fff', icon: '🤝' },
-    { title: 'Partner With Us', text: 'Collaborate to create opportunities beyond limitations.', color: '#FFD100', textColor: '#000', icon: '🤝' },
-    { title: 'Explore Programs', text: 'Discover our structured development system.', color: '#B87E1B', textColor: '#000', icon: '📚' },
-    { title: 'Read Our Blog', text: 'Share knowledge, inspiration, and practical insights.', color: '#FFB400', textColor: '#000', icon: '📖' }
+    { title: 'Join the Community', text: 'Become part of a movement that is redefining success.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80', icon: 'FaUsers' },
+    { title: 'Partner With Us', text: 'Collaborate to create opportunities beyond limitations.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80', icon: 'FaHandshake' },
+    { title: 'Explore Programs', text: 'Discover our structured development system.', image: 'https://images.unsplash.com/photo-1516321318423-f06f70259b51?auto=format&fit=crop&w=800&q=80', icon: 'FaGraduationCap' },
+    { title: 'Read Our Blog', text: 'Share knowledge, inspiration, and practical insights.', image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80', icon: 'FaBook' }
   ],
 
 
