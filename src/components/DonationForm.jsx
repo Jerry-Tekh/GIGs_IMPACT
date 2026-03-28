@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './DonationForm.module.css';
-import volunteer from './../assets/volunteer.png';
+import volunteer from './../assets/volunteer2.png';
 
 
 const DonationForm = () => {
