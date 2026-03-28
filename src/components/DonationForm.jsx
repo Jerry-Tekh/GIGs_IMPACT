@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './DonationForm.module.css';
+import volunteer from './../assets/volunteer.png';
+
 
 const DonationForm = () => {
   return (
@@ -25,7 +27,7 @@ const DonationForm = () => {
           </form>
         </div>
         <div className={styles.imageCol}>
-          <img src="/family.jpg" alt="Family" />
+          <img src={volunteer} alt="Family" />
           <p>Requirements: Willingness to serve, Commitment to growth, Alignment with our values, Passion for impact</p>
         </div>
       </div>

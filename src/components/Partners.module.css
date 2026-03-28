@@ -4,30 +4,42 @@
   background: #f9f9f9;
   border-top: 1px solid #eee;
   position: relative;
-  
-
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bgImage {
   position: absolute;
   inset: 0;
-  background-image: url(../assets/sucesspath.jpg);
+  background-image: url(../assets/bg.png);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  opacity: 0.8;
+  opacity: 0.9;
   z-index: 0;
-  inset: 0;
 }
 
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+}
 
 .label {
   font-weight: bold;
-  color: #666;
-  color: #000000;
   font-size: 12px;
-  z-index: 30;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
+
+.partners h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
 .logoGrid {
   display: flex;
   flex-wrap: wrap;
@@ -35,16 +47,25 @@
   gap: 40px;
   margin: 40px 0;
 }
+
 .logoPlaceholder {
   filter: grayscale(1);
-  opacity: 0.6;
+  opacity: 0.9;
   font-weight: bold;
   font-size: 18px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
 }
+
 .btn {
   padding: 12px 25px;
   background: #ffb400;
   border: none;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 4px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }

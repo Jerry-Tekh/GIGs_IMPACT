@@ -1,14 +1,18 @@
 import React from 'react';
 import styles from './CompanyMVV.module.css';
-import vision from './../assets/MVV/mission.png';
+import value from './../assets/MVV/value.png';
+import vision from './../assets/MVV/vision.png';
+import mission from './../assets/MVV/mission.png';
+
+
 
 
 
 // using Unsplash for real human-focused imagery in MVV cards:
 const mvvImages = [
-  'https://images.unsplash.com/photo-1591696205602-5b909a1ff34c?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1400&q=80',
-  vision
+  mission,
+  vision,
+  value
 ];
 
 

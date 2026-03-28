@@ -1,18 +1,20 @@
 import React from 'react';
 import styles from './WhatWeDo.module.css';
-
-
-
 import { siteData } from '../SiteData.js';
 
+
+import awareeness from './../assets//WhatWeDo/awareness.png';
+import softSkills from './../assets/WhatWeDo/softskills.png';
+import hardSkill from './../assets/WhatWeDo/hardSkill.png';
+import marketing from './../assets/WhatWeDo/marketing.png';
+import competence from './../assets/WhatWeDo/competence.png';
+import globalLeadership from './../assets/WhatWeDo/globalLeadership.png';
+import growthImpact from './../assets/WhatWeDo/growthImpact.png';
+
+
+
 const whatWeDoImages = [
-  'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1555949963-aa79dcee981b?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1485217988980-11786ced9454?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80',
+  awareeness, softSkills,hardSkill,marketing,competence,globalLeadership,growthImpact
 ];
 
 

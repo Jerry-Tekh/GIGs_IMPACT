@@ -1,4 +1,16 @@
 // src/siteData.js
+
+import explore from './assets/ACTIONCARDS/explore.png';
+import readblog from './assets/ACTIONCARDS/readblog.png';
+import joinCommunity from './assets/ACTIONCARDS/joincommunity.png';
+import partner from './assets/ACTIONCARDS/partner.png';
+
+
+
+
+
+
+
 export const siteData = {
   hero: {
     title: ["Activating Talents", "Building Independent Minds", "Creating Global Impact"],
@@ -27,10 +39,10 @@ export const siteData = {
   ],
 
   actions: [
-    { title: 'Join the Community', text: 'Become part of a movement that is redefining success.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80', icon: 'FaUsers' },
-    { title: 'Partner With Us', text: 'Collaborate to create opportunities beyond limitations.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80', icon: 'FaHandshake' },
-    { title: 'Explore Programs', text: 'Discover our structured development system.', image: 'https://images.unsplash.com/photo-1516321318423-f06f70259b51?auto=format&fit=crop&w=800&q=80', icon: 'FaGraduationCap' },
-    { title: 'Read Our Blog', text: 'Share knowledge, inspiration, and practical insights.', image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80', icon: 'FaBook' }
+    { title: 'Join the Community', text: 'Become part of a movement that is redefining success.', image: joinCommunity, icon: 'FaUsers' },
+    { title: 'Partner With Us', text: 'Collaborate to create opportunities beyond limitations.', image: partner, icon: 'FaHandshake' },
+    { title: 'Explore Programs', text: 'Discover our structured development system.', image: explore, icon: 'FaGraduationCap' },
+    { title: 'Read Our Blog', text: 'Share knowledge, inspiration, and practical insights.', image: readblog, icon: 'FaBook' }
   ],
 
 
