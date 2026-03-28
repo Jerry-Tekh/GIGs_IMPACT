@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './CompanyMVV.module.css';
 
-import value from './../assets/MVV/value.png';
-import vision from './../assets/MVV/vision.png';
-import mission from './../assets/MVV/mission.png';
+import value from './../assets/MissionVision/value.png';
+import vision from './../assets/MissionVision/vision.png';
+import mission from './../assets/MissionVision/mission.png';
 
 
 
