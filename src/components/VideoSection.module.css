@@ -1,5 +1,5 @@
 .videoSection {
-  padding: 60px 10% 30px;
+  padding: 80px 10% 30px;
 }
 
 .header {
@@ -57,14 +57,16 @@
 
 @media (max-width: 768px) {
   .videoSection {
-  padding: 20px 4% 0;
-}
-  .header { flex-direction: column; gap: 20px; }
-  .videoPlaceholder { height: 300px; }
-    .title {
-  font-size: 1.5rem;
-}
-
-
-
+    padding: 20px 4% 0;
+  }
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .videoPlaceholder {
+    height: 300px;
+  }
+  .title {
+    font-size: 1.5rem;
+  }
 }

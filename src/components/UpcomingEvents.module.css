@@ -22,6 +22,7 @@
 .header p {
   margin: 0;
   color: #465d7e;
+    font-size: 0.6rem;
 }
 
 .carousel {
@@ -31,16 +32,16 @@
 
 .track {
   display: flex;
-  gap: 14px;
+  gap: 2px;
   min-width: 200%;
   align-items: center;
 }
 
 .card {
-  min-width: 180px;
-  width: 180px;
+  min-width: 170px;
+  width: 170px;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 4px;
 
   padding: 10px;
   flex-shrink: 0;
@@ -49,16 +50,16 @@
 
 .imageWrapper {
   position: relative;
-  width: 100px;
+  width: 150px;
   height: 100px;
   margin: 0 auto 12px;
-  border-radius: 16px;
+  border-radius: 4px;
   overflow: hidden;
   border: 1px solid #f0f5ff;
 }
 
 .image {
-  width: 100px;
+  width: 100;
   height: 100px;
   object-fit: cover;
 }
@@ -96,10 +97,21 @@
   }
 
   .header h2 {
-    font-size: 1.4rem;
+    font-size: 1rem;
+  }
+  .header p {
+    font-size: 0.6rem;
   }
 
   .track {
     min-width: 220%;
+  }
+}
+@media (max-width: 768px) {
+ 
+
+  .header {
+    gap: 2px;
+     margin-bottom: 10px;
   }
 }

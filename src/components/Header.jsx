@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import logo from './../assets/logo.png';
+import { RxHamburgerMenu } from "react-icons/rx";
+
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,12 +31,12 @@ const Header = () => {
       <nav className={styles.navbar}>
         <div className={styles.logo}>
           <NavLink to="/" onClick={() => { closeMenu(); scrollToTop(); }} className={styles.brandLink}>
-            <img src={logo} style={{ width: '60px', height: 'auto' }} alt="Organization Logo" />
+            <img src={logo} style={{ width: '50px', height: 'auto' }} alt="Organization Logo" />
          
           </NavLink>
         </div>
 
-        <button className={styles.hamburger} onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">☰</button>
+        <button className={styles.hamburger} onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu"><RxHamburgerMenu /></button>
 
         <ul className={`${styles.navLinks} ${isOpen ? styles.open : ''}`}>
           <li>
