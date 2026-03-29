@@ -9,10 +9,11 @@ import VideoSection from './components/VideoSection.jsx';
 import WhatWeDo from './components/WhatWeDo.jsx';
 import ImpactStats from './components/ImpactStats.jsx';
 import Partners from './components/Partners.jsx';
+import UpcomingEvents from './components/UpcomingEvents.jsx';
 import DonationForm from './components/DonationForm.jsx';
 import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
-import CompanyMVV from './components/CompanyMVV.jsx';
+import CompanyMVV from './components/OrgMissionVison.jsx';
 
 import AboutPage from './components/About/AboutPage.jsx';
 import Program from './components/Program/Program.jsx';
@@ -23,6 +24,7 @@ function HomeContent() {
     <main className={styles.pageContent}>
       <Hero />
       <CompanyMVV />
+      <UpcomingEvents />
       <VideoSection />
       <ActionCards />
       <WhatWeDo />

@@ -52,9 +52,9 @@
   background-color: #ffb400;
   border: none;
   padding: 15px 30px;
-  font-weight: bold;
-  border-radius: 4px;
+  font-weight: bold; 
   cursor: pointer;
+  color: #fff;
 }
 
 .imageWrapper {
@@ -73,5 +73,13 @@
   .topLabel {
   font-weight: 700;
   margin-bottom: 3px;
+}
+.cta {
+
+  padding: 10px 20px;
+
+}
+.hero {
+  padding: 90px 5%;
 }
 }

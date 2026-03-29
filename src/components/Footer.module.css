@@ -49,4 +49,7 @@
   .links {
     grid-template-columns: 1fr 1fr;
   }
+  .footer {
+  padding: 60px 4% 30px;
+}
 }

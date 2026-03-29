@@ -61,11 +61,22 @@
 .imageCol img {
   width: 100%;
   border-radius: 2px;
-  height: 380px;
+  height: 250px;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
+    gap: 20px;
   }
+  .section {
+  padding: 60px 3%;
+
+}
+.formCard {
+  padding: 30px 10px;
+ 
+ 
+}
 }

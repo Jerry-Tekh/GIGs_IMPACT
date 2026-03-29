@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBinoculars, FaBullseye, FaHandsHelping, FaTrophy } from 'react-icons/fa';
 
 import styles from './MissionVisionValue.module.css';
 
@@ -20,7 +21,7 @@ const MissionVisionValues = () => {
             {/* Vision Ribbon */}
             <div className={`${styles.ribbon} ${styles.vision}`}>
               <div className={styles.ribbonContent}>
-                <div className={styles.iconBox}>🔭</div>
+                <div className={styles.iconBox}><FaBinoculars /></div>
                 <div>
                   <h3>VISION</h3>
                   <p>Better health and wellness through transformative innovation</p>
@@ -31,7 +32,7 @@ const MissionVisionValues = () => {
             {/* Mission Ribbon */}
             <div className={`${styles.ribbon} ${styles.mission}`}>
               <div className={styles.ribbonContent}>
-                <div className={styles.iconBox}>🎯</div>
+                <div className={styles.iconBox}><FaBullseye /></div>
                 <div>
                   <h3>MISSION</h3>
                   <p>To enhance health for everyone through outstanding education, research, clinical care and social responsibility</p>
@@ -42,7 +43,7 @@ const MissionVisionValues = () => {
             {/* Values Ribbon */}
             <div className={`${styles.ribbon} ${styles.values}`}>
               <div className={styles.ribbonContent}>
-                <div className={styles.iconBox}>🙌</div>
+                <div className={styles.iconBox}><FaHandsHelping /></div>
                 <div>
                   <h3>VALUES</h3>
                   <p>Excellence, Integrity, Collaboration, Accountability</p>
@@ -55,7 +56,7 @@ const MissionVisionValues = () => {
         {/* RIGHT COLUMN: Info Card */}
         <div className={styles.infoColumn}>
           <div className={styles.statCard}>
-            <div className={styles.trophyIcon}>🏆</div>
+            <div className={styles.trophyIcon}><FaTrophy /></div>
             <div className={styles.statNumber}>345K</div>
             <p>The vision, mission, and values statements should be written for people to understand easily.</p>
           </div>

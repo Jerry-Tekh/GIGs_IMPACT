@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaGraduationCap, FaMoneyBillWave, FaHandshake, FaBriefcase } from 'react-icons/fa';
 import styles from './AboutPage.module.css';
 
 const AboutPage = () => {
@@ -78,19 +79,19 @@ const AboutPage = () => {
         <h2>Our Approach</h2>
         <div className={styles.approachGrid}>
           <div className={styles.approachCard}>
-            <h4>🎓 Skills Development</h4>
+            <h4><FaGraduationCap /> Skills Development</h4>
             <p>Industry-relevant training programs designed to enhance earning potential and career growth</p>
           </div>
           <div className={styles.approachCard}>
-            <h4>💰 Financial Empowerment</h4>
+            <h4><FaMoneyBillWave /> Financial Empowerment</h4>
             <p>Financial literacy workshops and tools to help manage income volatility and build savings</p>
           </div>
           <div className={styles.approachCard}>
-            <h4>🤝 Community Support</h4>
+            <h4><FaHandshake /> Community Support</h4>
             <p>Peer networks and mentorship programs connecting gig workers for mutual support and growth</p>
           </div>
           <div className={styles.approachCard}>
-            <h4>💼 Career Pathways</h4>
+            <h4><FaBriefcase /> Career Pathways</h4>
             <p>Guidance toward sustainable income options and entrepreneurial opportunities</p>
           </div>
         </div>

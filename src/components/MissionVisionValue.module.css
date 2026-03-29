@@ -144,3 +144,9 @@
   .wrapper { flex-direction: column; }
   .ribbon { padding-left: 40px; }
 }
+@media (max-width: 768px) {
+  .sectionContainer {
+  padding: 80px 5%;
+ 
+}
+}

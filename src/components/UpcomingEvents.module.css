@@ -1,0 +1,105 @@
+.advertSection {
+  overflow: hidden;
+  padding: 0 2px;
+}
+
+.header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 0 5%;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1rem;
+  color: #143062;
+}
+
+.header p {
+  margin: 0;
+  color: #465d7e;
+}
+
+.carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.track {
+  display: flex;
+  gap: 14px;
+  min-width: 200%;
+  align-items: center;
+}
+
+.card {
+  min-width: 180px;
+  width: 180px;
+  background: #ffffff;
+  border-radius: 16px;
+
+  padding: 10px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 12px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #f0f5ff;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.eventIcon {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #08306f;
+  font-size: 14px;
+}
+
+.card h3 {
+  margin: 8px 0 6px;
+  font-size: 0.6rem;
+  color: #0d264d;
+}
+
+.card p {
+  margin: 0;
+  color: #677694;
+  font-size: 0.6rem;
+}
+
+@media (max-width: 900px) {
+  .advertSection {
+    padding: 24px 4%;
+  }
+
+  .header h2 {
+    font-size: 1.4rem;
+  }
+
+  .track {
+    min-width: 220%;
+  }
+}

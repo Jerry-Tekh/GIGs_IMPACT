@@ -7,7 +7,7 @@
 
   padding: 80px 10%;
   color: white;
-}
+} 
 .content {
   display: flex;
   gap: 40px;
@@ -15,7 +15,7 @@
 }
 .testimonial {
   flex: 1;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   padding: 40px;
   position: relative;
 }
@@ -50,4 +50,26 @@
     grid-template-columns: 1fr;
     width: 100%;
   }
+  .wrapper {
+ 
+  padding: 60px 5%;
+  
+}
+.card {
+  padding: 15px 20px;
+}
+.card h3 {
+
+  font-size: 1.3rem;
+}
+.quote {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.testimonial {
+  flex: 1;
+  border: 2px solid #fff;
+  padding: 10px 15px;
+
+}
 }

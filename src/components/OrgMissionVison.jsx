@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from './CompanyMVV.module.css';
+
+import styles from './OrgMissionVision.module.css';
 import { FaBullseye, FaEye, FaGem } from 'react-icons/fa';
 
 import value from './../assets/MissionVision/value.png';
@@ -85,35 +86,6 @@ const CompanyMVV = () => {
         ))}
       </div>
       <div className={styles.scrollContainer}>
-
-<footer className={`${styles.footer} ${styles.scrollwrapper}`}>
-  {/* Original set of spans */}
-  <span>30 | Slidelisting.com | Date 2021</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  
-  {/* Duplicate set for seamless looping */}
-  <span>30 | Slidelisting.com | Date 2021</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-  <span className={styles.logo}>slidelisting</span>
-</footer>
-
 
       </div>
     </section>

@@ -69,15 +69,25 @@
   }
 }
 @media (max-width: 768px) {
+  .section {
+  padding: 80px 3%;
+  
+}
   .grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
+  
   .section {
   padding-top: 10px;
 
 }
 .mainTitle {
   font-size: 1.3rem;
+}
+
+.learnMore {
+  margin: 5px auto;
 
 }
 }

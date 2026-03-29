@@ -59,3 +59,10 @@
   border-bottom: 1px solid currentColor;
   align-self: flex-start;
 }
+
+@media (max-width: 768px) {
+ .section {
+  padding: 80px 3%;
+}
+
+}

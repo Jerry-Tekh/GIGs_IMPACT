@@ -42,7 +42,7 @@ const WhatWeDo = () => {
           
         ))}
         <div>
-          <p>oh yes</p>
+          <p></p>
         </div>
       </div>
       <button className={styles.learnMore}>Learn About Our Work</button>

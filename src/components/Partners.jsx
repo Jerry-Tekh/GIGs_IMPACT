@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Partners.module.css';
 
 const Partners = () => {
-  const values = ['Integrity – Doing what is right, even when no one is watching', 'Growth – Continuous personal and professional development', 'Independence – Building self-reliance through value creation', 'Impact – Creating solutions that improve lives', 'Community – Growing together and supporting one another'];
+  const values = ['"Integrity – Doing what is right, even when no one is watching"', '"Growth – Continuous personal and professional development', '"Independence – Building self-reliance through value creation"', '"Impact – Creating solutions that improve lives"', '"Community – Growing together and supporting one another"'];
   return (
     <section className={styles.partners}>
       {/* Static background */}

@@ -28,13 +28,28 @@
 }
 
 @media (max-width: 768px) {
+  .badgeSection {
+ 
+  gap: 20px;
+  padding: 20px;
+ 
+}
     .circle {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
  
 }
   p{
     font-size: 0.8rem;
   }
+  .num {
+  font-weight: bold;
+  color: #e68a00;
+  font-size: 15px;
 }
+.label {
+  font-size: 7px;
+}
+}
+
 

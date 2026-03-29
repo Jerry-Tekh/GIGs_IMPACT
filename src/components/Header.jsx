@@ -29,7 +29,7 @@ const Header = () => {
       <nav className={styles.navbar}>
         <div className={styles.logo}>
           <NavLink to="/" onClick={() => { closeMenu(); scrollToTop(); }} className={styles.brandLink}>
-            <img src={logo} style={{ width: '100px', height: 'auto' }} alt="Organization Logo" />
+            <img src={logo} style={{ width: '60px', height: 'auto' }} alt="Organization Logo" />
          
           </NavLink>
         </div>
