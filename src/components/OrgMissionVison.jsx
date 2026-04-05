@@ -21,7 +21,7 @@ const mvvImages = [
 
 
 
-const CompanyMVV = () => {
+const CompanyMVVss = () => {
   const mvvData = [
     {
       title: 'MISSION',
@@ -92,4 +92,4 @@ const CompanyMVV = () => {
   );
 };
 
-export default CompanyMVV;
+export default CompanyMVVss;

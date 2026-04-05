@@ -15,6 +15,10 @@ import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 
+
+
+
+{/*pages*/}
 import AboutPage from './components/About/AboutPage.jsx';
 import Program from './components/Program/Program.jsx';
 import Blog from './components/Blog/Blog.jsx';

@@ -1,11 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Blog.module.css';
 
 const Blog = () => {
+// const [activeCategory, setActiveCategory] = useState('all');
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [articles, setArticles] = useState([]);
 
-  const articles = [
+
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+
+
+  useEffect(() => {
+    fetchPosts();
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+  fetchPosts();
+  }, [searchQuery, activeCategory, page]);
+
+  useEffect(() => {
+  setPage(1);
+  }, [searchQuery, activeCategory]);
+
+
+ const fetchPosts = async () => {
+  try {
+    let url = `${import.meta.env.VITE_SERVER_URL}/api/posts`;
+
+    const params = new URLSearchParams();
+
+    if (searchQuery) params.append('search', searchQuery);
+    if (activeCategory !== 'all') params.append('category', activeCategory);
+
+    params.append('page', page);
+    params.append('limit', 6);
+
+    url += `?${params.toString()}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    setArticles(data.posts);
+    setTotalPages(data.totalPages);
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+
+
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/categories`);
+      const data = await res.json();
+      // Add "All Articles" option at the beginning
+      const allCategories = [{ id: 'all', name: 'All Articles', slug: 'all' }, ...data];
+      setCategories(allCategories);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+  
+
+
+
+  {/*const articles = [
     {
       id: 1,
       title: 'How to Maximize Your Gig Income: 5 Proven Strategies',
@@ -86,21 +153,10 @@ const Blog = () => {
       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600',
       readTime: '7 min read',
     },
-  ];
-
-  const categories = [
-    { value: 'all', label: 'All Articles' },
-    { value: 'earnings', label: 'Earnings & Income' },
-    { value: 'finance', label: 'Financial Planning' },
-    { value: 'wellness', label: 'Health & Wellness' },
-    { value: 'trends', label: 'Industry Trends' },
-    { value: 'career', label: 'Career Growth' },
-    { value: 'tools', label: 'Tools & Technology' },
-    { value: 'stories', label: 'Success Stories' },
-  ];
+  ]; */}
 
   const filteredArticles = articles.filter(article => {
-    const categoryMatch = activeCategory === 'all' || article.category === activeCategory;
+    const categoryMatch = activeCategory === 'all' || article.category_slug === activeCategory;
     const searchMatch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                         article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return categoryMatch && searchMatch;
@@ -135,38 +191,44 @@ const Blog = () => {
         <div className={styles.categoriesContainer}>
           {categories.map((cat) => (
             <button
-              key={cat.value}
-              className={`${styles.categoryBtn} ${activeCategory === cat.value ? styles.active : ''}`}
-              onClick={() => setActiveCategory(cat.value)}
+              key={cat.slug || cat.value}
+              className={`${styles.categoryBtn} ${activeCategory === (cat.slug || cat.value) ? styles.active : ''}`}
+              onClick={() => setActiveCategory(cat.slug || cat.value)}
             >
-              {cat.label}
+              {cat.name || cat.label}
             </button>
           ))}
         </div>
       </section>
 
       {/* Articles Grid */}
+      {/* if sortingis done on the frontend then i will change it to filteredArticles.length and filterArticles.map */}
       <section className={styles.articlesSection}>
-        {filteredArticles.length > 0 ? (
+        {articles.length > 0 ? (
           <div className={styles.articlesGrid}>
-            {filteredArticles.map((article) => (
+            {articles.map((article) => (
               <article key={article.id} className={styles.articleCard}>
                 <div className={styles.articleImage}>
-                  <img src={article.image} alt={article.title} />
+                  {/*<img src={article.image} alt={article.title} />*/}
+                  <img src={article.featured_image} alt={article.title} />
                   <div className={styles.categoryTag}>{article.category}</div>
+                  
                 </div>
 
                 <div className={styles.articleContent}>
                   <div className={styles.articleMeta}>
-                    <span className={styles.date}>{article.date}</span>
-                    <span className={styles.readTime}>{article.readTime}</span>
+                    <span className={styles.date}>{new Date(article.published_at).toLocaleDateString()}</span>
+                   {/* <span className={styles.readTime}>{article.readTime}</span>*/}
+                   <span className={styles.readTime}>{article.read_time} min read</span>
+
                   </div>
 
                   <h2 className={styles.articleTitle}>{article.title}</h2>
                   <p className={styles.articleExcerpt}>{article.excerpt}</p>
 
                   <div className={styles.articleFooter}>
-                    <span className={styles.author}>By {article.author}</span>
+                    {/*<span className={styles.author}>By {article.author}</span>*/}
+                    
                     <button className={styles.readMoreBtn}>Read More →</button>
                   </div>
                 </div>
@@ -179,6 +241,16 @@ const Blog = () => {
           </div>
         )}
       </section>
+
+      {Array.from({ length: totalPages }, (_, i) => (
+  <button
+    key={i}
+    onClick={() => setPage(i + 1)}
+    className={page === i + 1 ? styles.activePage : ''}
+  >
+    {i + 1}
+  </button>
+  ))}
 
       {/* Newsletter Section */}
       <section className={styles.newsletterSection}>

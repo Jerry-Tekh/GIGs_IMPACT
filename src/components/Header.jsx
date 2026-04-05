@@ -23,7 +23,7 @@ const Header = () => {
         <div className={styles.utilityLinks}>
           <span>🔍 Search</span>
           <span>📍 Need Help</span>
-          <span>En Español</span>
+          
         </div>
         <button className={styles.donateTop}>DONATE</button>
       </div>
