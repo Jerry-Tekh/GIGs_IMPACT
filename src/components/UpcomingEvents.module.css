@@ -48,7 +48,7 @@
 
 .card {
   min-width: 180px;
-  width: 180px;
+  width: 300px;
   background: #ffffff;
   border-radius: 8px;
   padding: 12px;
@@ -66,8 +66,8 @@
 
 .imageWrapper {
   position: relative;
-  width: 156px;
-  height: 104px;
+  width: 250px;
+  height: 150px;
   margin: 0 auto 12px;
   border-radius: 6px;
   overflow: hidden;
@@ -203,13 +203,13 @@
 
   .card {
     min-width: 160px;
-    width: 160px;
+    width: 300px;
     padding: 10px;
   }
 
   .imageWrapper {
-    width: 140px;
-    height: 93px;
+    width: 250px;
+    height: 150px;
   }
 
   .card h3 {
@@ -240,14 +240,14 @@
 
   .card {
     min-width: 150px;
-    width: 150px;
+    width: 300px;
     padding: 8px;
     border-radius: 6px;
   }
 
   .imageWrapper {
-    width: 134px;
-    height: 89px;
+    width: 250px;
+    height: 150px;
     border-radius: 5px;
     margin: 0 auto 8px;
   }
@@ -293,22 +293,29 @@
   .header h2 {
     font-size: 0.9rem;
   }
+  .header p{
+    font-size: 0.7rem;
+  }
 
   .arrowButton {
     width: 28px;
     height: 28px;
     font-size: 10px;
   }
+  .carouselWrapper {
+    gap: 1px;
+    padding: 0 2%;
+  }
 
   .card {
     min-width: 130px;
-    width: 130px;
-    padding: 6px;
+    width: 300px;
+    padding: 2px;
   }
 
   .imageWrapper {
-    width: 118px;
-    height: 79px;
+    width: 280px;
+    height: 150px;
     margin: 0 auto 6px;
   }
 }

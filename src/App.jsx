@@ -17,11 +17,27 @@ import CompanyMVV from './components/OrgMissionVison.jsx';
 
 
 
-
 {/*pages*/}
-import AboutPage from './components/About/AboutPage.jsx';
-import Program from './components/Program/Program.jsx';
-import Blog from './components/Blog/Blog.jsx';
+
+import AboutPage from './pages/About/AboutPage.jsx';
+import Program from './pages/Program/Program.jsx';
+import Blog from './pages/Blog/Blog.jsx';
+import SinglePost from './pages/Blog/SinglePost.jsx';
+import Login from './AuthPage/Login.jsx';
+import Signup from './AuthPage/Signup.jsx';
+import AdminDashboard from './AuthPage/AdminDashboard.jsx';
+import name from './AuthPage/AdminDashboard.jsx';
+
+
+import ProtectedRoute from './components/protectedRoute.jsx';
+
+import Dashboard from './pages/Admin/DashBoard.jsx';
+
+import CreatePost from './pages/Admin/CreatePost.jsx';
+import ManagePosts from './pages/Admin/ManagePost.jsx';
+
+
+
 
 function HomeContent() {
   return (
@@ -44,17 +60,81 @@ function App() {
   return (
     <Router>
       <div className={styles.appWrapper}>
-        <Header />
-
         <Routes>
-          <Route path="/" element={<HomeContent />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/programs" element={<Program />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="*" element={<HomeContent />} />
-        </Routes>
+          {/* Auth routes with header/footer */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-        <Footer />
+          {/* Protected admin route */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/createPost"
+            element={
+              <ProtectedRoute>
+                <CreatePost/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/posts"
+            element={
+              <ProtectedRoute>
+                <ManagePosts/>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Public routes with header/footer */}
+          <Route path="/" element={
+            <>
+              <Header />
+              <HomeContent />
+              <Footer />
+            </>
+          } />
+          <Route path="/about" element={
+            <>
+              <Header />
+              <AboutPage />
+              <Footer />
+            </>
+          } />
+          <Route path="/programs" element={
+            <>
+              <Header />
+              <Program />
+              <Footer />
+            </>
+          } />
+          <Route path="/blog" element={
+            <>
+              <Header />
+              <Blog />
+              <Footer />
+            </>
+          } />
+          <Route path="/blog/:id" element={
+            <>
+              <Header />
+              <SinglePost />
+              <Footer />
+            </>
+          } />
+          <Route path="*" element={
+            <>
+              <Header />
+              <HomeContent />
+              <Footer />
+            </>
+          } />
+        </Routes>
       </div>
     </Router>
   );

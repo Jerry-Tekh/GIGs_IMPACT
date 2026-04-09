@@ -69,11 +69,33 @@ const UpcomingEvents = () => {
   };
 
   return (
-    <section className={styles.advertSection}>
-      <div className={styles.header}>
-        <h2>Upcoming Events</h2>
-        <p>Live events, learning pathways, and community experiences</p>
-      </div>
+    <motion.section 
+      className={styles.advertSection}
+      initial={{ backgroundColor: 'transparent' }}
+      whileInView={{ backgroundColor: '#f9f9f9' }} // adjust
+      transition={{ duration: 1 }}
+    >
+      <motion.div 
+        className={styles.header}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <motion.h2 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Upcoming Events
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          Live events, learning pathways, and community experiences
+        </motion.p>
+      </motion.div>
 
       <div className={styles.carouselWrapper}>
         {/* Left Arrow */}
@@ -96,14 +118,39 @@ const UpcomingEvents = () => {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           >
             {events.map((item, index) => (
-              <article key={index} className={styles.card}>
+              <motion.article 
+                key={index} 
+                className={styles.card}
+                initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
                 <div className={styles.imageWrapper}>
-                  <img src={item.image} alt={item.title} className={styles.image} />
+                  <motion.img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className={styles.image}
+                    initial={{ x: -100, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+                  />
                   <div className={styles.eventIcon}>{item.icon}</div>
                 </div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </article>
+                <motion.h3 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
+                >
+                  {item.title}
+                </motion.h3>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.6 }}
+                >
+                  {item.description}
+                </motion.p>
+              </motion.article>
             ))}
           </motion.div>
         </div>
@@ -122,7 +169,12 @@ const UpcomingEvents = () => {
       </div>
 
       {/* Indicator Dots */}
-      <div className={styles.dotsContainer}>
+      <motion.div 
+        className={styles.dotsContainer}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+      >
         {events.map((_, index) => (
           <motion.button
             key={index}
@@ -132,8 +184,8 @@ const UpcomingEvents = () => {
             whileTap={{ scale: 0.9 }}
           />
         ))}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 

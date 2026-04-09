@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import styles from './WhatWeDo.module.css';
 import { siteData } from '../SiteData.js';
 
@@ -20,13 +21,43 @@ const whatWeDoImages = [
 
 const WhatWeDo = () => {
   return (
-    <section className={styles.section}>
-      <p className={styles.topLabel}>WHAT WE DO</p>
-      <h2 className={styles.mainTitle}>We empower youth by helping them discover their purpose, developing their mindset and skills, and providing platforms to turn talents into income and impact.</h2>
+    <motion.section 
+      className={styles.section}
+      initial={{ backgroundColor: 'transparent' }}
+      whileInView={{ backgroundColor: '#fff' }} // adjust color
+      transition={{ duration: 1 }}
+    >
+      <motion.p 
+        className={styles.topLabel}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        WHAT WE DO
+      </motion.p>
+      <motion.h2 
+        className={styles.mainTitle}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        We empower youth by helping them discover their purpose, developing their mindset and skills, and providing platforms to turn talents into income and impact.
+      </motion.h2>
       
-      <div className={styles.grid}>
+      <motion.div 
+        className={styles.grid}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
         {siteData.programs.stages.slice(0, 7).map((stage, index) => (
-          <div key={index} className={styles.card}>
+          <motion.div 
+            key={index} 
+            className={styles.card}
+            initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+          >
             <div className={styles.label} style={{ backgroundColor: siteData.whatWeDo[index % 4].color }}>
               STAGE {stage.stage}
             </div>
@@ -38,15 +69,22 @@ const WhatWeDo = () => {
                 <span className={styles.imgName}>Stage {stage.stage}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
           
         ))}
         <div>
           <p></p>
         </div>
-      </div>
-      <button className={styles.learnMore}>Learn About Our Work</button>
-    </section>
+      </motion.div>
+      <motion.button 
+        className={styles.learnMore}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+      >
+        Learn About Our Work
+      </motion.button>
+    </motion.section>
   );
 };
 

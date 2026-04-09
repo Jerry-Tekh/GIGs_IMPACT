@@ -1,0 +1,104 @@
+.dashboard {
+  padding: 20px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.createBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: black;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.card h3 {
+  font-size: 14px;
+  color: #777;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* SECTION */
+.section {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* TABLE */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px;
+  background: #f5f5f5;
+  font-size: 14px;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .header h2 {
+    font-size: 18px;
+  }
+
+  .createBtn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .card p {
+    font-size: 20px;
+  }
+}

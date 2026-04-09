@@ -1,0 +1,45 @@
+.adminLayout {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarCollapsed {
+  margin-left: 70px;
+}
+
+.pageContent {
+  flex: 1;
+  padding: 20px;
+  background: #f8f9fa;
+  overflow-y: auto;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .mainContent {
+    margin-left: 0;
+  }
+
+  .sidebarCollapsed {
+    margin-left: 0;
+  }
+}

@@ -105,15 +105,15 @@
   font-style: italic;
   max-width: 600px;
   margin: auto;
+  color: #555;
 }
 
 /* SCROLL STRIP */
 .scrollStrip {
   overflow: hidden;
   white-space: nowrap;
-  background: #28a745;
-  color: white;
-  padding: 10px 0;
+  /*background: #28a745;*/
+  padding: 15px 0;
 }
 
 .scrollStrip div {

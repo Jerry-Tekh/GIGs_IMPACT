@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import styles from './Blog.module.css';
+import { NavLink } from 'react-router-dom';
 
 const Blog = () => {
 // const [activeCategory, setActiveCategory] = useState('all');
@@ -42,7 +45,7 @@ const Blog = () => {
 
     url += `?${params.toString()}`;
 
-    const res = await fetch(url);
+    const res = await fetch(url, { credentials: 'include' , method: 'GET' }, );
     const data = await res.json();
 
     setArticles(data.posts);
@@ -56,12 +59,11 @@ const Blog = () => {
 
 
 
-
   const fetchCategories = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/categories`);
       const data = await res.json();
-      // Add "All Articles" option at the beginning
+      // Add "All Articles" option at the beginning with slug property
       const allCategories = [{ id: 'all', name: 'All Articles', slug: 'all' }, ...data];
       setCategories(allCategories);
     } catch (error) {
@@ -170,6 +172,9 @@ const Blog = () => {
           <h1>GigImpact Blog</h1>
           <p>Insights, Tips, and Stories to Help You Thrive as a Gig Worker</p>
         </div>
+        <div className={styles.loginBtn}>
+          <NavLink to="/login" className={styles.loginLink}>Login</NavLink>
+        </div>
       </section>
 
       {/* Search Section */}
@@ -229,7 +234,7 @@ const Blog = () => {
                   <div className={styles.articleFooter}>
                     {/*<span className={styles.author}>By {article.author}</span>*/}
                     
-                    <button className={styles.readMoreBtn}>Read More →</button>
+                    <Link to={`/blog/${article.id}`} className={styles.readMoreBtn}>Read More →</Link>
                   </div>
                 </div>
               </article>

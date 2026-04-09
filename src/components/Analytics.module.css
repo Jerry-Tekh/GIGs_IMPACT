@@ -1,0 +1,30 @@
+.analytics {
+  margin-top: 30px;
+  display: grid;
+  gap: 20px;
+}
+
+.chartBox {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.topPosts {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.topPostItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.topPostItem:last-child {
+  border-bottom: none;
+}

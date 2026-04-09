@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import styles from './ActionCards.module.css';
 import { FaUsers, FaHandshake, FaGraduationCap, FaBook } from 'react-icons/fa';
 import { siteData } from '../SiteData.js';
@@ -12,15 +13,39 @@ const iconMap = {
 
 const ActionCards = () => {
   return (
-    <section className={styles.section}>
-      <h2 className={styles.heading}>Bridge The Gap</h2>
-      <p className={styles.subheading}>At GIGs Impact Community, we are not waiting for change, we are
-creating an alternative system.</p>
-      <div className={styles.grid}>
+    <motion.section 
+      className={styles.section}
+      initial={{ backgroundColor: 'transparent' }}
+      whileInView={{ backgroundColor: '#fff' }} // adjust
+      transition={{ duration: 1 }}
+    >
+      <motion.h2 
+        className={styles.heading}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        Bridge The Gap
+      </motion.h2>
+      <motion.p 
+        className={styles.subheading}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        At GIGs Impact Community, we are not waiting for change, we are
+creating an alternative system.
+      </motion.p>
+      <motion.div 
+        className={styles.grid}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
         {siteData.actions.map((action, index) => {
           const IconComponent = iconMap[action.icon];
           return (
-            <div 
+            <motion.div 
               key={index} 
               className={styles.card} 
               style={{
@@ -28,20 +53,40 @@ creating an alternative system.</p>
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
               }}
+              initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <div className={styles.icon}>
                 {IconComponent && <IconComponent size={40} color="white" />}
               </div>
-              <h3>{action.title}</h3>
-              <p>{action.text}</p>
-              <span className={styles.link}>
+              <motion.h3 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+              >
+                {action.title}
+              </motion.h3>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
+              >
+                {action.text}
+              </motion.p>
+              <motion.span 
+                className={styles.link}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.6 }}
+              >
                 Learn More →
-              </span>
-            </div>
+              </motion.span>
+            </motion.div>
           );
         })}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 
