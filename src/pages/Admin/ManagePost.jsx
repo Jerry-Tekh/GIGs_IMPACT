@@ -4,7 +4,7 @@ import Layout from '../../components/Admin/Layout.jsx';
 // When importing
 import CreatePost, { CreatePostModal } from './CreatePost.jsx';
 
-import styles from  './ManagePost.module.css';
+import styles from  './Managepost.module.css';
 
 
 const ManagePosts = () => {

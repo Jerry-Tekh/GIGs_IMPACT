@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import styles from './CreatePost.module.css';
+import styles from './Createpost.module.css';
 import Layout from '../../components/Admin/Layout.jsx';
 
 const CreatePostModal = ({ onClose, existingPost, modalRef }) => {

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import Layout from './../../components/Admin/Layout.jsx';
-import styles from './Dashboard.module.css';
+import Layout from '../../components/Admin/Layout.jsx';
 import { motion } from 'framer-motion';
 import { FaFileAlt, FaTags, FaEye, FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Analytics from './../../components/Analytics.jsx';
+import Analytics from '../../components/Analytics.jsx';
+import styles from './Dashboard.module.css';
+
 
 
 const Dashboard = () => {
