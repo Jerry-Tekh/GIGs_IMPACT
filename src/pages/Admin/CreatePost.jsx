@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Layout from '../../components/Admin/Layout.jsx';
-import styles from './Createpost.module.css';
+import styles from './CreatePost.module.css';
 
 const CreatePostModal = ({ onClose, existingPost, modalRef }) => {
   const [categories, setCategories] = useState([]);

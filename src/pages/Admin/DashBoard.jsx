@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { FaFileAlt, FaTags, FaEye, FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Analytics from '../../components/Analytics.jsx';
-import styles from './Dashboard.module.css';
+import styles from './DashBoard.module.css';
 
 
 const Dashboard = () => {
