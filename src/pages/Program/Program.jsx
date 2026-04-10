@@ -90,14 +90,14 @@ const Program = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Transform Your Gig Work Journey
+            Get Transformed with GIGs Impact Programs
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Comprehensive programs designed to help gig workers build skills, increase earnings, and create sustainable careers.
+            We empower youth by helping them discover their purpose, developing their mindset and skills, and providing platforms to turn talents into income and impact.
           </motion.p>
         </motion.div>
       </motion.section>
@@ -283,7 +283,8 @@ const Program = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Join thousands of gig workers who have already benefited from our programs.
+          Our system moves every member through a clear pathway : 
+          Potential to Skill to Value to Income and to Influence
         </motion.p>
         <motion.button 
           className={styles.ctaBtn}

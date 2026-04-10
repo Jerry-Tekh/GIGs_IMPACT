@@ -6,6 +6,7 @@
   font-weight: bold;
   font-size: 12px;
   color: #666;
+   color: #004ade; 
   margin-bottom: 10px;
 }
 .mainTitle {
@@ -58,7 +59,9 @@
   margin: 40px auto;
   padding: 12px 30px;
   background: #ffb400;
+  background: #004ade; 
   border: none;
+  color: #fff;
   font-weight: bold;
   cursor: pointer;
 }

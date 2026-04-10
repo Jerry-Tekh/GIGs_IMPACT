@@ -9,7 +9,7 @@ import VideoSection from './components/VideoSection.jsx';
 import WhatWeDo from './components/WhatWeDo.jsx';
 import ImpactStats from './components/ImpactStats.jsx';
 import Partners from './components/Partners.jsx';
-import UpcomingEvents from './components/UpcomingEvents.jsx';
+import Carosel from './components/Carosel.jsx';
 import DonationForm from './components/DonationForm.jsx';
 import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
@@ -17,8 +17,14 @@ import CompanyMVV from './components/OrgMissionVison.jsx';
 
 
 
+//pages not in use 
+import UpcomingEvents from './components/UpcomingEvents.jsx';
+
+
+
 {/*pages*/}
 
+import Dashboard from './pages/Admin/DashBoard.jsx';
 import AboutPage from './pages/About/AboutPage.jsx';
 import Program from './pages/Program/Program.jsx';
 import Blog from './pages/Blog/Blog.jsx';
@@ -27,10 +33,11 @@ import Login from './AuthPage/Login.jsx';
 import Signup from './AuthPage/Signup.jsx';
 import AdminDashboard from './AuthPage/AdminDashboard.jsx';
 
+import ContactPage from './pages/Contact/ContactPage.jsx';
+
 
 import ProtectedRoute from './components/protectedRoute.jsx';
 
-import Dashboard from './pages/Admin/DashBoard.jsx';
 
 function ScrollToHash() {
   const location = useLocation();
@@ -64,8 +71,8 @@ function HomeContent() {
     <main className={styles.pageContent}>
       <Hero />
       <CompanyMVV />
-      <UpcomingEvents />
-      <VideoSection />
+      <Carosel />
+     {/* <VideoSection />*/}
       <ActionCards />
       <WhatWeDo />
       <ImpactStats />
@@ -145,6 +152,13 @@ function App() {
             <>
               <Header />
               <SinglePost />
+              <Footer />
+            </>
+          } />
+          <Route path="/contact" element={
+            <>
+              <Header />
+              <ContactPage />
               <Footer />
             </>
           } />

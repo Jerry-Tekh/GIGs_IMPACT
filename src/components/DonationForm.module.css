@@ -7,11 +7,18 @@
   gap: 50px;
   align-items: center;
 }
+.container  h3{
+ color: #004ade; 
+}
 .formCard {
   flex: 1;
   padding: 30px;
   border: 1px solid #ddd;
+  border: 1px solid #004ade; 
   border-radius: 8px;
+}
+.form {
+  padding : 30px 0;
 }
 .tabs {
   display: flex;
@@ -25,7 +32,8 @@
   cursor: pointer;
 }
 .active {
-  background: #ffb400 !important;
+  background: #ffb400;
+  background: #004ade; 
   font-weight: bold;
 }
 .amountGrid {
@@ -44,13 +52,19 @@
   width: 100%;
   padding: 15px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+ border: none;
 }
+.input:focus {
+  outline: none;
+}
+
 .submit {
   width: 100%;
   padding: 15px;
-  background: #ffb400;
+  background: #ffb400; 
+  background: #004ade; 
   border: none;
+  color: #fff;
   font-weight: bold;
   cursor: pointer;
 }

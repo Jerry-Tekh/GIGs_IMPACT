@@ -30,6 +30,7 @@
 .label {
   font-weight: bold;
   font-size: 12px;
+   color: #004ade; 
   margin-bottom: 20px;
 }
 
@@ -56,11 +57,13 @@
   background-color: #fff;
   color: #060606;
   color: #111;
+  
 }
 
 .btn {
   padding: 12px 25px;
   background: #ffb400;
+  background: #004ade; 
   border: none;
   font-weight: bold;
   cursor: pointer;

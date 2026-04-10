@@ -12,7 +12,9 @@
   align-items: center;
 }
 
-
+ .mainTitle{
+    color: #004ade; 
+  }
 .ctaWrapper {
 
   margin-top: 15px;
@@ -21,9 +23,11 @@
   align-items: center;
   gap: 8px;
   background-color: #ffb400;
+  background-color: #004ade; 
+  border: none;
   color: #fff;
   text-decoration: none;
-  padding: 12px 20px;
+  padding: 10px 15px;
   font-weight: bold;
   width: fit-content;
   display: inline-block;

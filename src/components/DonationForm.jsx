@@ -38,6 +38,7 @@ const DonationForm = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
+            className={styles.form}
           >
             <input type="text" placeholder="Full Name" className={styles.input} />
             <input type="email" placeholder="Email" className={styles.input} />

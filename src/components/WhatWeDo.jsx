@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './WhatWeDo.module.css';
 import { siteData } from '../SiteData.js';
+import { Link } from 'react-router-dom';
 
 
 import awareeness from './../assets//WhatWeDo/awareness.png';
@@ -41,7 +42,9 @@ const WhatWeDo = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        We empower youth by helping them discover their purpose, developing their mindset and skills, and providing platforms to turn talents into income and impact.
+        We operate a comprehensive 7-Stage Development Framework
+designed to transform individuals from self-discovery to global
+competence and impact.
       </motion.h2>
       
       <motion.div 
@@ -82,7 +85,8 @@ const WhatWeDo = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.8 }}
       >
-        Learn About Our Work
+
+        <Link to="/programs">Learn About Our Programs</Link>
       </motion.button>
     </motion.section>
   );

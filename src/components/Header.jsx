@@ -95,7 +95,7 @@ const Header = () => {
             <NavLink to="/blog" className={({isActive}) => isActive ? styles.activeLink : ''} onClick={closeMenu}>Blog</NavLink>
           </li>
           <li>
-            <NavLink to="/#contact" onClick={closeMenu}>Contact</NavLink>
+            <NavLink to="/contact" className={({isActive}) => isActive ? styles.activeLink : ''} onClick={() => { closeMenu(); scrollToTop(); }}>Contact</NavLink>
           </li>
           
         </motion.ul>

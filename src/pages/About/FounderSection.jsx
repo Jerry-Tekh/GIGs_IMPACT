@@ -13,7 +13,7 @@ const FounderSection = () => {
         {/* Left Side: Content Card */}
         <div className={styles.contentCard}>
           <span className={styles.subtitle}>Founder's Journey</span>
-          <h2 className={styles.name}>Our Origin Story</h2>
+          <h2 className={styles.name}>Founder's Story</h2>
           <p className={styles.description}>
             GIGs Impact Community was born from a deep personal journey. The founder grew up in Agric Quarters, Coal Camp, Enugu State - an environment where opportunities were limited and survival was the focus. But instead of becoming a limitation, that environment became a training ground.
           </p>
@@ -37,10 +37,10 @@ const FounderSection = () => {
             </p>
           </div>
 
-          <div className={styles.navigation}>
+          {/*<div className={styles.navigation}>
             <button className={styles.navBtn}>{'<'}</button>
             <button className={styles.navBtn}>{'>'}</button>
-          </div>
+          </div>*/}
         </div>
       </div>
     </section>

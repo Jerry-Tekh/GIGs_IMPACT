@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './Hero.module.css';
-
-
+import { FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import  { siteData } from '../SiteData.js';
 
 
@@ -24,7 +24,7 @@ const Hero = () => {
           <p className={styles.topLabel}>Together we're,</p>
           <h1 className={styles.title}>{siteData.hero.title[1]}</h1>
           <p className={styles.subtitle}>{siteData.hero.subtitle}</p>
-          <button className={styles.cta}>{siteData.hero.cta}</button>
+          <button className={styles.cta}><Link to="/about">{siteData.hero.cta}</Link> <FaArrowRight textalign="center" /></button>
         </motion.div>
        
       </motion.div>

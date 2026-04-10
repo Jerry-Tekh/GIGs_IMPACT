@@ -11,6 +11,19 @@
   background: url('./../../assets/About/AboutBg.png');
   background-position: center;
   background-size: cover;
+  height: 480px;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .label{
@@ -22,15 +35,24 @@
   font-size: 12px;
   clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
   margin-bottom: 15px;
+
 }
 
 .hero h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero p {
   color: #fff;
+  font-size: 2rem;
+  max-width: 700px;
+  position: relative;
+  z-index: 2;
+  margin: auto;
+
 }
 
 /* SECTIONS */
@@ -48,13 +70,15 @@
   line-height: 1.6;
 }
 
-
-
+.section li {
+  margin: 8px 0;
+  color: #555;
+}
 /* GRID */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 80px;
   padding: 60px 10%;
   color: #0d264d;
 }
@@ -113,7 +137,7 @@
   overflow: hidden;
   white-space: nowrap;
   /*background: #28a745;*/
-  padding: 15px 0;
+  padding: 50px 0 15px;
 }
 
 .scrollStrip div {
@@ -125,9 +149,10 @@
 .scrollStripAlt {
   overflow: hidden;
   white-space: nowrap;
-  background: #663b98;
+  /*background: #663b98;*/
+  /*background: #004ade; */
   color: white;
-  padding: 10px 0;
+  padding: 15px 2px;
 }
 
 .scrollStripAlt div {
@@ -165,6 +190,17 @@ span{
 }
 
 /* ANIMATION */
+.aboutPage ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.aboutPage li {
+  margin: 8px 0;
+  color: #555;
+}
+
 @keyframes scroll {
   0% {
     transform: translateX(0%);
@@ -304,7 +340,7 @@ span{
 /* Mobile phones (up to 480px) */
 @media (max-width: 480px) {
   .hero {
-    padding: 40px 15px;
+    padding: 100px 15px;
     background-attachment: fixed;
   }
 
@@ -412,7 +448,7 @@ span{
 /* Extra small phones (up to 375px) */
 @media (max-width: 375px) {
   .hero {
-    padding: 30px 12px;
+    padding: 90px 12px;
   }
 
   .hero h1 {

@@ -18,11 +18,12 @@
 }
 .donateTop {
   background: #a32a29;
+  background: #004ade; 
   color: white;
   border: none;
-  border-radius: 7px;
-  padding: 7px 18px;
-  font-weight: 700;
+
+  padding: 10px 18px;
+  font-weight: 500;
   cursor: pointer;
   letter-spacing: 0.8px;
 }
@@ -53,6 +54,7 @@
   font-size: 1.45rem;
   font-weight: 900;
   color: #e68a00;
+   color: #004ade; 
   letter-spacing: 1px;
 }
 .navLinks {
@@ -65,6 +67,7 @@
 }
 .navLinks li a {
   color: #333;
+   color: #004ade; 
   text-decoration: none;
   padding: 7px 5px;
   border-radius: 4px;
@@ -76,7 +79,9 @@
 }
 .activeLink {
   color: #e68a00;
+   color: #004ade; 
   border-bottom: 2px solid #e68a00;
+   border-bottom: 2px solid #004ade;
   padding-bottom: 6px;
 }
 .loginBtn {
@@ -127,6 +132,9 @@
   .logo {
     gap: 8px;
   }
+   .brandLink  {
+    padding: 0;
+  }
   .brandLink img {
     width: 28px;
   }
@@ -163,6 +171,9 @@
   .navbar {
     padding: 12px 4%;
   }
+    .brandLink  {
+    padding: 0;
+  }
   .brandLink img {
     width: 24px;
   }
@@ -186,6 +197,7 @@
   .logo {
     gap: 6px;
   }
+
   .brandLink img {
     width: 20px;
   }

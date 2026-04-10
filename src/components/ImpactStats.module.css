@@ -2,11 +2,12 @@
   background: #3d4a25;
 
   background: #6f59ff;
-   background: #004ade !important; 
+   background: #004ade; 
+   background-color: #2e2e2e;
   
 
   padding: 80px 10%;
-  color: white;
+
 } 
 .content {
   display: flex;
@@ -16,6 +17,8 @@
 .testimonial {
   flex: 1;
   border: 1px solid #fff;
+  border: 1px solid #004ade;
+  border-radius: 5px;
   padding: 40px;
   position: relative;
 }
@@ -23,6 +26,7 @@
   font-size: 24px;
   font-style: italic;
   margin-bottom: 10px;
+  
 }
 .grid {
   flex: 1;
@@ -38,6 +42,7 @@
 }
 .card h3 {
   color: #e68a00;
+   color: #004ade; 
   font-size: 32px;
   margin: 0;
 }

@@ -28,17 +28,20 @@
 
 .topLabel {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #ffb400;
+   color: #004ade; 
+
   margin-bottom: -10px;
 }
 
 .title {
   font-size: 4.5rem;
-  font-weight: 900;
+  font-weight: 500;
   color: #fff;
   line-height: 1.1;
   margin-bottom: 20px;
+  max-width : 900px;
 }
 
 .subtitle {
@@ -50,6 +53,7 @@
 
 .cta {
   background-color: #ffb400;
+  background-color: #004ade; ;
   border: none;
   padding: 15px 30px;
   font-weight: bold; 

@@ -107,7 +107,7 @@ const Footer = () => {
         transition={{ duration: 0.6, delay: 0.7 }}
       >
         <p>© Copyright 2026 GIGs Impact Community. All Rights Reserved.</p>
-        <div className={styles.legal}>Privacy Policy | Contact Us</div>
+        <div className={styles.legal}>Privacy Policy | <Link to="/contact">Contact Us</Link></div>
       </motion.div>
     </motion.footer>
   );
