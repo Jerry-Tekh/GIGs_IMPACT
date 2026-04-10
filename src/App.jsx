@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import styles from './App.module.css';
 
 import Header from './components/Header.jsx';
@@ -26,12 +26,32 @@ import SinglePost from './pages/Blog/SinglePost.jsx';
 import Login from './AuthPage/Login.jsx';
 import Signup from './AuthPage/Signup.jsx';
 import AdminDashboard from './AuthPage/AdminDashboard.jsx';
-import name from './AuthPage/AdminDashboard.jsx';
 
 
 import ProtectedRoute from './components/protectedRoute.jsx';
 
 import Dashboard from './pages/Admin/DashBoard.jsx';
+
+function ScrollToHash() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const id = location.hash.replace('#', '');
+    const element = document.getElementById(id);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  }, [location]);
+
+  return null;
+}
 
 import CreatePost from './pages/Admin/CreatePost.jsx';
 import ManagePosts from './pages/Admin/ManagePost.jsx';
@@ -59,6 +79,7 @@ function HomeContent() {
 function App() {
   return (
     <Router>
+      <ScrollToHash />
       <div className={styles.appWrapper}>
         <Routes>
           {/* Auth routes with header/footer */}

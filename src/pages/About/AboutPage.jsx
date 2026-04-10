@@ -1,5 +1,6 @@
-import React from "react";
-import { color, motion } from "framer-motion";
+import React, { useEffect } from "react";
+import { motion} from "framer-motion";
+import { useLocation } from 'react-router-dom';
 import FounderSection from './FounderSection.jsx';
 import aboutBg from './../../assets/About/png2.png';
 
@@ -12,6 +13,23 @@ import styles from './AboutPage.module.css';
 
 
 const About = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const id = location.hash.replace('#', '');
+    const element = document.getElementById(id);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  }, [location]);
+
   return (
     <div className={styles.aboutPage}>
       

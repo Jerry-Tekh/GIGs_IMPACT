@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useSwipeable } from 'react-swipeable';
 import { FaChevronLeft, FaChevronRight, FaCalendarAlt, FaMapMarkerAlt, FaClock, FaTicketAlt } from 'react-icons/fa';
 import styles from './UpcomingEvents.module.css';
 
@@ -19,13 +20,13 @@ const events = [
   {
     title: 'Community pitch day',
     description: 'Present ideas, win seed support',
-    image: 'https://images.unsplash.com/photo-1515169067866-5387ec356754?auto=format&fit=crop&w=400&q=80',
+    image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=400&q=80',
     icon: <FaTicketAlt />
   },
   {
     title: 'Impact Partner Forum',
     description: 'Collaborate with global impact investors',
-    image: 'https://images.unsplash.com/photo-1520975627030-6bbef94cb49a?auto=format&fit=crop&w=400&q=80',
+    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=400&q=80',
     icon: <FaMapMarkerAlt />
   }
 ];
@@ -54,7 +55,18 @@ const UpcomingEvents = () => {
     return () => window.removeEventListener('resize', calculateVisibleSlides);
   }, []);
 
+  const [slideWidth, setSlideWidth] = useState(310);
   const maxIndex = Math.max(0, events.length - visibleSlides);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const cardElement = containerRef.current.querySelector('article');
+    if (!cardElement) return;
+
+    const width = cardElement.offsetWidth;
+    const gap = 10;
+    setSlideWidth(width + gap);
+  }, [visibleSlides]);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
@@ -64,9 +76,12 @@ const UpcomingEvents = () => {
     setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : prev));
   };
 
-  const handleDotClick = (index) => {
-    setCurrentIndex(Math.min(index, maxIndex));
-  };
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleNext,
+    onSwipedRight: handlePrevious,
+    trackMouse: true,
+    preventScrollOnSwipe: true
+  });
 
   return (
     <motion.section 
@@ -111,10 +126,10 @@ const UpcomingEvents = () => {
         </motion.button>
 
         {/* Carousel Container */}
-        <div className={styles.carousel} ref={containerRef}>
+        <div className={styles.carousel} ref={containerRef} {...swipeHandlers}>
           <motion.div
             className={styles.track}
-            animate={{ x: -currentIndex * 190 }} // 180px card + 10px gap
+            animate={{ x: -currentIndex * slideWidth }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           >
             {events.map((item, index) => (

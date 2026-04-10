@@ -7,6 +7,7 @@ import CreatePost, { CreatePostModal } from './CreatePost.jsx';
 import styles from  './Managepost.module.css';
 
 
+
 const ManagePosts = () => {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);

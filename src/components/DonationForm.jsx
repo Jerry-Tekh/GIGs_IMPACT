@@ -7,6 +7,7 @@ import volunteer from './../assets/volunteer2.png';
 const DonationForm = () => {
   return (
     <motion.section 
+      id="volunteer"
       className={styles.section}
       initial={{ backgroundColor: 'transparent' }}
       whileInView={{ backgroundColor: '#f5f5f5' }}

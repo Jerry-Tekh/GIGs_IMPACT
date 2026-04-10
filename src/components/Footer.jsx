@@ -1,24 +1,25 @@
-import React from 'react';
-import { FaInstagram, FaFacebook, FaLinkedin, FaYoutube } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import styles from './Footer.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaInstagram, FaFacebook, FaLinkedin, FaYoutube, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <motion.footer 
+    <motion.footer
       className={styles.footer}
-      initial={{ backgroundColor: 'transparent' }}
-      whileInView={{ backgroundColor: '#000' }} // adjust to actual color
+      initial={{ backgroundColor: "transparent" }}
+      whileInView={{ backgroundColor: "#000" }}
       transition={{ duration: 1 }}
     >
-      <motion.div 
+      <motion.div
         className={styles.top}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         <motion.div className={styles.brand}>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -26,20 +27,80 @@ const Footer = () => {
             GIGs Impact Community
           </motion.h2>
           <div className={styles.socials}>
-            <FaInstagram />
-            <FaFacebook />
-            <FaLinkedin />
-            <FaYoutube />
+           <a href="https://youtube.com/@gigsimpact?si=H00lBKE5d-jW41R9"><FaInstagram /></a> 
+           <a href="https://www.facebook.com/profile.php?id=100091976651385"><FaFacebook /></a> 
+           <a href=""><FaLinkedin /></a> 
+           <a href="https://youtube.com/@gigsimpact?si=H00lBKE5d-jW41R9"> <FaYoutube /></a> 
+            
+      
           </div>
         </motion.div>
         <div className={styles.links}>
-          <div><motion.h4 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.3 }}>ABOUT US</motion.h4><ul><li>Our Story</li><li>Mission</li><li>Vision</li></ul></div>
-          <div><motion.h4 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.4 }}>PROGRAMS</motion.h4><ul><li>7-Stage Framework</li><li>Cohort Learning</li><li>Blog</li></ul></div>
-          <div><motion.h4 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 }}>GET INVOLVED</motion.h4><ul><li>Volunteer</li><li>Partner</li></ul></div>
-          <div><motion.h4 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.6 }}>CONTACT</motion.h4><ul><li>Email: gigsimpact@gmail.com</li><li>Phone: 08146163211</li></ul></div>
+          <div>
+            <motion.h4
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              ABOUT US
+            </motion.h4>
+            <ul>
+              <li><Link to="/about#ourstory">Our Story</Link></li>
+              {/*<li><Link to="/about#mission">Mission</Link></li>
+              <li><Link to="/about#vision">Vision</Link></li>*/} 
+            </ul>
+          </div>
+          <div>
+            <motion.h4
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              PROGRAMS
+            </motion.h4>
+            <ul>
+              <li><Link to="/about#what-we-do">7-Stage Framework</Link></li>
+              <li><Link to="/programs">Cohort Learning</Link></li>
+              <li><Link to="/blog">Blog</Link></li>
+            </ul>
+          </div>
+          <div>
+            <motion.h4
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              GET INVOLVED
+            </motion.h4>
+            <ul>
+              <li><Link to="/#volunteer">Volunteer</Link></li>
+              <li><Link to="/#bridge">Partner</Link></li>
+            </ul>
+          </div>
+          <div>
+            <motion.h4
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              CONTACT
+            </motion.h4>
+            <ul>
+              <li>
+                <a href="mailto:gigsimpact@gmail.com">
+                  <FaEnvelope /> gigsimpact@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="tel:08146163211">
+                  <FaPhoneAlt /> 08146163211
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </motion.div>
-      <motion.div 
+      <motion.div
         className={styles.bottom}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

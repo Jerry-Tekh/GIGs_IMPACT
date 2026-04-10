@@ -31,11 +31,11 @@ const Header = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className={styles.utilityLinks}>
+        {/*<div className={styles.utilityLinks}>
           <span>🔍 Search</span>
           <span>📍 Need Help</span>
           
-        </div>
+        </div>*/}
         <motion.button 
           className={styles.donateTop}
           initial={{ opacity: 0 }}

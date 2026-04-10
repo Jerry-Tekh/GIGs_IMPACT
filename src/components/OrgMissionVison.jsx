@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './OrgMissionVision.module.css';
-import { FaBullseye, FaEye, FaGem } from 'react-icons/fa';
+import { FaBullseye, FaEye, FaGem , FaArrowRight} from 'react-icons/fa';
 
 import value from './../assets/MissionVision/value.png';
 import vision from './../assets/MissionVision/vision.png';
@@ -27,8 +27,7 @@ const CompanyMVVss = () => {
       title: 'MISSION',
       text: 'To build a talent-driven ecosystem that develops individuals into skilled, value-driven, and independent contributors while creating pathways for sustainable income, enterprise, and large-scale employment.',
       icon: <FaBullseye />,
-      /*color: '#6fa8dc', // Mission Blue,*/
-      color: '#fff', // Mission Blue,
+      color: '#6fa8dc', // Mission Blue,
       bg : mvvImages[0]
 
     },
@@ -36,16 +35,15 @@ const CompanyMVVss = () => {
       title: 'VISION',
       text: 'To build a global community of independent, visionary individuals who believe in their ability to create change and empower others through the effective use of their talents.',
       icon: <FaEye />,
-      /*color: '#e06666' ,// Vision Red*/
-      color: '#fff' ,// Vision Red
+      color: '#e06666' ,// Vision Red
         bg : mvvImages[1]
     },
     {
       title: 'VALUES',
       text: 'Integrity, Growth, Independence, Impact and Community—guiding every action as we transform talents into economic value and sustainable opportunity.',
       icon: <FaGem />,
-      /*color: '#f6b26b' // Values Orange*/
-      color: '#ffff' ,// Values Orange
+      // Values Orange
+      color: '#f6b26b' ,// Values Orange
         bg : mvvImages[2]
     }
   ];
@@ -59,7 +57,7 @@ const CompanyMVVss = () => {
         </div>
         <div className={styles.ctaWrapper}>
           <a className={styles.ctaLink} href="/about" aria-label="Go to About page">
-            About Us<span aria-hidden="true">→</span>
+            About Us<span aria-hidden="true"><FaArrowRight/></span>
           </a>
         </div>
       </div>
@@ -73,8 +71,8 @@ const CompanyMVVss = () => {
               <div className={styles.overlayText}>{item.title}</div>
             </div>
             
-            <div className={styles.iconHex} style={{ backgroundColor: item.color, opacity : 0.8 }}>
-              <div className={styles.iconContent}>
+            <div className={styles.iconHex}>
+              <div className={styles.iconContent} style={{color: item.color}}>
                 {item.icon}
               </div>
             </div>
