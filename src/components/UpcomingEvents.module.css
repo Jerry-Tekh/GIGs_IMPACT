@@ -1,4 +1,4 @@
-.advertSection {
+﻿.advertSection {
   overflow: visible;
   padding: 0 2px;
 }
@@ -86,7 +86,6 @@
   right: 8px;
   bottom: 8px;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -319,3 +318,4 @@
     margin: 0 auto 6px;
   }
 }
+

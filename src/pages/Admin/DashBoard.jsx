@@ -1,118 +1,198 @@
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Admin/Layout.jsx';
-import { motion } from 'framer-motion';
-import { FaFileAlt, FaTags, FaEye, FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { FaArrowRight, FaCheckCircle, FaClock, FaFileAlt, FaTags, FaUsers } from 'react-icons/fa';
+import Layout from '../../components/Admin/Layout.jsx';
 import Analytics from '../../components/Analytics.jsx';
 import styles from './DashBoard.module.css';
+import { apiFetch } from '../../utils/apiClient.js';
+import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
 
-
-const Dashboard = () => {
-  const [stats, setStats] = useState({
-    posts: 0,
-    categories: 0,
-    views: 0
-  });
-
+const Dashboard = ({ user }) => {
+  const [stats, setStats] = useState({ posts: 0, categories: 0, views: 0 });
   const [recentPosts, setRecentPosts] = useState([]);
+  const [pendingPosts, setPendingPosts] = useState([]);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchStats();
-    fetchRecentPosts();
+    const loadDashboard = async () => {
+      try {
+        const [statsData, manageData, pendingData, usersData] = await Promise.all([
+          apiFetch('/api/admin/stats'),
+          apiFetch('/api/posts/manage'),
+          apiFetch('/api/posts/pending'),
+          apiFetch('/api/users')
+        ]);
+
+        setStats(statsData || { posts: 0, categories: 0, views: 0 });
+        setRecentPosts((manageData.posts || []).slice(0, 5));
+        setPendingPosts((pendingData || []).slice(0, 5));
+        setPendingCount((pendingData || []).length);
+        setUsers(usersData.users || []);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboard();
   }, []);
 
-  const fetchStats = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/admin/stats`, {
-        credentials: 'include'
-      });
-      const data = await res.json();
-      setStats(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const fetchRecentPosts = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts?limit=5`, {
-        credentials: 'include'
-      });
-      const data = await res.json();
-      setRecentPosts(data.posts || []);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const roleCounts = users.reduce(
+    (accumulator, member) => {
+      accumulator[member.role] = (accumulator[member.role] || 0) + 1;
+      return accumulator;
+    },
+    { admin: 0, author: 0, reader: 0 }
+  );
 
   return (
-    <Layout>
-      <motion.div
-        className={styles.dashboard}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        {/* Header */}
-        <div className={styles.header}>
-          <h2>Dashboard</h2>
-          <Link to="/admin/create" className={styles.createBtn}>
-            <FaPlus /> New Post
-          </Link>
-        </div>
-
-        {/* Stats Cards */}
-        <div className={styles.cards}>
-          <motion.div className={styles.card} whileHover={{ scale: 1.03 }}>
-            <FaFileAlt className={styles.icon} />
-            <h3>Total Posts</h3>
-            <p>{stats.posts}</p>
+    <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')}>
+      <div className={styles.dashboardPage}>
+        <section className={styles.heroSection}>
+          <motion.div className={styles.heroContent} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <span className={styles.eyebrow}>Editorial Control</span>
+            <h1>Welcome to {user?.name}</h1>
+            <p>Monitor publishing activity, review author submissions, and keep user roles organized from one admin workspace.</p>
           </motion.div>
 
-          <motion.div className={styles.card} whileHover={{ scale: 1.03 }}>
-            <FaTags className={styles.icon} />
-            <h3>Categories</h3>
-            <p>{stats.categories}</p>
+          <motion.div className={styles.heroAction} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
+            <Link to="/admin/createPost" className={styles.primaryBtn}>
+              <FaFileAlt /> Create Post
+            </Link>
           </motion.div>
+        </section>
 
-          <motion.div className={styles.card} whileHover={{ scale: 1.03 }}>
-            <FaEye className={styles.icon} />
-            <h3>Views</h3>
-            <p>{stats.views}</p>
-          </motion.div>
-        </div>
+        <section className={styles.statsSection}>
+          <div className={styles.statsGrid}>
+            <motion.div className={styles.statCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
+              <div className={styles.statIcon}><FaFileAlt /></div>
+              <h3>Total Posts</h3>
+              <p className={styles.statNumber}>{stats.posts}</p>
+              <span className={styles.statLabel}>Published and pending</span>
+            </motion.div>
 
-        {/* Analytics */}
-        <Analytics /> 
+            <motion.div className={styles.statCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
+              <div className={styles.statIcon}><FaTags /></div>
+              <h3>Categories</h3>
+              <p className={styles.statNumber}>{stats.categories}</p>
+              <span className={styles.statLabel}>Content structure</span>
+            </motion.div>
 
-        
-        {/* Recent Posts */}
-        <div className={styles.section}>
-          <h3>Recent Posts</h3>
+            <motion.div className={styles.statCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }}>
+              <div className={styles.statIcon}><FaUsers /></div>
+              <h3>Registered Users</h3>
+              <p className={styles.statNumber}>{users.length}</p>
+              <span className={styles.statLabel}>Admins, authors, and readers</span>
+            </motion.div>
 
-          <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {recentPosts.map(post => (
-                  <tr key={post.id}>
-                    <td>{post.title}</td>
-                    <td>{post.category}</td>
-                    <td>{new Date(post.published_at).toLocaleDateString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <motion.div className={styles.statCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}>
+              <div className={styles.statIcon}><FaClock /></div>
+              <h3>Pending Review</h3>
+              <p className={styles.statNumber}>{pendingCount}</p>
+              <span className={styles.statLabel}>Waiting for approval</span>
+            </motion.div>
           </div>
-        </div>
+        </section>
 
-      </motion.div>
+        <Analytics />
+
+        <section className={styles.recentSection}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTag}>Team Snapshot</span>
+            <h2>Role distribution</h2>
+          </div>
+
+          <div className={styles.summaryGrid}>
+            <div className={styles.summaryCard}>
+              <span>Admins</span>
+              <strong>{roleCounts.admin}</strong>
+            </div>
+            <div className={styles.summaryCard}>
+              <span>Authors</span>
+              <strong>{roleCounts.author}</strong>
+            </div>
+            <div className={styles.summaryCard}>
+              <span>Readers</span>
+              <strong>{roleCounts.reader}</strong>
+            </div>
+            <div className={styles.summaryCard}>
+              <span>Total Views</span>
+              <strong>{stats.views}</strong>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.recentSection}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTag}>Approval Queue</span>
+            <h2>Pending author posts</h2>
+          </div>
+
+          <div className={styles.postsContainer}>
+            {pendingPosts.length > 0 ? (
+              <div className={styles.postsGrid}>
+                {pendingPosts.map((post) => (
+                  <motion.div key={post.id} className={styles.postCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
+                    <div className={styles.postCardHeader}>
+                      <h3>{post.title}</h3>
+                      <span className={styles.pendingBadge}>Pending</span>
+                    </div>
+                    <p className={styles.postMeta}>By {post.author || 'Unknown author'}</p>
+                    <p className={styles.postDate}>{post.category || 'General'}</p>
+                    <Link to="/admin/posts" className={styles.postLink}>
+                      Review now <FaArrowRight />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className={styles.emptyState}>
+                <FaCheckCircle />
+                <p>{loading ? 'Loading approval queue...' : 'No pending author submissions right now.'}</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className={styles.recentSection}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTag}>Recent Activity</span>
+            <h2>Latest posts</h2>
+          </div>
+
+          <div className={styles.postsContainer}>
+            {recentPosts.length > 0 ? (
+              <div className={styles.postsGrid}>
+                {recentPosts.map((post) => (
+                  <motion.div key={post.id} className={styles.postCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
+                    <div className={styles.postCardHeader}>
+                      <h3>{post.title}</h3>
+                      <span className={post.is_published ? styles.postStatus : styles.pendingBadge}>
+                        {post.is_published ? 'Published' : 'Pending'}
+                      </span>
+                    </div>
+                    <p className={styles.postMeta}>{post.category || 'General'}</p>
+                    <p className={styles.postDate}>By {post.author || 'Unknown author'}</p>
+                    <Link to="/admin/posts" className={styles.postLink}>
+                      Open manager <FaArrowRight />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className={styles.emptyState}>
+                <FaFileAlt />
+                <p>No posts yet. Create the first post to start the editorial flow.</p>
+                <Link to="/admin/createPost" className={styles.primaryBtn}>Create Post</Link>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
     </Layout>
   );
 };

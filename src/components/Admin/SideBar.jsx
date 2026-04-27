@@ -1,39 +1,52 @@
 import { NavLink } from 'react-router-dom';
-import { FaHome, FaPlus, FaList, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 import styles from './Sidebar.module.css';
+import logo from './../../assets/logo.png';
 
-
-const Sidebar = ({ collapsed, onToggle }) => {
+const Sidebar = ({ collapsed, onToggle, navItems = [] }) => {
   return (
     <div className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
       <div className={styles.sidebarHeader}>
-        <h2 className={styles.logo}>GigImpact</h2>
-        <button 
+        {!collapsed && (
+          <motion.div
+            className={styles.logoWrap}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <img src={logo} alt="GigImpact Logo" className={styles.logoImg} />
+            <span className={styles.logoText}>GigImpact</span>
+          </motion.div>
+        )}
+
+        <motion.button 
           className={styles.toggleBtn}
           onClick={onToggle}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           aria-label="Toggle sidebar"
         >
           {collapsed ? <FaBars /> : <FaTimes />}
-        </button>
+        </motion.button>
       </div>
 
-      <nav>
-        <NavLink to="/admin/dashboard" title="Dashboard">
-          <FaHome /> <span>Dashboard</span>
-        </NavLink>
 
-        <NavLink to="/admin/createPost" title="Create Post">
-          <FaPlus /> <span>Create Post</span>
-        </NavLink>
 
-        <NavLink to="/admin/posts" title="Manage Posts">
-          <FaList /> <span>Manage Posts</span>
-        </NavLink>
+      <nav className={styles.nav}>
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <motion.div key={item.to} whileHover={{ x: 4 }}>
+              <NavLink to={item.to} title={item.label} className={({ isActive }) => isActive ? styles.navActive : ''}>
+                <Icon />
+                <span>{item.label}</span>
+              </NavLink>
+            </motion.div>
+          );
+        })}
       </nav>
 
-      <button className={styles.logoutBtn} title="Logout">
-        <FaSignOutAlt /> <span>Logout</span>
-      </button>
     </div>
   );
 };

@@ -1,11 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Layout from '../../components/Admin/Layout.jsx';
 import styles from './CreatePost.module.css';
+import { apiFetch } from '../../utils/apiClient.js';
+import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
 
-const CreatePostModal = ({ onClose, existingPost, modalRef }) => {
+const getPreviewParagraphs = (content = '') =>
+  content
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
   const [categories, setCategories] = useState([]);
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState('');
 
   const [form, setForm] = useState({
     title: '',
@@ -14,91 +24,133 @@ const CreatePostModal = ({ onClose, existingPost, modalRef }) => {
     category_id: '',
     featured_image: '',
     read_time: '',
-    is_published: true
+    is_published: role === 'admin'
   });
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await apiFetch('/api/categories', {
+          headers: {}
+        });
+        setCategories(data || []);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load categories');
+      }
+    };
+
     fetchCategories();
   }, []);
 
-  // Populate form with existing post data when editing
   useEffect(() => {
-    if (existingPost) {
-      setForm({
-        title: existingPost.title || '',
-        excerpt: existingPost.excerpt || '',
-        content: existingPost.content || '',
-        category_id: existingPost.category_id || '',
-        featured_image: existingPost.featured_image || '',
-        read_time: existingPost.read_time || '',
-        is_published: existingPost.is_published !== false
-      });
+    if (!existingPost) {
+      return;
     }
-  }, [existingPost]);
-  
 
-  const fetchCategories = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/categories`);
-      const data = await res.json();
-      setCategories(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
     setForm({
-      ...form,
-      [name]: type === 'checkbox' ? checked : value
+      title: existingPost.title || '',
+      excerpt: existingPost.excerpt || '',
+      content: existingPost.content || '',
+      category_id: existingPost.category_id || '',
+      featured_image: existingPost.featured_image || '',
+      read_time: existingPost.read_time || '',
+      is_published: existingPost.is_published !== false
     });
+  }, [existingPost]);
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setForm((current) => ({
+      ...current,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
 
-  const handleContentKeyDown = (e) => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      const { selectionStart, selectionEnd, value } = e.target;
+  const handleContentKeyDown = (event) => {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      const { selectionStart, selectionEnd, value } = event.target;
       const tab = '  ';
-      const newValue = value.slice(0, selectionStart) + tab + value.slice(selectionEnd);
-      setForm(prev => ({ ...prev, content: newValue }));
+      const nextValue = value.slice(0, selectionStart) + tab + value.slice(selectionEnd);
+      setForm((current) => ({ ...current, content: nextValue }));
       requestAnimationFrame(() => {
-        e.target.selectionStart = e.target.selectionEnd = selectionStart + tab.length;
+        event.target.selectionStart = event.target.selectionEnd = selectionStart + tab.length;
       });
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const url = existingPost
-      ? `${import.meta.env.VITE_SERVER_URL}/api/posts/${existingPost.id}`
-      : `${import.meta.env.VITE_SERVER_URL}/api/posts`;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!form.title.trim()) {
+      setError('Post title is required');
+      return;
+    }
+
+    if (!form.category_id) {
+      setError('Please select a category');
+      return;
+    }
+
+    if (!form.content.trim()) {
+      setError('Post content is required');
+      return;
+    }
+
+    setIsSaving(true);
+    setError('');
+
+    const payload =
+      role === 'author'
+        ? {
+            ...form,
+            is_published: false
+          }
+        : form;
+
+    const path = existingPost
+      ? role === 'author'
+        ? `/api/posts/author/${existingPost.id}`
+        : `/api/posts/${existingPost.id}`
+      : role === 'author'
+        ? '/api/posts/author'
+        : '/api/posts';
 
     const method = existingPost ? 'PUT' : 'POST';
 
     try {
-      const response = await fetch(url, {
-        method: method,
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+      await apiFetch(path, {
+        method,
+        body: JSON.stringify(payload)
       });
 
-      if (response.ok) {
-        alert(existingPost ? 'Post Updated!' : 'Post Created!');
-        onClose();
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Error saving post');
+      onClose();
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Error saving post');
+    } finally {
+      setIsSaving(false);
     }
   };
 
+  const isFormValid = Boolean(
+    form.title.trim() &&
+    form.excerpt.trim() &&
+    form.content.trim() &&
+    form.category_id &&
+    form.featured_image.trim() &&
+    String(form.read_time).trim()
+  );
+  const isAuthor = role === 'author';
+  const selectedCategory = categories.find((category) => String(category.id) === String(form.category_id));
+  const previewParagraphs = getPreviewParagraphs(form.content);
+
   return (
-    <div 
+    <div
       className={`${styles.pageWrapper} ${existingPost ? styles.editModal : ''}`}
-      onClick={(e) => {
-        if (existingPost && e.target === e.currentTarget) {
+      onClick={(event) => {
+        if (existingPost && event.target === event.currentTarget) {
           onClose();
         }
       }}
@@ -109,118 +161,196 @@ const CreatePostModal = ({ onClose, existingPost, modalRef }) => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className={styles.header}>
-          <h2>{existingPost ? 'Edit Post' : 'Create New Post'}</h2>
-          <button onClick={onClose}>✕</button>
+          <div className={styles.headerContent}>
+            <h2>{existingPost ? 'Edit Post' : isAuthor ? 'Submit New Post' : 'Create New Post'}</h2>
+            <p>{isAuthor ? 'Draft your article and send it for admin approval.' : 'Write, edit, and publish your content.'}</p>
+          </div>
+          <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
+            x
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
+          {error && <div className={styles.errorMessage}>{error}</div>}
+
           <div className={styles.editor}>
-            <input
-              name="title"
-              placeholder="Post Title..."
-              className={styles.titleInput}
-              value={form.title}
-              onChange={handleChange}
-            />
+            <motion.div className={styles.formGroup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
+              <label className={styles.label}>Post Title</label>
+              <input
+                name="title"
+                placeholder="Enter a compelling title..."
+                className={styles.titleInput}
+                value={form.title}
+                onChange={handleChange}
+              />
+            </motion.div>
 
-            <input
-              name="excerpt"
-              placeholder="Short description..."
-              className={styles.excerptInput}
-              value={form.excerpt}
-              onChange={handleChange}
-            />
+            <motion.div className={styles.formGroup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
+              <label className={styles.label}>Excerpt</label>
+              <input
+                name="excerpt"
+                placeholder="A brief summary of your post..."
+                className={styles.excerptInput}
+                value={form.excerpt}
+                onChange={handleChange}
+              />
+            </motion.div>
 
-            <textarea
-              name="content"
-              placeholder="Start writing your story..."
-              className={styles.contentInput}
-              value={form.content}
-              onChange={handleChange}
-              onKeyDown={handleContentKeyDown}
-            />
+            <motion.div className={styles.formGroup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+              <label className={styles.label}>Content</label>
+              <textarea
+                name="content"
+                placeholder="Start writing your story..."
+                className={styles.contentInput}
+                value={form.content}
+                onChange={handleChange}
+                onKeyDown={handleContentKeyDown}
+              />
+            </motion.div>
           </div>
 
           <div className={styles.sidebar}>
-            <label>Category</label>
-            <select name="category_id" value={form.category_id} onChange={handleChange}>
-              <option value="">Select Category</option>
-              {categories.map(cat => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+            <motion.div className={styles.sidebarSection} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}>
+              <label className={styles.label}>Category</label>
+              <select name="category_id" value={form.category_id} onChange={handleChange} className={styles.select}>
+                <option value="">Select Category</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </motion.div>
 
-            <label>Featured Image URL</label>
-            <input
-              name="featured_image"
-              placeholder="https://image-url..."
-              value={form.featured_image}
-              onChange={handleChange}
-            />
-
-            <label>Read Time (minutes)</label>
-            <input
-              name="read_time"
-              type="number"
-              value={form.read_time}
-              onChange={handleChange}
-            />
-
-            <label className={styles.checkbox}>
+            <motion.div className={styles.sidebarSection} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+              <label className={styles.label}>Featured Image URL</label>
               <input
-                type="checkbox"
-                name="is_published"
-                checked={form.is_published}
+                name="featured_image"
+                placeholder="https://example.com/image.jpg"
+                className={styles.input}
+                value={form.featured_image}
                 onChange={handleChange}
               />
-              Publish Immediately
-            </label>
+            </motion.div>
 
-            {form.title && form.content && form.category_id && (
-              <button type="submit" className={styles.publishBtn}>
-                {existingPost ? 'Update Post' : 'Publish Post'}
-              </button>
+            <motion.div className={styles.sidebarSection} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
+              <label className={styles.label}>Read Time (minutes)</label>
+              <input
+                name="read_time"
+                type="number"
+                min="1"
+                placeholder="5"
+                className={styles.input}
+                value={form.read_time}
+                onChange={handleChange}
+              />
+            </motion.div>
+
+            {!isAuthor && (
+              <motion.div className={styles.checkboxGroup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    name="is_published"
+                    checked={form.is_published}
+                    onChange={handleChange}
+                  />
+                  <span>Publish immediately</span>
+                </label>
+              </motion.div>
             )}
+
+            {isAuthor && (
+              <motion.div className={styles.sidebarSection} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+                <label className={styles.label}>Review Flow</label>
+                <p className={styles.helperText}>Author posts stay pending until an admin approves them.</p>
+              </motion.div>
+            )}
+
+            <motion.button
+              type="submit"
+              className={styles.publishBtn}
+              disabled={!isFormValid || isSaving}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.45 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {isSaving ? 'Saving...' : existingPost ? 'Save Changes' : isAuthor ? 'Submit For Approval' : 'Publish Post'}
+            </motion.button>
           </div>
 
-          <div className={styles.preview}>
-            <h1>{form.title || 'Post Title Preview'}</h1>
-            <p className={styles.previewExcerpt}>
-              {form.excerpt || 'Excerpt preview will show here...'}
-            </p>
+          <motion.section
+            className={styles.preview}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className={styles.previewHeader}>
+              <div>
+                <span className={styles.previewLabel}>Live Preview</span>
+                <h3>How this post will look</h3>
+              </div>
+              <div className={styles.previewMeta}>
+                <span>{selectedCategory?.name || 'No category yet'}</span>
+                <span>{form.read_time ? `${form.read_time} min read` : 'Read time not set'}</span>
+              </div>
+            </div>
 
-            {form.featured_image && (
-              <img src={form.featured_image} alt="preview" />
-            )}
+            <article className={styles.previewArticle}>
+              {form.featured_image ? (
+                <img
+                  src={form.featured_image}
+                  alt={form.title?.trim() || 'Post preview'}
+                  className={styles.previewImage}
+                />
+              ) : (
+                <div className={styles.previewImagePlaceholder}>
+                  Featured image preview will appear here
+                </div>
+              )}
 
-            <p className={styles.previewContent}>
-              {form.content || 'Start typing to see preview...'}
-            </p>
-          </div>
+              <div className={styles.previewBody}>
+                <h1>{form.title.trim() || 'Your post title will appear here'}</h1>
+
+                <p className={styles.previewExcerpt}>
+                  {form.excerpt.trim() || 'A short excerpt helps readers understand what this article is about before they open it.'}
+                </p>
+
+                <div className={styles.previewContent}>
+                  {previewParagraphs.length > 0 ? (
+                    previewParagraphs.map((paragraph, index) => (
+                      <p key={`${index}-${paragraph.slice(0, 16)}`}>{paragraph}</p>
+                    ))
+                  ) : (
+                    <p className={styles.previewPlaceholder}>
+                      Start writing the body of your article to see the full reading preview.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </article>
+          </motion.section>
         </form>
       </motion.div>
     </div>
   );
 };
 
-const CreatePost = () => {
+const CreatePost = ({ user }) => {
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    navigate('/admin/dashboard');
-  };
-
   return (
-    <Layout>
-      <CreatePostModal onClose={handleClose} />
+    <Layout
+      user={user}
+      title="Admin Workspace"
+      navItems={getNavigationForRole('admin')}
+    >
+      <CreatePostModal onClose={() => navigate('/admin/dashboard')} role="admin" />
     </Layout>
   );
 };
 
-// In your component file
 export { CreatePostModal };
 export default CreatePost;
-
-

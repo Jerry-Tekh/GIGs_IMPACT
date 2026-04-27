@@ -1,31 +1,152 @@
-/* 1. Import the professional font */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
 
-/* 2. Remove browser default gaps */
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+:root {
+  --font-base: 'Poppins', 'Segoe UI', sans-serif;
+  --color-primary: #2323ff;
+  --color-primary-deep: #1616b7;
+  --color-secondary: #807d52;
+  --color-accent: #ffdb24;
+  --color-accent-strong: #dd3027;
+  --color-text: #161625;
+  --color-text-muted: #666659;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7f7f2;
+  --color-panel: #efefff;
+  --color-panel-soft: #f5f4ea;
+  --color-border-soft: rgba(35, 35, 255, 0.14);
+  --color-border-strong: rgba(128, 125, 82, 0.35);
+  --shadow-soft: 0 20px 40px rgba(35, 35, 255, 0.08);
+  --shadow-strong: 0 28px 56px rgba(12, 12, 30, 0.18);
+  --radius-card: 0px;
+  --fs-label: clamp(0.74rem, 0.22vw + 0.7rem, 0.84rem);
+  --fs-body-sm: clamp(0.9rem, 0.18vw + 0.87rem, 0.98rem);
+  --fs-body: clamp(0.98rem, 0.26vw + 0.93rem, 1.08rem);
+  --fs-body-lg: clamp(1.06rem, 0.42vw + 0.98rem, 1.22rem);
+  --fs-h1: clamp(2.2rem, 4vw, 3.9rem);
+  --fs-h2: clamp(1.85rem, 3vw, 3rem);
+  --fs-h3: clamp(1.3rem, 1.6vw, 1.75rem);
+  --fs-h4: clamp(1.08rem, 1vw, 1.25rem);
+  --section-pad-x: 8%;
+  --section-pad-x-tablet: 6%;
+  --section-pad-x-mobile: 4%;
+  --section-pad-y: 84px;
+  --section-pad-y-tablet: 72px;
+  --section-pad-y-mobile: 60px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 3. Set the global look */
-body {
-  font-family: 'Montserrat', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #333;
-  line-height: 1.5;
-  background-color: #fff;
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
-/* 4. Make sure images don't break the layout */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-text);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  background: var(--color-surface);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
+
+h4 {
+  font-size: var(--fs-h4);
+}
+
+p,
+li,
+input,
+textarea,
+button,
+label {
+  font-size: var(--fs-body);
+}
+
 img {
   max-width: 100%;
   display: block;
 }
 
-/* 5. Clean up links */
 a {
   text-decoration: none;
   color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }

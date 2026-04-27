@@ -1,93 +1,172 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+﻿import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  FaArrowRight,
+  FaBullhorn,
+  FaComments,
+  FaCompass,
+  FaGlobeAfrica,
+  FaLaptopCode,
+  FaSeedling,
+  FaUsersCog
+} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import styles from './WhatWeDo.module.css';
 import { siteData } from '../SiteData.js';
-import { Link } from 'react-router-dom';
 
+const stageIcons = [FaCompass, FaComments, FaLaptopCode, FaBullhorn, FaUsersCog, FaGlobeAfrica, FaSeedling];
 
-import awareeness from './../assets//WhatWeDo/awareness.png';
-import softSkills from './../assets/WhatWeDo/softskills.png';
-import hardSkill from './../assets/WhatWeDo/hardSkill.png';
-import marketing from './../assets/WhatWeDo/marketing.png';
-import competence from './../assets/WhatWeDo/competence.png';
-import globalLeadership from './../assets/WhatWeDo/globalLeadership.png';
-import growthImpact from './../assets/WhatWeDo/growthImpact.png';
+const ServiceCard = ({ stage, index }) => {
+  const Icon = stageIcons[index] || FaSeedling;
+  const outcome = stage.focus[stage.focus.length - 1];
 
-
-
-const whatWeDoImages = [
-  awareeness, softSkills,hardSkill,marketing,competence,globalLeadership,growthImpact
-];
-
-
-const WhatWeDo = () => {
   return (
-    <motion.section 
-      className={styles.section}
-      initial={{ backgroundColor: 'transparent' }}
-      whileInView={{ backgroundColor: '#fff' }} // adjust color
-      transition={{ duration: 1 }}
-    >
-      <motion.p 
-        className={styles.topLabel}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        WHAT WE DO
-      </motion.p>
-      <motion.h2 
-        className={styles.mainTitle}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-      >
-        We operate a comprehensive 7-Stage Development Framework
-designed to transform individuals from self-discovery to global
-competence and impact.
-      </motion.h2>
-      
-      <motion.div 
-        className={styles.grid}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.4 }}
-      >
-        {siteData.programs.stages.slice(0, 7).map((stage, index) => (
-          <motion.div 
-            key={index} 
-            className={styles.card}
-            initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-          >
-            <div className={styles.label} style={{ backgroundColor: siteData.whatWeDo[index % 4].color }}>
-              STAGE {stage.stage}
-            </div>
-            <div className={styles.cardBody}>
-              <h3>{stage.title}</h3>
-              <p>{stage.focus.join(', ')}</p>
-              <div className={styles.imgContainer}>
-                <img src={whatWeDoImages[index % whatWeDoImages.length]} alt={`Stage ${stage.stage}`} />
-                <span className={styles.imgName}>Stage {stage.stage}</span>
-              </div>
-            </div>
-          </motion.div>
-          
-        ))}
-        <div>
-          <p></p>
-        </div>
-      </motion.div>
-      <motion.button 
-        className={styles.learnMore}
+    <Link className={styles.stageLink} to="/programs#stage-framework" aria-label={`View ${stage.title} details on the program page`}>
+      <motion.article
+        className={styles.card}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
+        transition={{ duration: 0.45 }}
+        viewport={{ once: true }}
+        whileHover={{ y: -6, transition: { duration: 0.2 } }}
       >
+        <div className={styles.cardTop}>
+          <span className={styles.stageNumber}>Stage {stage.stage}</span>
+          <div className={styles.iconBadge}>
+            <Icon className={styles.icon} />
+          </div>
+        </div>
 
-        <Link to="/programs">Learn About Our Programs</Link>
-      </motion.button>
+        <div className={styles.cardBody}>
+          <h3 className={styles.cardTitle}>{stage.title}</h3>
+          <p className={styles.cardText}>
+            Click to explore how this stage connects to the full development journey on the program page.
+          </p>
+
+          <div className={styles.focusList}>
+            {stage.focus.map((item, idx) => (
+              <span key={idx} className={styles.focusItem}>
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.cardFooter}>
+          <div className={styles.outcomeBlock}>
+            <span className={styles.outcomeLabel}>Key outcome</span>
+            <strong>{outcome}</strong>
+          </div>
+
+          <div className={styles.arrowButton} aria-hidden="true">
+            <FaArrowRight className={styles.arrowIconCard} />
+          </div>
+        </div>
+      </motion.article>
+    </Link>
+  );
+};
+
+const WhatWeDo = () => {
+  const stages = siteData.programs.stages.slice(0, 7);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((currentIndex) => (currentIndex + 1) % stages.length);
+    }, 3200);
+
+    return () => window.clearInterval(intervalId);
+  }, [stages.length]);
+
+  return (
+    <motion.section className={styles.section} id="what-we-do">
+      <div className={styles.container}>
+        <div className={styles.shell}>
+          <motion.div
+            className={styles.introPanel}
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true, amount: 0.25 }}
+          >
+            <span className={styles.subtitle}>What We Do</span>
+            <h2 className={styles.mainTitle}>
+              We move people through a clear phase flow from awareness to competence, leadership, and impact.
+            </h2>
+            <p className={styles.introText}>
+              See our program page to understand the whole system in one place. Click the link below to explore the full framework
+               and how the stages connect to each other.
+
+            </p>
+
+            <div className={styles.metricStrip}>
+              <div className={styles.metricCard}>
+                <strong>7</strong>
+                <span>Linked Phases</span>
+              </div>
+              <div className={styles.metricCard}>
+                <strong>1</strong>
+                <span>Connected Transformation Path</span>
+              </div>
+            </div>
+
+            <div className={styles.pathwayCard}>
+              <span className={styles.pathwayLabel}>Framework direction</span>
+              <p>Self-discovery</p>
+              <p>Skill formation</p>
+              <p>Leadership growth</p>
+              <p>Global relevance</p>
+            </div>
+
+            <Link className={styles.learnMore} to="/programs#stage-framework">
+              Explore Full Stage Framework
+              <FaArrowRight className={styles.arrowIcon} />
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className={styles.stageStream}
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className={styles.sliderMeta}>
+              <span className={styles.sliderLabel}>preview stages</span>
+              <span className={styles.sliderCount}>
+                {activeIndex + 1} / {stages.length}
+              </span>
+            </div>
+
+            <div className={styles.sliderViewport}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={stages[activeIndex].stage}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 50 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
+                >
+                  <ServiceCard stage={stages[activeIndex]} index={activeIndex} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className={styles.sliderDots} aria-label="Stage navigation">
+              {stages.map((stage, index) => (
+                <button
+                  key={stage.stage}
+                  type="button"
+                  className={index === activeIndex ? styles.activeDot : styles.dot}
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`Show stage ${stage.stage}`}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </motion.section>
   );
 };

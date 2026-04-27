@@ -1,9 +1,11 @@
 .appWrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background: #fff;
-  overflow-x: hidden;
+  width: min(100%, 1300px);
+  max-width: 1300px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  overflow-x: clip;
 }
 
 .pageContent {
@@ -11,36 +13,19 @@
   animation: fadeIn 0.5s ease-in-out;
 }
 
+.pageContent > section + section {
+  position: relative;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes slideInFromRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInFromLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
   }
 }
 
@@ -52,3 +37,8 @@
   animation: fadeIn 0.3s ease-in-out reverse;
 }
 
+@media (max-width: 1320px) {
+  .appWrapper {
+    box-shadow: none;
+  }
+}

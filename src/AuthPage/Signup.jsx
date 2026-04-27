@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaUser } from 'react-icons/fa';
 import AuthCard from '../components/AuthCard';
-
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 import styles from './Auth.module.css';
 
-import Header from './../components/Header.jsx';
-import Footer from './../components/Footer.jsx';
-
+const signupBenefits = [
+  'Create an editorial account that matches the public site identity',
+  'Start managing blog content with a clear and responsive form flow',
+  'Keep admin onboarding visually consistent across devices'
+];
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -25,21 +28,29 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
   };
+
+  const isFormValid = 
+    formData.fullName.trim() !== '' && 
+    formData.email.trim() !== '' && 
+    formData.password.trim() !== '' && 
+    formData.confirmPassword.trim() !== '';
 
   const validateForm = () => {
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return false;
     }
+
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters long');
       return false;
     }
+
     return true;
   };
 
@@ -58,25 +69,23 @@ const Signup = () => {
         method: 'POST',
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           full_name: formData.fullName,
           email: formData.email,
-          password: formData.password,
-        }),
+          password: formData.password
+        })
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Success - redirect to login or dashboard
         navigate('/login');
       } else {
-        // Error
         setError(data.message || 'Registration failed. Please try again.');
       }
-    } catch (err) {
+    } catch {
       setError('Network error. Please check your connection and try again.');
     } finally {
       setIsLoading(false);
@@ -84,124 +93,137 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.signupWraper}>
+    <div className={styles.authPage}>
+      <Header />
+      <main className={styles.authMain}>
+        <section className={styles.authHero}>
+          <div className={styles.authShell}>
+            <div className={styles.authCopy}>
+              <span className={styles.eyebrow}>Blog Signup</span>
+              <h1>Create a blog account that feels like part of the same GIGs Impact design system.</h1>
+              <p>
+                This signup flow now mirrors the visual rhythm of the public pages, so onboarding feels aligned
+                with the rest of the site from desktop to mobile.
+              </p>
 
-      <Header />  
-    <AuthCard
-      title="Join GigImpact"
-      subtitle="Create your account to get started"
-    >
-      <form className={styles.form} onSubmit={handleSubmit}>
-        {error && <div className={styles.error}>{error}</div>}
+              <div className={styles.statGrid}>
+                <div className={styles.statCard}>
+                  <strong>Brand</strong>
+                  <span>Consistent onboarding</span>
+                </div>
+                <div className={styles.statCard}>
+                  <strong>Clear</strong>
+                  <span>Responsive typography</span>
+                </div>
+              </div>
 
-        <motion.div
-          className={styles.inputGroup}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <FaUser className={styles.inputIcon} />
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Full name"
-            value={formData.fullName}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            aria-label="Full name"
-          />
-        </motion.div>
+              <ul className={styles.featureList}>
+                {signupBenefits.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
 
-        <motion.div
-          className={styles.inputGroup}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <FaEnvelope className={styles.inputIcon} />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email address"
-            value={formData.email}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            aria-label="Email address"
-          />
-        </motion.div>
+            <div className={styles.authPanel}>
+              <div className={styles.panelIntro}>
+                <span className={styles.sectionTag}>Create Account</span>
+                <h2>Set up your account and get ready to publish.</h2>
+              </div>
 
-        <motion.div
-          className={styles.inputGroup}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <FaLock className={styles.inputIcon} />
-          <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            aria-label="Password"
-          />
-          <button
-            type="button"
-            className={styles.passwordToggle}
-            onClick={() => setShowPassword(!showPassword)}
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
-          >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </button>
-        </motion.div>
+              <AuthCard title="Sign Up" subtitle="Create your admin account to start managing blog content.">
+                <form className={styles.form} onSubmit={handleSubmit}>
+                  {error && <div className={styles.error}>{error}</div>}
 
-        <motion.div
-          className={styles.inputGroup}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <FaLock className={styles.inputIcon} />
-          <input
-            type={showConfirmPassword ? 'text' : 'password'}
-            name="confirmPassword"
-            placeholder="Confirm password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            aria-label="Confirm password"
-          />
-          <button
-            type="button"
-            className={styles.passwordToggle}
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
-          >
-            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-          </button>
-        </motion.div>
+                  <motion.div className={styles.inputGroup}>
+                    <FaUser className={styles.inputIcon} />
+                    <input
+                      type="text"
+                      name="fullName"
+                      placeholder="Full name"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      className={styles.input}
+                      required
+                      aria-label="Full name"
+                    />
+                  </motion.div>
 
-        <motion.button
-          type="submit"
-          className={styles.submitBtn}
-          disabled={isLoading}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          {isLoading && <span className={styles.loadingSpinner}></span>}
-          {isLoading ? 'Creating Account...' : 'Create Account'}
-        </motion.button>
-      </form>
+                  <motion.div className={styles.inputGroup}>
+                    <FaEnvelope className={styles.inputIcon} />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email address"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={styles.input}
+                      required
+                      aria-label="Email address"
+                    />
+                  </motion.div>
 
-      <p className={styles.switchText}>
-        Already have an account?{' '}
-        <Link to="/login" className={styles.switchLink}>
-          Sign in here
-        </Link>
-      </p>
-    </AuthCard>
-    <Footer />
+                  <motion.div className={styles.inputGroup}>
+                    <FaLock className={styles.inputIcon} />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      placeholder="Password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      className={styles.input}
+                      required
+                      aria-label="Password"
+                    />
+                    <button
+                      type="button"
+                      className={styles.passwordToggle}
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </motion.div>
+
+                  <motion.div className={styles.inputGroup}>
+                    <FaLock className={styles.inputIcon} />
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      name="confirmPassword"
+                      placeholder="Confirm password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      className={styles.input}
+                      required
+                      aria-label="Confirm password"
+                    />
+                    <button
+                      type="button"
+                      className={styles.passwordToggle}
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </motion.div>
+
+                  <motion.button type="submit" className={styles.submitBtn} disabled={isLoading || !isFormValid}>
+                    {isLoading && <span className={styles.loadingSpinner} />}
+                    {isLoading ? 'Creating Account...' : 'Create Account'}
+                  </motion.button>
+                </form>
+
+                <p className={styles.switchText}>
+                  Already have an account?{' '}
+                  <Link to="/login" className={styles.switchLink}>
+                    Sign in here
+                  </Link>
+                </p>
+              </AuthCard>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
     </div>
   );
 };

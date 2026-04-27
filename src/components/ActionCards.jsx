@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { FaArrowRight, FaBook, FaGraduationCap, FaHandshake, FaUsers } from 'react-icons/fa';
 import styles from './ActionCards.module.css';
-import { FaUsers, FaHandshake, FaGraduationCap, FaBook } from 'react-icons/fa';
 import { siteData } from '../SiteData.js';
 
 const iconMap = {
@@ -36,88 +36,114 @@ const actionLinkMap = {
 };
 
 const ActionCards = () => {
+  const primaryAction = siteData.actions[0];
+  const primaryLink = actionLinkMap[primaryAction.title];
+
   return (
-    <motion.section 
-      id="bridge"
-      className={styles.section}
-      initial={{ backgroundColor: 'transparent' }}
-      whileInView={{ backgroundColor: '#fff' }}
-      transition={{ duration: 1 }}
-    >
-      <motion.h2 
-        className={styles.heading}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Bridge The Gap
-      </motion.h2>
-      <motion.p 
-        className={styles.subheading}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        At GIGs Impact Community, we are not waiting for change, we are
-creating an alternative system.
-      </motion.p>
-      <motion.div 
-        className={styles.grid}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.4 }}
-      >
-        {siteData.actions.map((action, index) => {
-          const IconComponent = iconMap[action.icon];
-          const actionLink = actionLinkMap[action.title] || { href: '/', label: action.title, external: false };
-          return (
-            <motion.div 
-              key={index} 
-              className={styles.card} 
-              style={{
-                backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${action.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-              initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <div className={styles.icon}>
-                {IconComponent && <IconComponent size={40} color="white" />}
+    <motion.section id="bridge" className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.shell}>
+          <motion.div
+            className={styles.introPanel}
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <span className={styles.kicker}>Bridge The Gap</span>
+            <h2 className={styles.heading}>
+              At GIGs Impact Community, we are not waiting for change, we are building it.
+            </h2>
+            <p className={styles.lead}>
+              Every path below opens a real next step
+              into community, partnership, learning, or insight.
+            </p>
+
+            <div className={styles.signalRow}>
+              <div className={styles.signalCard}>
+                <strong>4</strong>
+                <span>Clear ways to Engage</span>
               </div>
-              <motion.h3 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-              >
-                {action.title}
-              </motion.h3>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
-              >
-                {action.text}
-              </motion.p>
-              <motion.span 
-                className={styles.link}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.6 }}
-              >
-                {actionLink.external ? (
-                  <a href={actionLink.href} target="_blank" rel="noreferrer">
-                    {actionLink.label}
-                  </a>
-                ) : (
-                  <Link to={actionLink.href}>{actionLink.label}</Link>
-                )}
-              </motion.span>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+              <div className={styles.signalCard}>
+                <strong >1</strong>
+                <span>Shared Mission</span>
+              </div>
+            </div>
+
+            {primaryLink.external ? (
+              <a href={primaryLink.href} target="_blank" rel="noreferrer" className={styles.primaryCta}>
+                {primaryLink.label}
+                <FaArrowRight className={styles.primaryArrow} />
+              </a>
+            ) : (
+              <Link to={primaryLink.href} className={styles.primaryCta}>
+                {primaryLink.label}
+                <FaArrowRight className={styles.primaryArrow} />
+              </Link>
+            )}
+          </motion.div>
+
+          <motion.div
+            className={styles.actionDeck}
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {siteData.actions.map((action, index) => {
+              const IconComponent = iconMap[action.icon];
+              const actionLink = actionLinkMap[action.title] || {
+                href: '/',
+                label: action.title,
+                external: false
+              };
+
+              const buttonContent = (
+                <>
+                  {actionLink.label}
+                  <FaArrowRight className={styles.cardArrow} />
+                </>
+              );
+
+              return (
+                <motion.article
+                  key={action.title}
+                  className={styles.card}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                >
+                  <div className={styles.cardHeader}>
+                    <span className={styles.index}>0{index + 1}</span>
+                    <div className={styles.iconBackground}>
+                      {IconComponent && <IconComponent size={24} />}
+                    </div>
+                  </div>
+
+                  <div className={styles.textContent}>
+                    <h3 className={styles.cardTitle}>{action.title}</h3>
+                    <p className={styles.description}>{action.text}</p>
+                  </div>
+
+                  <div className={styles.ctaWrapper}>
+                    {actionLink.external ? (
+                      <a href={actionLink.href} target="_blank" rel="noreferrer" className={styles.ctaButton}>
+                        {buttonContent}
+                      </a>
+                    ) : (
+                      <Link to={actionLink.href} className={styles.ctaButton}>
+                        {buttonContent}
+                      </Link>
+                    )}
+                  </div>
+                </motion.article>
+              );
+            })}
+          </motion.div>
+        </div>
+      </div>
     </motion.section>
   );
 };

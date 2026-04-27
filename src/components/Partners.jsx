@@ -1,72 +1,75 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import styles from './Partners.module.css';
 
 const Partners = () => {
-  const values = ['"Integrity – Doing what is right, even when no one is watching"', '"Growth – Continuous personal and professional development', '"Independence – Building self-reliance through value creation"', '"Impact – Creating solutions that improve lives"', '"Community – Growing together and supporting one another"'];
+  const values = [
+    {
+      id: '01',
+      title: 'Integrity',
+      text: 'Doing what is right, even when no one is watching.'
+    },
+    {
+      id: '02',
+      title: 'Growth',
+      text: 'Continuous personal and professional development.'
+    },
+    {
+      id: '03',
+      title: 'Independence',
+      text: 'Building self-reliance through value creation.'
+    },
+    {
+      id: '04',
+      title: 'Impact',
+      text: 'Creating solutions that improve lives.'
+    },
+    {
+      id: '05',
+      title: 'Community',
+      text: 'Growing together and supporting one another.'
+    }
+  ];
+
   return (
-    <motion.section 
-      className={styles.partners}
-      initial={{ backgroundColor: 'transparent' }}
-      whileInView={{ backgroundColor: '#e0e0e0' }} // adjust
-      transition={{ duration: 1 }}
-    >
-      {/* Static background */}
-      <motion.div 
-        className={styles.bgImage}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-      />
-      <motion.div 
-        className={styles.content}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-      >
-        <motion.p 
-          className={styles.label}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          OUR CORE VALUES
-        </motion.p>
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          We Build a Talent-Driven Ecosystem
-        </motion.h2>
-        <motion.div 
-          className={styles.logoGrid}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
+    <motion.section className={styles.partners}>
+      <div className={styles.shell}>
+        <div className={styles.intro}>
+          <span className={styles.label}>Our Core Values</span>
+          <h2>We Build a Talent-Driven Ecosystem</h2>
+          <p>
+            GigImpact grows through principles that shape how we lead, build, and serve. These values guide our
+            programs, partnerships, and the kind of people we are raising.
+          </p>
+          <Link to="/about" className={styles.btn}>
+            Learn More About Our Mission
+          </Link>
+        </div>
+
+        <div className={styles.storyboard}>
           {values.map((value, index) => (
-            <motion.div 
-              key={value} 
-              className={styles.logoPlaceholder}
-              initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+            <article
+              key={value.id}
+              className={`${styles.valueCard} `}
             >
-              {value}
-            </motion.div>
+              <span className={styles.count}>{value.id}</span>
+              <h3>{value.title}</h3>
+              <p>{value.text}</p>
+            </article>
           ))}
-        </motion.div>
-        <motion.button 
-          className={styles.btn}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-        >
-          Learn More About Our Mission
-        </motion.button>
-      </motion.div>
+
+          <div className={styles.highlightPanel}>
+            <span className={styles.highlightTag}>Why it matters</span>
+            <p>
+              We are not just teaching skills. We are shaping disciplined, capable people who can create
+              opportunities, lead others, and sustain impact.
+            </p>
+          </div>
+        </div>
+      </div>
     </motion.section>
   );
 };
+
 export default Partners;

@@ -1,449 +1,81 @@
 .sectionWrapper {
-  position: relative;
-  padding: 80px 0;
-  background-color: #fff;
-  background-color: #3b5998;
-  background-color: #663b98;
-  background-color:#004ade; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* The light grey background bar behind the image */
-.greyBackground {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 80%;
-  height: 350px;
-  background-color: #f5f5f5;
-  z-index: 1;
+  padding: 36px 10%;
+  background: linear-gradient(180deg, var(--color-panel-soft) 0%, #ffffff 100%);
 }
 
 .container {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  max-width: 1100px;
-  width: 90%;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 16px;
+  align-items: stretch;
 }
 
-/* Floating White Card */
+.contentCard,
+.quotePanel {
+  border: 1px solid var(--color-border-soft);
+  border-radius: 16px;
+  background: #fff;
+}
+
 .contentCard {
-  background: white;
-  padding: 60px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
-  flex: 1;
-  max-width: 500px;
-  margin-right: -100px; /* Overlap effect */
+  padding: 24px;
 }
 
 .subtitle {
-  color: #3b5998;
-  font-weight: 600;
+  color: var(--color-accent-strong);
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 0.73rem;
+  letter-spacing: 0.09em;
   margin-bottom: 8px;
-  display: block;
+  display: inline-block;
 }
 
 .name {
-  color: #3b5998;
-  font-size: 32px;
-  margin-bottom: 20px;
-  margin-top: 0;
+  color: var(--color-text);
+  font-size: 1.55rem;
+  margin-bottom: 12px;
 }
 
 .description {
-  color: #777;
-  line-height: 1.6;
-  font-size: 15px;
-  margin-bottom: 20px;
+  color: var(--color-text-muted);
+  line-height: 1.72;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
 }
 
-/* Image Wrapper */
-.imageWrapper {
-  flex: 1;
+.quotePanel {
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: relative;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(35, 35, 255, 0.08) 0%, #fffde9 100%);
 }
 
-.founderImage {
-  width: 100%;
-  max-width: 400px;
-  display: block;
-  z-index: 2;
-}
-
-/* Small Quote/Testimonial Box */
-.quoteBox {
-  background: white;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  position: absolute;
-  left: 0;
-  bottom: -40px;
-  max-width: 180px;
-  text-align: center;
-  z-index: 3;
+.icon {
+  font-size: 2rem;
+  color: var(--color-primary);
+  line-height: 1;
 }
 
 .quoteText {
-  font-size: 12px;
-  color: #888;
+  color: #28406b;
   margin-top: 10px;
+  font-weight: 600;
 }
 
-/* Navigation Arrows */
-.navigation {
-  display: flex;
-  gap: 10px;
-  margin-top: 60px;
-}
-
-.navBtn {
-  background: none;
-  border: 2px solid #3b5998;
-  color: #3b5998;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Responsive adjustments */
-
-/* Large screens (1024px and up) */
-@media (min-width: 1024px) {
+@media (max-width: 900px) {
   .sectionWrapper {
-    padding: 80px 0;
+    padding: 30px 6%;
   }
 
   .container {
-    width: 90%;
-    max-width: 1100px;
-  }
-
-  .contentCard {
-    padding: 60px;
-    margin-right: -100px;
-  }
-
-  .name {
-    font-size: 32px;
-  }
-
-  .founderImage {
-    max-width: 400px;
-  }
-
-  .navigation {
-    margin-top: 60px;
+    grid-template-columns: 1fr;
   }
 }
 
-/* Tablets (769px to 1023px) */
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (max-width: 640px) {
   .sectionWrapper {
-    padding: 60px 20px;
-  }
-
-  .greyBackground {
-    width: 70%;
-    height: 300px;
-  }
-
-  .container {
-    width: 95%;
-    max-width: 1000px;
-  }
-
-  .contentCard {
-    padding: 45px;
-    margin-right: -50px;
-    max-width: 450px;
-  }
-
-  .name {
-    font-size: 28px;
-  }
-
-  .subtitle {
-    font-size: 13px;
-  }
-
-  .description {
-    font-size: 14px;
-  }
-
-  .founderImage {
-    max-width: 350px;
-  }
-
-  .quoteBox {
-    max-width: 160px;
-    padding: 18px;
-  }
-
-  .quoteText {
-    font-size: 11px;
-  }
-
-  .navigation {
-    margin-top: 50px;
-  }
-
-  .navBtn {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-/* Small tablets and large phones (481px to 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  .sectionWrapper {
-    padding: 50px 20px;
-  }
-
-  .greyBackground {
-    display: none;
-  }
-
-  .container {
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-    max-width: none;
-  }
-
-  .contentCard {
-    margin-right: 0;
-    margin-bottom: 40px;
-    padding: 40px;
-    max-width: 100%;
-  }
-
-  .name {
-    font-size: 26px;
-  }
-
-  .subtitle {
-    font-size: 12px;
-  }
-
-  .description {
-    font-size: 14px;
-  }
-
-  .imageWrapper {
-    width: 100%;
-  }
-
-  .founderImage {
-    max-width: 90%;
-  }
-
-  .quoteBox {
-    position: relative;
-    bottom: 0;
-    margin: 20px auto;
-    max-width: 250px;
-    width: 85%;
-  }
-
-  .navigation {
-    margin-top: 40px;
-    justify-content: center;
-  }
-
-  .navBtn {
-    width: 35px;
-    height: 35px;
-  }
-}
-
-/* Mobile phones (up to 480px) */
-@media (max-width: 480px) {
-  .sectionWrapper {
-    padding: 40px 15px;
-    background-color: #663b98;
-  }
-
-  .greyBackground {
-    display: none;
-  }
-
-  .container {
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-    max-width: none;
-  }
-
-  .contentCard {
-    margin-right: 0;
-    margin-bottom: 30px;
-    padding: 30px 20px;
-    max-width: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  .subtitle {
-    color: #3b5998;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 11px;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  .name {
-    color: #3b5998;
-    font-size: 22px;
-    margin-bottom: 15px;
-    margin-top: 0;
-  }
-
-  .description {
-    color: #777;
-    line-height: 1.6;
-    font-size: 13px;
-    margin-bottom: 15px;
-  }
-
-  .imageWrapper {
-    width: 100%;
-    position: relative;
-  }
-
-  .founderImage {
-    width: 100%;
-    max-width: 100%;
-    display: block;
-    z-index: 2;
-  }
-
-  .quoteBox {
-    background: white;
-    padding: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    position: relative;
-    bottom: 0;
-    margin: 20px auto 0;
-    max-width: 90%;
-    text-align: center;
-    z-index: 3;
-  }
-
-  .icon {
-    font-size: 24px;
-  }
-
-  .quoteText {
-    font-size: 11px;
-    color: #888;
-    margin-top: 8px;
-  }
-
-  .navigation {
-    display: flex;
-    gap: 10px;
-    margin-top: 30px;
-    justify-content: center;
-  }
-
-  .navBtn {
-    background: none;
-    border: 2px solid #3b5998;
-    color: #3b5998;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
-}
-
-/* Extra small phones (up to 375px) */
-@media (max-width: 375px) {
-  .sectionWrapper {
-    padding: 30px 12px;
-  }
-
-  .container {
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-  }
-
-  .contentCard {
-    margin-right: 0;
-    margin-bottom: 25px;
-    padding: 20px 15px;
-    max-width: 100%;
-  }
-
-  .subtitle {
-    font-size: 10px;
-    margin-bottom: 6px;
-  }
-
-  .name {
-    font-size: 18px;
-    margin-bottom: 12px;
-  }
-
-  .description {
-    font-size: 12px;
-    margin-bottom: 12px;
-    line-height: 1.5;
-  }
-
-  .imageWrapper {
-    width: 100%;
-  }
-
-  .founderImage {
-    width: 100%;
-  }
-
-  .quoteBox {
-    padding: 12px;
-    margin: 15px auto 0;
-    max-width: 95%;
-  }
-
-  .icon {
-    font-size: 20px;
-  }
-
-  .quoteText {
-    font-size: 10px;
-    margin-top: 6px;
-  }
-
-  .navigation {
-    margin-top: 25px;
-    gap: 8px;
-  }
-
-  .navBtn {
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
-    border-width: 2px;
+    padding: 24px 4%;
   }
 }

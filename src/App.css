@@ -1,13 +1,11 @@
 .appWrapper {
   width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden; /* Prevents horizontal scrolling on mobile */
-  background-color: #ffffff;
+  overflow-x: hidden;
+  background-color: var(--color-surface);
 }
 
-/* Global Container for consistent alignment */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -15,24 +13,21 @@
   padding: 0 20px;
 }
 
-/* Section Spacing Utility */
 main > section {
   margin-bottom: 20px;
 }
 
-/* Smooth Scrolling for the whole site */
 :global(html) {
   scroll-behavior: smooth;
 }
 
-/* Selection Color (Branding Touch) */
 ::selection {
-  background: #ffb400;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-text);
 }
 
 @media (max-width: 768px) {
   main > section {
-    margin-bottom: 0px; /* Tighter spacing for mobile */
+    margin-bottom: 0;
   }
 }
