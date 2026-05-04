@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import Sidebar from './SideBar.jsx';
 import Topbar from './TopBar.jsx';
 import styles from './Layout.module.css';
 
+const MOBILE_BREAKPOINT = 768;
+
 const Layout = ({ children, user, title, navItems = [] }) => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => window.innerWidth < 768);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => window.innerWidth <= MOBILE_BREAKPOINT);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_BREAKPOINT);
 
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth < 768;
+      const mobile = window.innerWidth <= MOBILE_BREAKPOINT;
       setIsMobile(mobile);
       if (!mobile) {
         setSidebarCollapsed(false);
@@ -25,7 +28,13 @@ const Layout = ({ children, user, title, navItems = [] }) => {
   };
 
   return (
-    <div className={`${styles.adminLayout} ${sidebarCollapsed ? styles.layoutCollapsed : ''}`}>
+    <div
+      className={[
+        styles.adminLayout,
+        sidebarCollapsed ? styles.layoutCollapsed : '',
+        isMobile && !sidebarCollapsed ? styles.mobileSidebarOpen : ''
+      ].filter(Boolean).join(' ')}
+    >
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggle={toggleSidebar}
@@ -37,7 +46,14 @@ const Layout = ({ children, user, title, navItems = [] }) => {
         <div className={styles.topbarShell}>
           <Topbar onMenuClick={toggleSidebar} user={user} title={title} />
         </div>
-        <div className={styles.pageContent}>{children}</div>
+        <motion.div
+          className={styles.pageContent}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+        >
+          {children}
+        </motion.div>
       </div>
     </div>
   );

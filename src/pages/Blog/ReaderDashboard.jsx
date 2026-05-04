@@ -6,35 +6,55 @@ import dashboardStyles from '../Admin/DashBoard.module.css';
 import { apiFetch } from '../../utils/apiClient.js';
 import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
 import { getReadingHistory } from '../../utils/readingHistory.js';
+// import PageLoader from '../../components/PageLoader.jsx';
+import { formatReadableDate } from '../../utils/date.js';
 
 const ReaderDashboard = ({ user }) => {
   const [latestPosts, setLatestPosts] = useState([]);
   const [history, setHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
 
   useEffect(() => {
     const loadReaderData = async () => {
       try {
+        setLoadError('');
         const data = await apiFetch('/api/posts?limit=6', {
           headers: {}
         });
         setLatestPosts(data.posts || []);
       } catch (error) {
         console.error(error);
+        setLoadError('We could not load the latest public posts right now.');
+      } finally {
+        setHistory(getReadingHistory());
+        setIsLoading(false);
       }
-
-      setHistory(getReadingHistory());
     };
 
     loadReaderData();
   }, []);
 
+  // Loader spinner removed for non-dashboard pages
+  if (isLoading) {
+    return (
+      <Layout user={user} title="Reader Dashboard" navItems={getNavigationForRole('reader')}>
+        <div style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+          <span className="inlineSpinner" style={{ width: 34, height: 34, border: '3px solid #eee', borderTop: '3px solid #1e5af3', borderRadius: '50%', animation: 'spin 0.85s linear infinite', display: 'inline-block' }} />
+          <p>Loading reader dashboard...</p>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout user={user} title="Reader Dashboard" navItems={getNavigationForRole('reader')}>
       <div className={dashboardStyles.dashboardPage}>
+        {loadError && <div className={dashboardStyles.errorBanner}>{loadError}</div>}
         <section className={dashboardStyles.heroSection}>
           <div className={dashboardStyles.heroContent}>
             <span className={dashboardStyles.eyebrow}>Reader Space</span>
-            <h1>Welcome to {user?.name}</h1>
+            <h1>Welcome {user?.name}</h1>
             <p>Keep track of what you have read, revisit recent articles, and continue exploring the public blog.</p>
           </div>
           <div className={dashboardStyles.heroAction}>
@@ -83,7 +103,7 @@ const ReaderDashboard = ({ user }) => {
                       <span className={dashboardStyles.postStatus}>Archived</span>
                     </div>
                     <p className={dashboardStyles.postMeta}>{post.category || 'General'}</p>
-                    <p className={dashboardStyles.postDate}>Read on {new Date(post.readAt).toLocaleDateString()}</p>
+                    <p className={dashboardStyles.postDate}>Read on {formatReadableDate(post.readAt)}</p>
                     <Link to={`/blog/${post.id}`} className={dashboardStyles.postLink}>Open again</Link>
                   </div>
                 ))}

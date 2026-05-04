@@ -1,22 +1,34 @@
+import { fetchCsrfToken } from './csrf.js';
+
 const buildApiUrl = (path) => `${import.meta.env.VITE_SERVER_URL}${path}`;
 
 let refreshPromise = null;
+const CSRF_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
-const createRequestOptions = (options = {}) => {
+const createRequestOptions = async (options = {}) => {
   const { skipAuthRefresh: _skipAuthRefresh, ...fetchOptions } = options;
-
-  return ({
-  credentials: 'include',
-  headers: {
+  const method = (fetchOptions.method || 'GET').toUpperCase();
+  const headers = {
     'Content-Type': 'application/json',
     ...(fetchOptions.headers || {})
-  },
-  ...fetchOptions
+  };
+
+  if (CSRF_METHODS.has(method) && !headers['X-CSRF-Token']) {
+    const csrfToken = await fetchCsrfToken();
+    if (csrfToken) {
+      headers['X-CSRF-Token'] = csrfToken;
+    }
+  }
+
+  return ({
+    credentials: 'include',
+    headers,
+    ...fetchOptions
   });
 };
 
-const request = (path, options = {}) =>
-  fetch(buildApiUrl(path), createRequestOptions(options));
+const request = async (path, options = {}) =>
+  fetch(buildApiUrl(path), await createRequestOptions(options));
 
 const parseResponse = async (response) => {
   const payload = await response.json().catch(() => null);

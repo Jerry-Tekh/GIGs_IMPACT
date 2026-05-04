@@ -1,4 +1,5 @@
-import { apiFetch, buildApiUrl, createRequestOptions } from './apiClient.js';
+import { apiFetch } from './apiClient.js';
+import { clearCsrfToken } from './csrf.js';
 
 export const normalizeAuthUser = (payload) => {
   if (!payload) {
@@ -23,13 +24,11 @@ export const fetchCurrentUser = async () => {
 };
 
 export const logoutUser = async () => {
-  await fetch(
-    buildApiUrl('/api/auth/logout'),
-    createRequestOptions({
-      method: 'POST',
-      skipAuthRefresh: true
-    })
-  );
+  await apiFetch('/api/auth/logout', {
+    method: 'POST',
+    skipAuthRefresh: true
+  });
+  clearCsrfToken();
   notifyAuthChanged();
 };
 

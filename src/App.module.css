@@ -8,6 +8,14 @@
   overflow-x: clip;
 }
 
+.publicShell {
+  width: 100%;
+}
+
+.publicPage {
+  flex: 1;
+}
+
 .pageContent {
   flex: 1;
   animation: fadeIn 0.5s ease-in-out;
@@ -15,6 +23,10 @@
 
 .pageContent > section + section {
   position: relative;
+}
+
+.publicPage section {
+  animation: sectionRise 0.65s ease both;
 }
 
 @keyframes fadeIn {
@@ -35,6 +47,18 @@
 
 .pageExit {
   animation: fadeIn 0.3s ease-in-out reverse;
+}
+
+@keyframes sectionRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1320px) {

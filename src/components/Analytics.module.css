@@ -21,10 +21,48 @@
 .topPostItem {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
   padding: 10px 0;
   border-bottom: 1px solid #eee;
 }
 
 .topPostItem:last-child {
   border-bottom: none;
+}
+
+.postTitle {
+  display: block;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.postDate {
+  display: block;
+  margin-top: 4px;
+  color: #64748b;
+}
+
+.panelState {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  color: #64748b;
+  text-align: center;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(30, 90, 243, 0.15);
+  border-top-color: #1e5af3;
+  animation: analytics-spin 0.8s linear infinite;
+}
+
+@keyframes analytics-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

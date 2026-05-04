@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import styles from './ContactPage.module.css';
 
 const contactCards = [
@@ -21,8 +21,22 @@ const contactCards = [
 ];
 
 const ContactPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    if (!status) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => setStatus(null), 5000);
+    return () => window.clearTimeout(timer);
+  }, [status]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setStatus(null);
 
     const formData = {
       name: e.target.name.value,
@@ -37,18 +51,28 @@ const ContactPage = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-
       const data = await res.json();
 
       if (res.ok) {
-        alert('Message sent successfully!');
+        setStatus({
+          type: 'success',
+          message: 'Your message has been sent successfully. We will get back to you soon.'
+        });
         e.target.reset();
       } else {
-        alert(data.message);
+        setStatus({
+          type: 'error',
+          message: data.message || 'We could not send your message right now. Please try again.'
+        });
       }
     } catch (error) {
       console.error(error);
-      alert('Something went wrong');
+      setStatus({
+        type: 'error',
+        message: 'Something went wrong. Please check your connection and try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -132,6 +156,19 @@ const ContactPage = () => {
           </article>
 
           <form className={styles.form} onSubmit={handleSubmit}>
+            <AnimatePresence>
+              {status && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  className={`${styles.status} ${status.type === 'success' ? styles.statusSuccess : styles.statusError}`}
+                >
+                  {status.message}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <div className={styles.formRow}>
               <label htmlFor="name">Full name</label>
               <input id="name" name="name" type="text" placeholder="Your name" required />
@@ -158,8 +195,8 @@ const ContactPage = () => {
               />
             </div>
 
-            <button type="submit" className={styles.submitButton}>
-              Send Message
+            <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>

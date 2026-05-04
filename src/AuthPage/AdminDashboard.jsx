@@ -5,6 +5,7 @@ import styles from './AdminDashboard.module.css';
 import Layout from '../components/Admin/Layout.jsx';
 import { FaFileAlt, FaTags, FaEye, FaPlus, FaArrowRight, FaEdit, FaChartBar, FaUsers, FaCog, FaArrowLeft } from 'react-icons/fa';
 import Analytics from '../components/Analytics.jsx';
+import { logoutUser } from '../utils/auth.js';
 
 const dashboardItems = [
   {
@@ -91,10 +92,7 @@ const AdminDashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/logout`, {
-        method: 'POST',
-        credentials: 'include'
-      });
+      await logoutUser();
       navigate('/');
     } catch (error) {
       console.error('Logout error:', error);

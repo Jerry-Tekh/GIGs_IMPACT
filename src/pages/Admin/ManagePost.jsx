@@ -99,7 +99,7 @@ const ManagePosts = ({ user }) => {
           <motion.div className={styles.heroContent} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className={styles.eyebrow}>Content Management</span>
             <h1>Review, edit, and publish all blog posts.</h1>
-            <p>Admin can manage direct posts and decide which author submissions move into public visibility.</p>
+            <p>Manage direct posts and decide which author submissions move into public visibility.</p>
           </motion.div>
         </section>
 

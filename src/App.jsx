@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import styles from './App.module.css';
 import useCurrentUser from './hooks/useCurrentUser.js';
 
@@ -31,6 +32,7 @@ import SinglePost from './pages/Blog/SinglePost.jsx';
 import Login from './AuthPage/Login.jsx';
 import Signup from './AuthPage/Signup.jsx';
 import ContactPage from './pages/Contact/ContactPage.jsx';
+// import PageLoader from './components/PageLoader.jsx';
 
 function ScrollToHash() {
   const location = useLocation();
@@ -53,6 +55,8 @@ function ScrollToHash() {
   return null;
 }
 
+// RouteLoader removed: global page loader spinner eliminated
+
 function HomeContent() {
   return (
     <main className={styles.pageContent}>
@@ -71,11 +75,18 @@ function HomeContent() {
 
 function PublicPage({ children }) {
   return (
-    <>
+    <div className={styles.publicShell}>
       <Header />
-      {children}
+      <motion.div
+        className={styles.publicPage}
+        initial={{ opacity: 0, y: 26 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        {children}
+      </motion.div>
       <Footer />
-    </>
+    </div>
   );
 }
 
@@ -220,6 +231,7 @@ function App() {
   return (
     <Router>
       <ScrollToHash />
+      
       <AppRoutes />
     </Router>
   );

@@ -5,6 +5,13 @@
   padding: 0 0 20px;
 }
 
+.errorBanner {
+  padding: 14px 16px;
+  border: 1px solid #fecaca;
+  background: #fff5f5;
+  color: #b91c1c;
+}
+
 .heroSection {
   padding: 32px;
   background:

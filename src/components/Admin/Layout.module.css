@@ -1,6 +1,8 @@
-﻿.adminLayout {
+.adminLayout {
   --sidebar-width: 228px;
   --sidebar-collapsed-width: 96px;
+  --content-gap: 20px;
+  --current-sidebar-width: var(--sidebar-width);
   display: block;
   min-height: 100vh;
   font-family: var(--font-base);
@@ -13,24 +15,22 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  margin-left: var(--sidebar-width);
-  padding: 20px;
+  margin-left: var(--current-sidebar-width);
+  padding: var(--content-gap);
+  transition: margin-left 0.3s ease;
 }
 
-.layoutCollapsed .mainContent {
-  margin-left: var(--sidebar-collapsed-width);
+.layoutCollapsed {
+  --current-sidebar-width: var(--sidebar-collapsed-width);
 }
 
 .topbarShell {
   position: fixed;
-  top: 20px;
-  left: calc(var(--sidebar-width) + 20px);
-  right: 20px;
+  top: var(--content-gap);
+  left: calc(var(--current-sidebar-width) + var(--content-gap));
+  right: var(--content-gap);
   z-index: 950;
-}
-
-.layoutCollapsed .topbarShell {
-  left: calc(var(--sidebar-collapsed-width) + 20px);
+  transition: left 0.3s ease, right 0.3s ease;
 }
 
 .pageContent {
@@ -48,20 +48,19 @@
 }
 
 @media (max-width: 768px) {
-  .mainContent {
-    margin-left: 0;
-    padding: 12px;
+  .adminLayout {
+    --content-gap: 12px;
+    --current-sidebar-width: 0px;
   }
 
-  .layoutCollapsed .mainContent {
-    margin-left: 0;
+  .mobileSidebarOpen {
+    --current-sidebar-width: min(88vw, 290px);
   }
 
-  .topbarShell,
-  .layoutCollapsed .topbarShell {
-    top: 12px;
-    left: 12px;
-    right: 12px;
+  .topbarShell {
+    top: var(--content-gap);
+    left: calc(var(--current-sidebar-width) + var(--content-gap));
+    right: var(--content-gap);
   }
 
   .pageContent {

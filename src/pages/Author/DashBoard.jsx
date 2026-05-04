@@ -5,17 +5,25 @@ import Layout from '../../components/Admin/Layout.jsx';
 import dashboardStyles from '../Admin/DashBoard.module.css';
 import { apiFetch } from '../../utils/apiClient.js';
 import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
+// import PageLoader from '../../components/PageLoader.jsx';
+import { formatReadableDate } from '../../utils/date.js';
 
 const AuthorDashboard = ({ user }) => {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
 
   useEffect(() => {
     const loadPosts = async () => {
       try {
+        setLoadError('');
         const data = await apiFetch('/api/posts/author/myposts');
         setPosts(data || []);
       } catch (error) {
         console.error(error);
+        setLoadError('We could not load your latest author activity right now.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -25,13 +33,26 @@ const AuthorDashboard = ({ user }) => {
   const approvedPosts = posts.filter((post) => post.is_published).length;
   const pendingPosts = posts.filter((post) => !post.is_published).length;
 
+  // Loader spinner removed for non-dashboard pages
+  if (isLoading) {
+    return (
+      <Layout user={user} title="Author Workspace" navItems={getNavigationForRole('author')}>
+        <div style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+          <span className="inlineSpinner" style={{ width: 34, height: 34, border: '3px solid #eee', borderTop: '3px solid #1e5af3', borderRadius: '50%', animation: 'spin 0.85s linear infinite', display: 'inline-block' }} />
+          <p>Loading author workspace...</p>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout user={user} title="Author Workspace" navItems={getNavigationForRole('author')}>
       <div className={dashboardStyles.dashboardPage}>
+        {loadError && <div className={dashboardStyles.errorBanner}>{loadError}</div>}
         <section className={dashboardStyles.heroSection}>
           <div className={dashboardStyles.heroContent}>
             <span className={dashboardStyles.eyebrow}>Author Studio</span>
-            <h1>Welcome to {user?.name}</h1>
+            <h1>Welcome {user?.name}</h1>
             <p>Create articles, track approval progress, and manage every post you have written.</p>
           </div>
           <div className={dashboardStyles.heroAction}>
@@ -83,7 +104,7 @@ const AuthorDashboard = ({ user }) => {
                     </div>
                     <p className={dashboardStyles.postMeta}>{post.category || 'General'}</p>
                     <p className={dashboardStyles.postDate}>
-                      {post.updated_at ? new Date(post.updated_at).toLocaleDateString() : 'Recently updated'}
+                      {post.updated_at ? formatReadableDate(post.updated_at) : 'Recently updated'}
                     </p>
                     <Link to="/author/posts" className={dashboardStyles.postLink}>
                       Manage post <FaArrowRight />

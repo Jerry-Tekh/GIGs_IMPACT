@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaArrowRight, FaCheckCircle, FaClock, FaFileAlt, FaTags, FaUsers } from 'react-icons/fa';
 import Layout from '../../components/Admin/Layout.jsx';
 import Analytics from '../../components/Analytics.jsx';
+
 import styles from './DashBoard.module.css';
 import { apiFetch } from '../../utils/apiClient.js';
 import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
@@ -15,10 +16,12 @@ const Dashboard = ({ user }) => {
   const [pendingCount, setPendingCount] = useState(0);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
 
   useEffect(() => {
     const loadDashboard = async () => {
       try {
+        setLoadError('');
         const [statsData, manageData, pendingData, usersData] = await Promise.all([
           apiFetch('/api/admin/stats'),
           apiFetch('/api/posts/manage'),
@@ -33,6 +36,7 @@ const Dashboard = ({ user }) => {
         setUsers(usersData.users || []);
       } catch (error) {
         console.error(error);
+        setLoadError('Dashboard data could not be loaded right now.');
       } finally {
         setLoading(false);
       }
@@ -49,13 +53,28 @@ const Dashboard = ({ user }) => {
     { admin: 0, author: 0, reader: 0 }
   );
 
+  // Inline loader for dashboard loading state
+  if (loading) {
+    return (
+      <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')}>
+        <div style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+          <span style={{ width: 52, height: 52, border: '4px solid #eee', borderTop: '4px solid #1e5af3', borderRadius: '50%', animation: 'spin 0.85s linear infinite', display: 'inline-block' }} />
+          <h2>Loading your dashboard</h2>
+          <p>We're pulling the latest posts, approvals, users, and analytics now.</p>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')}>
       <div className={styles.dashboardPage}>
+        {loadError && <div className={styles.errorBanner}>{loadError}</div>}
         <section className={styles.heroSection}>
           <motion.div className={styles.heroContent} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <span className={styles.eyebrow}>Editorial Control</span>
-            <h1>Welcome to {user?.name}</h1>
+            <h1>Welcome {user?.name}</h1>
             <p>Monitor publishing activity, review author submissions, and keep user roles organized from one admin workspace.</p>
           </motion.div>
 

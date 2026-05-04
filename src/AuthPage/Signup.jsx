@@ -6,12 +6,16 @@ import AuthCard from '../components/AuthCard';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import styles from './Auth.module.css';
+import { fetchCsrfToken, setCsrfToken } from '../utils/csrf.js';
 
 const signupBenefits = [
   'Create an editorial account that matches the public site identity',
   'Start managing blog content with a clear and responsive form flow',
   'Keep admin onboarding visually consistent across devices'
 ];
+
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 100;
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -46,8 +50,8 @@ const Signup = () => {
       return false;
     }
 
-    if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters long');
+    if (formData.password.length < MIN_PASSWORD_LENGTH || formData.password.length > MAX_PASSWORD_LENGTH) {
+      setError(`Password must be between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH} characters long`);
       return false;
     }
 
@@ -65,11 +69,13 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
+      const csrfToken = await fetchCsrfToken();
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/register`, {
         method: 'POST',
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
           full_name: formData.fullName,
@@ -81,6 +87,7 @@ const Signup = () => {
       const data = await response.json();
 
       if (response.ok) {
+        setCsrfToken(data?.csrfToken || csrfToken);
         navigate('/login');
       } else {
         setError(data.message || 'Registration failed. Please try again.');
@@ -172,6 +179,8 @@ const Signup = () => {
                       onChange={handleChange}
                       className={styles.input}
                       required
+                      minLength={MIN_PASSWORD_LENGTH}
+                      maxLength={MAX_PASSWORD_LENGTH}
                       aria-label="Password"
                     />
                     <button
@@ -194,6 +203,8 @@ const Signup = () => {
                       onChange={handleChange}
                       className={styles.input}
                       required
+                      minLength={MIN_PASSWORD_LENGTH}
+                      maxLength={MAX_PASSWORD_LENGTH}
                       aria-label="Confirm password"
                     />
                     <button

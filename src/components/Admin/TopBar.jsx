@@ -56,7 +56,7 @@ const Topbar = ({ onMenuClick, user, title }) => {
       <div className={styles.titleBlock}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.welcomeText}>
-          Welcome to {user?.name || 'your dashboard'}
+          Welcome {user?.name || 'your dashboard'}
         </p>
       </div>
 

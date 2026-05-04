@@ -5,6 +5,10 @@ import AuthCard from '../components/AuthCard';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import styles from './Auth.module.css';
+import { fetchCsrfToken, setCsrfToken } from '../utils/csrf.js';
+
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 100;
 
 const ForgotPassword = ({ onBackToLogin }) => {
   const [step, setStep] = useState(1); // 1: Email, 2: Code, 3: New Password
@@ -36,9 +40,14 @@ const ForgotPassword = ({ onBackToLogin }) => {
     setSuccess('');
 
     try {
+      const csrfToken = await fetchCsrfToken();
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/request-password-reset`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
         body: JSON.stringify({ email: formData.email })
       });
 
@@ -65,9 +74,14 @@ const ForgotPassword = ({ onBackToLogin }) => {
     setSuccess('');
 
     try {
+      const csrfToken = await fetchCsrfToken();
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/verify-reset-code`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
         body: JSON.stringify({ 
           email: formData.email,
           resetCode: formData.resetCode 
@@ -77,6 +91,7 @@ const ForgotPassword = ({ onBackToLogin }) => {
       const data = await response.json();
 
       if (response.ok) {
+        setCsrfToken(data?.csrfToken || csrfToken);
         setSuccess('Code verified! Set your new password.');
         setStep(3);
       } else {
@@ -102,16 +117,21 @@ const ForgotPassword = ({ onBackToLogin }) => {
       return;
     }
 
-    if (formData.newPassword.length < 6) {
-      setError('Password must be at least 6 characters long');
+    if (formData.newPassword.length < MIN_PASSWORD_LENGTH || formData.newPassword.length > MAX_PASSWORD_LENGTH) {
+      setError(`Password must be between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH} characters long`);
       setIsLoading(false);
       return;
     }
 
     try {
+      const csrfToken = await fetchCsrfToken();
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/reset-password`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
         body: JSON.stringify({ 
           email: formData.email,
           resetCode: formData.resetCode,
@@ -261,6 +281,8 @@ const ForgotPassword = ({ onBackToLogin }) => {
                           onChange={handleChange}
                           className={styles.input}
                           required
+                          minLength={MIN_PASSWORD_LENGTH}
+                          maxLength={MAX_PASSWORD_LENGTH}
                           aria-label="New password"
                         />
                         <button
@@ -283,6 +305,8 @@ const ForgotPassword = ({ onBackToLogin }) => {
                           onChange={handleChange}
                           className={styles.input}
                           required
+                          minLength={MIN_PASSWORD_LENGTH}
+                          maxLength={MAX_PASSWORD_LENGTH}
                           aria-label="Confirm password"
                         />
                         <button

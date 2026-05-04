@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Blog.module.css';
+// import PageLoader from '../../components/PageLoader.jsx';
+import { formatReadableDate } from '../../utils/date.js';
 
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -9,6 +11,9 @@ const Blog = () => {
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isCategoryLoading, setIsCategoryLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchPosts();
@@ -25,6 +30,8 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
+      setIsLoading(true);
+      setError('');
       let url = `${import.meta.env.VITE_SERVER_URL}/api/posts`;
       const params = new URLSearchParams();
 
@@ -42,17 +49,23 @@ const Blog = () => {
       setTotalPages(data.totalPages || 1);
     } catch (error) {
       console.error(error);
+      setError('We could not load the latest articles right now.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const fetchCategories = async () => {
     try {
+      setIsCategoryLoading(true);
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/categories`);
       const data = await res.json();
       const allCategories = [{ id: 'all', name: 'All Articles', slug: 'all' }, ...(data || [])];
       setCategories(allCategories);
     } catch (error) {
       console.error('Error fetching categories:', error);
+    } finally {
+      setIsCategoryLoading(false);
     }
   };
 
@@ -120,15 +133,22 @@ const Blog = () => {
           <div className={styles.categoryBlock}>
             <span className={styles.sectionTag}>Categories</span>
             <div className={styles.categoriesContainer}>
-              {categories.map((cat) => (
-                <button
-                  key={cat.slug || cat.value}
-                  className={`${styles.categoryBtn} ${activeCategory === (cat.slug || cat.value) ? styles.active : ''}`}
-                  onClick={() => setActiveCategory(cat.slug || cat.value)}
-                >
-                  {cat.name || cat.label}
-                </button>
-              ))}
+              {isCategoryLoading ? (
+                <div className={styles.inlineLoader}>
+                  <span className={styles.inlineSpinner} />
+                  <p>Loading categories...</p>
+                </div>
+              ) : (
+                categories.map((cat) => (
+                  <button
+                    key={cat.slug || cat.value}
+                    className={`${styles.categoryBtn} ${activeCategory === (cat.slug || cat.value) ? styles.active : ''}`}
+                    onClick={() => setActiveCategory(cat.slug || cat.value)}
+                  >
+                    {cat.name || cat.label}
+                  </button>
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -140,7 +160,16 @@ const Blog = () => {
           <h2>Stories, strategy, and practical learning surfaces.</h2>
         </div>
 
-        {filteredArticles.length > 0 ? (
+        {isLoading ? (
+          <div className={styles.inlineLoader}>
+            <span className={styles.inlineSpinner} />
+            <p>Loading blog articles...</p>
+          </div>
+        ) : error ? (
+          <div className={styles.noResults}>
+            <p>{error}</p>
+          </div>
+        ) : filteredArticles.length > 0 ? (
           <div className={styles.articlesGrid}>
             {filteredArticles.map((article, index) => (
               <article
@@ -148,14 +177,14 @@ const Blog = () => {
                 className={styles.articleCard}
                 style={{
                   backgroundImage: `linear-gradient(180deg, rgba(0, 22, 74, 0.14), rgba(0, 22, 74, 0.92)), url(${article.featured_image || ''})`,
-                  transform: index % 2 === 0 ? 'translateY(0)' : 'translateY(22px)'
+                  transform: index % 3 === 1 || index % 3 === 2 ? 'translateY(16px)' : 'translateY(0)'
                 }}
               >
                 <div className={styles.articleContent}>
                   <span className={styles.categoryTag}>{article.category || 'General'}</span>
 
                   <div className={styles.articleMeta}>
-                    <span>{new Date(article.published_at).toLocaleDateString()}</span>
+                    <span>{formatReadableDate(article.published_at)}</span>
                     <span>{article.read_time} min read</span>
                   </div>
 
@@ -179,7 +208,7 @@ const Blog = () => {
       </section>
 
       <div className={styles.pagination}>
-        {Array.from({ length: totalPages }, (_, i) => (
+        {!isLoading && Array.from({ length: totalPages }, (_, i) => (
           <button key={i} onClick={() => setPage(i + 1)} className={page === i + 1 ? styles.activePage : ''}>
             {i + 1}
           </button>

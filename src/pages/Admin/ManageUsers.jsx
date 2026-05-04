@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaUsers } from 'react-icons/fa';
+import { FaSearch, FaUsers } from 'react-icons/fa';
 import Layout from '../../components/Admin/Layout.jsx';
 import styles from './ManagePost.module.css';
 import { apiFetch } from '../../utils/apiClient.js';
 import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
+import { formatReadableDate } from '../../utils/date.js';
 
 const ManageUsers = ({ user }) => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
   const [savingUserId, setSavingUserId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [roleFilter, setRoleFilter] = useState('all');
 
   const fetchUsers = async () => {
     try {
@@ -43,6 +46,18 @@ const ManageUsers = ({ user }) => {
     }
   };
 
+  const filteredUsers = users.filter((member) => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const matchesQuery =
+      !normalizedQuery ||
+      member.full_name?.toLowerCase().includes(normalizedQuery) ||
+      member.email?.toLowerCase().includes(normalizedQuery);
+
+    const matchesRole = roleFilter === 'all' || member.role === roleFilter;
+
+    return matchesQuery && matchesRole;
+  });
+
   return (
     <Layout user={user} title="Manage Users" navItems={getNavigationForRole('admin')}>
       <div className={styles.managePage}>
@@ -50,14 +65,40 @@ const ManageUsers = ({ user }) => {
           <motion.div className={styles.heroContent} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className={styles.eyebrow}>Role Management</span>
             <h1>Assign admin, author, and reader access.</h1>
-            <p>Every registered account appears here so admin can manage who reads, writes, or controls the platform.</p>
+            <p>Manage every registered account to control who reads, writes, or controls the platform.</p>
           </motion.div>
         </section>
 
         <section className={styles.contentSection}>
           {error && <div className={styles.errorBanner}>{error}</div>}
 
-          {users.length > 0 ? (
+          <div className={styles.filterBar}>
+            <div className={styles.filterGroup}>
+              <FaSearch className={styles.searchIcon} />
+              <input
+                type="search"
+                className={styles.searchInput}
+                placeholder="Search by name or email"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+              />
+            </div>
+
+            <div className={styles.filterGroup}>
+              <select
+                className={styles.categorySelect}
+                value={roleFilter}
+                onChange={(event) => setRoleFilter(event.target.value)}
+              >
+                <option value="all">All roles</option>
+                <option value="admin">Admins</option>
+                <option value="author">Authors</option>
+                <option value="reader">Readers</option>
+              </select>
+            </div>
+          </div>
+
+          {filteredUsers.length > 0 ? (
             <div className={styles.tableContainer}>
               <div className={styles.tableWrapper}>
                 <table className={styles.table}>
@@ -70,11 +111,11 @@ const ManageUsers = ({ user }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((member) => (
+                    {filteredUsers.map((member) => (
                       <tr key={member.id}>
                         <td className={styles.titleCell}>{member.full_name}</td>
                         <td>{member.email}</td>
-                        <td className={styles.dateCell}>{new Date(member.created_at).toLocaleDateString()}</td>
+                        <td className={styles.dateCell}>{formatReadableDate(member.created_at)}</td>
                         <td>
                           <select
                             className={styles.categorySelect}
@@ -97,7 +138,7 @@ const ManageUsers = ({ user }) => {
             <div className={styles.emptyState}>
               <FaUsers />
               <h3>No users found</h3>
-              <p>Registered users will appear here.</p>
+              <p>No users match the current search or role filter.</p>
             </div>
           )}
         </section>

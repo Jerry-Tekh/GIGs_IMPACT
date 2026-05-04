@@ -143,9 +143,9 @@ const WhatWeDo = () => {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={stages[activeIndex].stage}
-                  initial={{ opacity: 0, x: -50 }}
+                  initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 50 }}
+                  exit={{ opacity: 0, x: -50 }}
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
                 >
                   <ServiceCard stage={stages[activeIndex]} index={activeIndex} />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { FaExclamationCircle } from 'react-icons/fa';
 import Layout from '../../components/Admin/Layout.jsx';
 import styles from './CreatePost.module.css';
 import { apiFetch } from '../../utils/apiClient.js';
@@ -16,6 +17,8 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
   const [categories, setCategories] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
+  const [submitFeedback, setSubmitFeedback] = useState(null);
+  const [feedbackCountdown, setFeedbackCountdown] = useState(0);
 
   const [form, setForm] = useState({
     title: '',
@@ -36,7 +39,11 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
         setCategories(data || []);
       } catch (err) {
         console.error(err);
-        setError('Failed to load categories');
+        setSubmitFeedback({
+          type: 'error',
+          title: 'Categories could not be loaded',
+          message: 'Refresh the page and try again. The editor needs categories before you can publish.'
+        });
       }
     };
 
@@ -58,6 +65,29 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
       is_published: existingPost.is_published !== false
     });
   }, [existingPost]);
+
+  useEffect(() => {
+    if (!submitFeedback || submitFeedback.type !== 'error') {
+      setFeedbackCountdown(0);
+      return undefined;
+    }
+
+    setFeedbackCountdown(5);
+
+    const intervalId = window.setInterval(() => {
+      setFeedbackCountdown((current) => {
+        if (current <= 1) {
+          window.clearInterval(intervalId);
+          setSubmitFeedback(null);
+          return 0;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [submitFeedback]);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -82,6 +112,7 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setSubmitFeedback(null);
 
     if (!form.title.trim()) {
       setError('Post title is required');
@@ -128,7 +159,12 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
       onClose();
     } catch (err) {
       console.error(err);
-      setError(err.message || 'Error saving post');
+      setSubmitFeedback({
+        type: 'error',
+        title: existingPost ? 'Changes were not saved' : isAuthor ? 'Post submission did not go through' : 'Post could not be published',
+        message: err.message || 'Please review your content, confirm your connection, and try again.',
+        hint: 'Your draft is still here, so you can fix the issue and submit again without losing your work.'
+      });
     } finally {
       setIsSaving(false);
     }
@@ -172,6 +208,23 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {error && <div className={styles.errorMessage}>{error}</div>}
+          {submitFeedback && (
+            <div className={styles.feedbackCard} role="alert">
+              <div className={styles.feedbackIcon}>
+                <FaExclamationCircle />
+              </div>
+              <div className={styles.feedbackContent}>
+                <strong>{submitFeedback.title}</strong>
+                <p>{submitFeedback.message}</p>
+                {submitFeedback.hint && <small>{submitFeedback.hint}</small>}
+                {feedbackCountdown > 0 && (
+                  <span className={styles.feedbackCountdown}>
+                    This message will close in {feedbackCountdown}s.
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className={styles.editor}>
             <motion.div className={styles.formGroup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
