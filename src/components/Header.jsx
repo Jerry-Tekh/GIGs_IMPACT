@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import styles from './Header.module.css';
 import logo from './../assets/logo.png';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { MdClose } from 'react-icons/md';
 import { smoothScrollToY } from '../utils/smoothScroll.js';
 
 const Header = () => {
@@ -31,54 +32,77 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
-    <motion.header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`} initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-      <motion.nav className={styles.navbar} transition={{ duration: 0.3 }}>
-        <div className={styles.logo}>
-          <NavLink to="/" onClick={() => { closeMenu(); scrollToTop(); }} className={styles.brandLink}>
-            <img src={logo} alt="Organization Logo" />
-          </NavLink>
-        </div>
+    <>
+      {isOpen && (
+        <motion.div
+          className={styles.backdrop}
+          onClick={closeMenu}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      )}
+      <motion.header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`} initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <motion.nav className={styles.navbar} transition={{ duration: 0.3 }}>
+          <div className={styles.logo}>
+            <NavLink to="/" onClick={() => { closeMenu(); scrollToTop(); }} className={styles.brandLink}>
+              <img src={logo} alt="Organization Logo" />
+            </NavLink>
+          </div>
 
-        <motion.button
-          className={styles.hamburger}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.94 }}
-        >
-          <RxHamburgerMenu />
-        </motion.button>
+          <motion.button
+            className={styles.hamburger}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.94 }}
+          >
+            {isOpen ? <MdClose /> : <RxHamburgerMenu />}
+          </motion.button>
 
-        <motion.ul className={`${styles.navLinks} ${isOpen ? styles.open : ''}`} initial={false} animate={{ opacity: 1 }}>
-          <li>
-            <NavLink to="/" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={() => { closeMenu(); scrollToTop(); }}>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/about" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/programs" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
-              Programs
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/blog" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
-              Blog
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={() => { closeMenu(); scrollToTop(); }}>
-              Contact
-            </NavLink>
-          </li>
-        </motion.ul>
-      </motion.nav>
-    </motion.header>
+          <motion.ul className={`${styles.navLinks} ${isOpen ? styles.open : ''}`} initial={false} animate={{ opacity: 1 }}>
+            <li>
+              <NavLink to="/" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={() => { closeMenu(); scrollToTop(); }}>
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/programs" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
+                Programs
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/blog" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
+                Blog
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={() => { closeMenu(); scrollToTop(); }}>
+                Contact
+              </NavLink>
+            </li>
+          </motion.ul>
+        </motion.nav>
+      </motion.header>
+    </>
   );
 };
 

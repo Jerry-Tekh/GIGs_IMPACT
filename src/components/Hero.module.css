@@ -142,8 +142,8 @@
 
 .topImg {
   position: absolute;
-  top: -24px;
-  right: -14px;
+  top: -60px;
+  right: -60px;
   width: 220px;
   background: #ffffff;
   border: 1px solid #dce7ff;
@@ -165,7 +165,7 @@
 
 .statBadge {
   position: absolute;
-  bottom: 16px;
+  bottom: -20px;
   left: -18px;
   background: #ffffff;
   padding: 16px;
