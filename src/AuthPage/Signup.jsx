@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaUser } from 'react-icons/fa';
@@ -28,7 +28,37 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [createdEmail, setCreatedEmail] = useState('');
+  const [redirectCountdown, setRedirectCountdown] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (redirectCountdown <= 0) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setRedirectCountdown((current) => {
+        if (current <= 1) {
+          window.clearInterval(timer);
+          navigate('/login', {
+            state: {
+              feedback: {
+                type: 'success',
+                message: 'Account created successfully. Verify your email address, then sign in.'
+              }
+            }
+          });
+          return 0;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [navigate, redirectCountdown]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +91,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
 
     if (!validateForm()) {
       return;
@@ -88,7 +119,9 @@ const Signup = () => {
 
       if (response.ok) {
         setCsrfToken(data?.csrfToken || csrfToken);
-        navigate('/login');
+        setCreatedEmail(data?.data?.email || formData.email);
+        setSuccess(data.message || 'Account created successfully. Please check your email to verify your account.');
+        setRedirectCountdown(4);
       } else {
         setError(data.message || 'Registration failed. Please try again.');
       }
@@ -140,6 +173,18 @@ const Signup = () => {
               <AuthCard title="Sign Up" subtitle="Create your admin account to start managing blog content.">
                 <form className={styles.form} onSubmit={handleSubmit}>
                   {error && <div className={styles.error}>{error}</div>}
+                  {success && (
+                    <div className={styles.success}>
+                      <strong>Account created successfully.</strong>
+                      <div className={styles.feedbackDetail}>
+                        We sent a verification email to {createdEmail}. Please open it and verify your account before
+                        signing in.
+                      </div>
+                      <div className={styles.feedbackDetail}>
+                        Redirecting to login in {redirectCountdown}s...
+                      </div>
+                    </div>
+                  )}
 
                   <motion.div className={styles.inputGroup}>
                     <FaUser className={styles.inputIcon} />
@@ -217,7 +262,11 @@ const Signup = () => {
                     </button>
                   </motion.div>
 
-                  <motion.button type="submit" className={styles.submitBtn} disabled={isLoading || !isFormValid}>
+                  <motion.button
+                    type="submit"
+                    className={styles.submitBtn}
+                    disabled={isLoading || !isFormValid || Boolean(success)}
+                  >
                     {isLoading && <span className={styles.loadingSpinner} />}
                     {isLoading ? 'Creating Account...' : 'Create Account'}
                   </motion.button>

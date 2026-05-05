@@ -1,38 +1,18 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaEnvelope } from 'react-icons/fa';
 import AuthCard from '../components/AuthCard';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import styles from './Auth.module.css';
-import { fetchCsrfToken, setCsrfToken } from '../utils/csrf.js';
-
-const MIN_PASSWORD_LENGTH = 8;
-const MAX_PASSWORD_LENGTH = 100;
+import { fetchCsrfToken } from '../utils/csrf.js';
 
 const ForgotPassword = ({ onBackToLogin }) => {
-  const [step, setStep] = useState(1); // 1: Email, 2: Code, 3: New Password
-  const [formData, setFormData] = useState({
-    email: '',
-    resetCode: '',
-    newPassword: '',
-    confirmPassword: ''
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  // Step 1: Request password reset
   const handleRequestReset = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -48,130 +28,22 @@ const ForgotPassword = ({ onBackToLogin }) => {
           'Content-Type': 'application/json',
           'X-CSRF-Token': csrfToken
         },
-        body: JSON.stringify({ email: formData.email })
+        body: JSON.stringify({ email })
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('Reset code sent to your email');
-        setStep(2);
+        setSuccess(data.message || 'If email exists, a password reset link has been sent.');
       } else {
-        setError(data.message || 'Failed to send reset code');
+        setError(data.message || 'Failed to send password reset link');
       }
-    } catch (error) {
+    } catch {
       setError('Network error. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-
-  // Step 2: Verify reset code
-  const handleVerifyCode = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
-    setSuccess('');
-
-    try {
-      const csrfToken = await fetchCsrfToken();
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/verify-reset-code`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({ 
-          email: formData.email,
-          resetCode: formData.resetCode 
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setCsrfToken(data?.csrfToken || csrfToken);
-        setSuccess('Code verified! Set your new password.');
-        setStep(3);
-      } else {
-        setError(data.message || 'Invalid or expired code');
-      }
-    } catch (error) {
-      setError('Network error. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Step 3: Reset password
-  const handleResetPassword = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
-    setSuccess('');
-
-    if (formData.newPassword !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      setIsLoading(false);
-      return;
-    }
-
-    if (formData.newPassword.length < MIN_PASSWORD_LENGTH || formData.newPassword.length > MAX_PASSWORD_LENGTH) {
-      setError(`Password must be between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH} characters long`);
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const csrfToken = await fetchCsrfToken();
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/reset-password`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({ 
-          email: formData.email,
-          resetCode: formData.resetCode,
-          newPassword: formData.newPassword
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess('Password reset successful! Redirecting to login...');
-        setTimeout(() => {
-          onBackToLogin();
-        }, 2000);
-      } else {
-        setError(data.message || 'Failed to reset password');
-      }
-    } catch (error) {
-      setError('Network error. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleBackStep = () => {
-    if (step > 1) {
-      setStep(step - 1);
-      setError('');
-      setSuccess('');
-    } else {
-      onBackToLogin();
-    }
-  };
-
-  const isStepValid =
-    step === 1
-      ? formData.email.trim() !== ''
-      : step === 2
-        ? formData.resetCode.trim() !== ''
-        : formData.newPassword.trim() !== '' && formData.confirmPassword.trim() !== '';
 
   return (
     <div className={styles.authPage}>
@@ -186,160 +58,83 @@ const ForgotPassword = ({ onBackToLogin }) => {
               transition={{ duration: 0.7 }}
             >
               <span className={styles.eyebrow}>Password Recovery</span>
-              <h1>Reset your password in just a few steps</h1>
+              <h1>Reset your password from a secure email link</h1>
               <p>
-                Forgot your password? No problem. We'll send you a verification code to your registered email
-                address, and you can set a new password in minutes.
+                Enter your email address and we will send a time-limited reset link you can use to choose a new
+                password securely.
               </p>
 
               <div className={styles.statGrid}>
                 <div className={styles.statCard}>
-                  <strong>3</strong>
-                  <span>Simple steps</span>
+                  <strong>1</strong>
+                  <span>Email step</span>
                 </div>
                 <div className={styles.statCard}>
                   <strong>Secure</strong>
-                  <span>Email verification</span>
+                  <span>Token-based reset</span>
                 </div>
               </div>
 
               <ul className={styles.featureList}>
-                <li>✓ Verify your email identity</li>
-                <li>✓ Receive a 6-digit reset code</li>
-                <li>✓ Create a new secure password</li>
+                <li>Enter the email address linked to your account</li>
+                <li>Open the reset link we send to your inbox</li>
+                <li>Choose a new password and sign back in</li>
               </ul>
             </motion.div>
 
             <div className={styles.authPanel}>
               <div className={styles.panelIntro}>
                 <span className={styles.sectionTag}>Recovery</span>
-                <h2>
-                  {step === 1 && 'Enter your email'}
-                  {step === 2 && 'Verify your code'}
-                  {step === 3 && 'Create new password'}
-                </h2>
+                <h2>Send a reset link to your email</h2>
               </div>
 
-              <AuthCard 
-                title={step === 1 ? 'Enter Email' : step === 2 ? 'Enter Code' : 'New Password'}
-                subtitle={
-                  step === 1 ? 'We\'ll send a code to your registered email'
-                  : step === 2 ? 'Check your email for the 6-digit code'
-                  : 'Choose a strong password'
-                }
+              <AuthCard
+                title="Forgot Password"
+                subtitle="We will send a password reset link if the email is registered."
               >
-                <form className={styles.form} onSubmit={
-                  step === 1 ? handleRequestReset
-                  : step === 2 ? handleVerifyCode
-                  : handleResetPassword
-                }>
+                <form className={styles.form} onSubmit={handleRequestReset}>
                   {error && <div className={styles.error}>{error}</div>}
-                  {success && <div className={styles.success}>{success}</div>}
-
-                  {step === 1 && (
-                    <motion.div className={styles.inputGroup}>
-                      <FaEnvelope className={styles.inputIcon} />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email address"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className={styles.input}
-                        required
-                        aria-label="Email address"
-                      />
-                    </motion.div>
+                  {success && (
+                    <div className={styles.success}>
+                      <strong>Check your email.</strong>
+                      <div className={styles.feedbackDetail}>{success}</div>
+                      <div className={styles.feedbackDetail}>
+                        Open the link in the email to continue resetting your password.
+                      </div>
+                    </div>
                   )}
 
-                  {step === 2 && (
-                    <motion.div className={styles.inputGroup}>
-                      <FaLock className={styles.inputIcon} />
-                      <input
-                        type="text"
-                        name="resetCode"
-                        placeholder="Enter 6-digit code"
-                        value={formData.resetCode}
-                        onChange={handleChange}
-                        className={styles.input}
-                        required
-                        maxLength="6"
-                        aria-label="Reset code"
-                      />
-                    </motion.div>
-                  )}
-
-                  {step === 3 && (
-                    <>
-                      <motion.div className={styles.inputGroup}>
-                        <FaLock className={styles.inputIcon} />
-                        <input
-                          type={showPassword ? 'text' : 'password'}
-                          name="newPassword"
-                          placeholder="New password"
-                          value={formData.newPassword}
-                          onChange={handleChange}
-                          className={styles.input}
-                          required
-                          minLength={MIN_PASSWORD_LENGTH}
-                          maxLength={MAX_PASSWORD_LENGTH}
-                          aria-label="New password"
-                        />
-                        <button
-                          type="button"
-                          className={styles.passwordToggle}
-                          onClick={() => setShowPassword(!showPassword)}
-                          aria-label={showPassword ? 'Hide password' : 'Show password'}
-                        >
-                          {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </button>
-                      </motion.div>
-
-                      <motion.div className={styles.inputGroup}>
-                        <FaLock className={styles.inputIcon} />
-                        <input
-                          type={showConfirmPassword ? 'text' : 'password'}
-                          name="confirmPassword"
-                          placeholder="Confirm password"
-                          value={formData.confirmPassword}
-                          onChange={handleChange}
-                          className={styles.input}
-                          required
-                          minLength={MIN_PASSWORD_LENGTH}
-                          maxLength={MAX_PASSWORD_LENGTH}
-                          aria-label="Confirm password"
-                        />
-                        <button
-                          type="button"
-                          className={styles.passwordToggle}
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
-                        >
-                          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                        </button>
-                      </motion.div>
-                    </>
-                  )}
+                  <motion.div className={styles.inputGroup}>
+                    <FaEnvelope className={styles.inputIcon} />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={styles.input}
+                      required
+                      aria-label="Email address"
+                    />
+                  </motion.div>
 
                   <motion.button
                     type="submit"
                     className={styles.submitBtn}
-                    disabled={isLoading || !isStepValid}
+                    disabled={isLoading || email.trim() === ''}
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                   >
                     {isLoading && <span className={styles.loadingSpinner}></span>}
-                    {step === 1 && 'Send Code'}
-                    {step === 2 && 'Verify Code'}
-                    {step === 3 && 'Reset Password'}
+                    {isLoading ? 'Sending Link...' : 'Send Reset Link'}
                   </motion.button>
 
                   <button
                     type="button"
-                    onClick={handleBackStep}
+                    onClick={() => onBackToLogin()}
                     className={styles.backBtn}
                   >
-                    <FaArrowLeft /> {step === 1 ? 'Back to Login' : 'Back'}
+                    <FaArrowLeft /> Back to Login
                   </button>
                 </form>
               </AuthCard>

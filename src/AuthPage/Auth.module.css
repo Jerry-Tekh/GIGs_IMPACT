@@ -35,7 +35,7 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: var(--fs-label);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
 }
 
 .eyebrow {
@@ -48,7 +48,7 @@
 
 .authCopy h1 {
   color: #ffffff;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-size: var(--fs-h1);
 }
 
 .authCopy p {
@@ -70,7 +70,7 @@
 
 .statCard strong {
   display: block;
-  font-size: 1.3rem;
+  font-size: var(--fs-h3);
   color: #ffffff;
 }
 
@@ -106,7 +106,7 @@
 
 .panelIntro h2 {
   color: #ffffff;
-  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-size: var(--fs-h3);
 }
 
 .container {
@@ -125,7 +125,7 @@
 }
 
 .title {
-  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-size: var(--fs-h2);
   color: #161625;
   margin-bottom: 8px;
 }
@@ -167,7 +167,7 @@
   top: 50%;
   transform: translateY(-50%);
   color: #6b7280;
-  font-size: 1rem;
+  font-size: var(--fs-body);
 }
 
 .passwordToggle {
@@ -179,7 +179,7 @@
   border: none;
   color: #6b7280;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: var(--fs-body);
 }
 
 .passwordToggle:hover {
@@ -209,11 +209,12 @@
   justify-content: center;
   width: 100%;
   border: none;
-  padding: 15px 24px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   background: var(--color-accent);
   color: #181810;
   box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -243,12 +244,12 @@
   margin-top: 1.4rem;
   color: #5d677c;
   /*font-size: var(--fs-body-sm);*/
-  font-size: 0.8rem;
+  font-size: var(--fs-button);
 }
 
 .switchLink {
   color: #1e5af3;
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
 }
 
 .switchLink:hover {
@@ -266,9 +267,9 @@
   background: none;
   border: none;
   color: #1e5af3;
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: var(--fs-body-sm);
   transition: color 0.2s ease;
 }
 
@@ -295,6 +296,21 @@
   margin-bottom: 1rem;
 }
 
+.feedbackDetail {
+  margin-top: 0.45rem;
+  line-height: 1.6;
+}
+
+.infoNotice {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid #dce7ff;
+  background: #f8fbff;
+  color: #1f3b82;
+}
+
 .rateLimitNotice {
   padding: 0.9rem 1rem;
   border: 1px solid #fde68a;
@@ -305,19 +321,45 @@
 
 .backBtn {
   width: 100%;
-  padding: 12px 16px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   background: transparent;
   border: 1px solid #dce7ff;
   color: #1e5af3;
   border-radius: 4px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   transition: all 0.2s ease;
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
+}
+
+.authActionStack {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.secondaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
+  border: 1px solid #dce7ff;
+  color: #1e5af3;
+  background: #ffffff;
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.secondaryAction:hover {
+  background: #f3f7ff;
+  border-color: #1e5af3;
 }
 
 .backBtn:hover {

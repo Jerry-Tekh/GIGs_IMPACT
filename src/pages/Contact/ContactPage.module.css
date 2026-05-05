@@ -35,7 +35,7 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: var(--fs-label);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
 }
 
 .eyebrow,
@@ -51,7 +51,7 @@
 .heroCopy h1 {
   margin: 18px 0;
   color: #ffffff;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-size: var(--fs-h1);
 }
 
 .heroCopy p,
@@ -73,8 +73,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 24px;
-  font-weight: 700;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
+  font-weight: var(--fw-semibold);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -116,31 +117,33 @@
 .heroPanel h2 {
   margin: 14px 0;
   color: #ffffff;
-   font-size: clamp(1.3rem, 3vw, 2.3rem);
+   font-size: var(--fs-h2);
 }
 
 .heroStats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
   margin-top: 24px;
 }
 
 .heroStats div {
-  padding: 16px;
-  background: rgba(6, 16, 60, 0.28);
-  border-left: 4px solid var(--color-accent);
+  padding: 0;
 }
 
 .heroStats strong {
   display: block;
-  font-size: 1.5rem;
+  font-size: var(--fs-h3);
   color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .heroStats span {
-  color: rgba(255, 255, 255, 0.72);
-  font-size: var(--fs-body-sm);
+  color: rgba(255, 255, 255, 0.74);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
 }
 
 .infoSection,
@@ -218,7 +221,7 @@
 .status {
   border: 1px solid transparent;
   padding: 14px 16px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   line-height: 1.6;
 }
 
@@ -240,7 +243,7 @@
 }
 
 .formRow label {
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: #161625;
 }
 

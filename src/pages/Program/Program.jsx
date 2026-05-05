@@ -139,7 +139,7 @@ const Program = () => {
             </p>
             <div className={styles.heroActions}>
               <a className={styles.primaryBtn} href="#stage-framework">
-                View 7-Stage Framework
+                View Seven-Stage Framework
               </a>
               <a className={styles.secondaryBtn} href="#program-catalog">
                 Explore Program Tracks
@@ -156,11 +156,11 @@ const Program = () => {
             </p>
             <div className={styles.heroStats}>
               <div>
-                <strong>7</strong>
+                <strong>Seven</strong>
                 <span>framework stages</span>
               </div>
               <div>
-                <strong>6+</strong>
+                <strong>Six Plus</strong>
                 <span>program tracks</span>
               </div>
             </div>
@@ -170,7 +170,7 @@ const Program = () => {
 
       <section className={styles.frameworkSection} id="stage-framework">
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionTag}>7-Stage Framework</span>
+          <span className={styles.sectionTag}>Seven-Stage Framework</span>
           <h2>The full journey from self-awareness to lifelong impact.</h2>
           <p>
             Every stage below expands our framework.

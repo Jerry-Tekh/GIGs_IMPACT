@@ -1,4 +1,4 @@
-﻿.section {
+.section {
   padding: 84px 8%;
   background: #080811;
     background: linear-gradient(140deg, var(--color-primary) 0%, var(--color-secondary) 100%);
@@ -23,15 +23,15 @@
   display: inline-block;
   margin-bottom: 14px;
   color: #ffe27a;
-  font-size: 0.8rem;
-  font-weight: 800;
+  font-size: var(--fs-button);
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .sectionIntro h2 {
   color: #ffffff;
-  font-size: clamp(1.95rem, 4vw, 3rem);
+  font-size: var(--fs-h1);
   line-height: 1.1;
   margin-bottom: 14px;
 }
@@ -39,16 +39,16 @@
 .sectionIntro p {
   color: rgba(255, 255, 255, 0.76);
   line-height: 1.8;
-  font-size: clamp(0.96rem, 1.5vw, 1.04rem);
+  font-size: var(--fs-body);
 }
 
 .kicker {
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 0.74rem;
+  font-size: var(--fs-caption);
   color: var(--color-accent);
   margin-bottom: 10px;
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
 }
 
 .formCard,
@@ -66,7 +66,7 @@
 .formCard h3 {
   color: #ffffff;
   margin-bottom: 8px;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-size: var(--fs-h2);
 }
 
 .formCard p {
@@ -104,7 +104,7 @@
   border: none;
   border-radius: 0;
   color: #181810;
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   cursor: pointer;
@@ -133,7 +133,7 @@
 .infoCol h4 {
   color: #ffffff;
   margin-bottom: 18px;
-  font-size: 1.35rem;
+  font-size: var(--fs-h3);
 }
 
 .infoCol ul {
@@ -156,7 +156,7 @@
   border: 1px solid rgba(255, 219, 36, 0.3);
   background: rgba(255, 219, 36, 0.08);
   color: var(--color-accent);
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   text-align: center;
   padding: 12px 12px;
 }

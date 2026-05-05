@@ -35,7 +35,7 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: var(--fs-label);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
 }
 
 .eyebrow,
@@ -50,7 +50,7 @@
 .heroCopy h1 {
   margin: 18px 0;
   color: #ffffff;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-size: var(--fs-h1);
 }
 
 .heroCopy p,
@@ -101,7 +101,7 @@
 .heroPanel h2 {
   margin: 14px 0;
   color: #ffffff;
-  font-size: clamp(1.3rem, 3vw, 2.3rem);
+  font-size: var(--fs-h2);
 }
 
 .heroStats {
@@ -119,7 +119,7 @@
 
 .heroStats strong {
   display: block;
-  font-size: 1.3rem;
+  font-size: var(--fs-h3);
   color: #ffffff;
 }
 
@@ -211,11 +211,12 @@
   align-items: center;
   justify-content: center;
   margin-top: 18px;
-  padding: 15px 24px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   background: var(--color-accent);
   color: #181810;
   box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   transition: transform 0.2s ease;
 }
 

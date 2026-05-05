@@ -32,7 +32,7 @@
   background: #ffffff;
   border: 1px solid rgba(35, 35, 255, 0.12);
   color: var(--color-primary-deep);
-  font-size: 1.1rem;
+  font-size: var(--fs-h4);
   cursor: pointer;
   padding: 0;
   border-radius: 0;
@@ -57,7 +57,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px 10px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   border-radius: 0;
   transition: background 0.2s ease;
   text-decoration: none;
@@ -76,8 +77,8 @@
 }
 
 .logoText {
-  font-size: 1.04rem;
-  font-weight: 700;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
   color: var(--color-primary-deep);
   letter-spacing: 0.3px;
   white-space: nowrap;
@@ -86,8 +87,8 @@
 .title {
   margin: 0;
   color: var(--color-text);
-  font-size: 1.18rem;
-  font-weight: 700;
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
 }
 
 .titleBlock {
@@ -99,8 +100,8 @@
 .welcomeText {
   margin: 4px 0 0;
   color: var(--color-text-muted);
-  font-size: 0.86rem;
-  font-weight: 500;
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-medium);
 }
 
 .blogBtn,
@@ -108,12 +109,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 16px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   border-radius: 0;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 0.88rem;
+  font-size: var(--fs-body-sm);
   font-family: inherit;
   text-decoration: none;
 }
@@ -143,7 +145,7 @@
 
 .blogBtn svg,
 .logoutBtn svg {
-  font-size: 1rem;
+  font-size: var(--fs-body);
 }
 
 @media (max-width: 768px) {
@@ -162,7 +164,7 @@
   }
 
   .title {
-    font-size: 1rem;
+    font-size: var(--fs-body);
   }
 
   .welcomeText {
@@ -172,7 +174,7 @@
   .blogBtn,
   .logoutBtn {
     padding: 9px 12px;
-    font-size: 0.8rem;
+    font-size: var(--fs-button);
   }
 
   .blogBtn span,
@@ -182,7 +184,7 @@
 
   .blogBtn svg,
   .logoutBtn svg {
-    font-size: 1rem;
+    font-size: var(--fs-body);
     margin: 0;
   }
 }
@@ -201,6 +203,6 @@
   }
 
   .title {
-    font-size: 0.96rem;
+    font-size: var(--fs-body);
   }
 }

@@ -1,4 +1,4 @@
-﻿.analytics {
+.analytics {
   margin-top: 30px;
   display: grid;
   gap: 20px;
@@ -33,7 +33,7 @@
 
 .postTitle {
   display: block;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: #0f172a;
 }
 

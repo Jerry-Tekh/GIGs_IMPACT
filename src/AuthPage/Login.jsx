@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
 import AuthCard from '../components/AuthCard';
@@ -8,7 +8,7 @@ import Footer from '../components/Footer.jsx';
 import ForgotPassword from './ForgotPassword';
 import styles from './Auth.module.css';
 import { getDashboardPath, notifyAuthChanged } from '../utils/auth.js';
-import { fetchCsrfToken, setCsrfToken } from '../utils/csrf.js';
+import { clearCsrfToken, fetchCsrfToken, setCsrfToken } from '../utils/csrf.js';
 
 const loginBenefits = [
   'Manage blog publishing and editorial updates',
@@ -30,7 +30,18 @@ const Login = () => {
   const [error, setError] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [retryAfterSeconds, setRetryAfterSeconds] = useState(0);
+  const [feedback, setFeedback] = useState('');
+  const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location.state?.feedback?.message) {
+      return;
+    }
+
+    setFeedback(location.state.feedback.message);
+    navigate(location.pathname, { replace: true, state: null });
+  }, [location.pathname, location.state, navigate]);
 
   useEffect(() => {
     if (retryAfterSeconds <= 0) {
@@ -87,6 +98,10 @@ const Login = () => {
     }
   };
 
+  const isCsrfError = (response, data) =>
+    response.status === 403 &&
+    ['CSRF token missing', 'Invalid CSRF token'].includes(data?.message);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -96,23 +111,37 @@ const Login = () => {
 
     setIsLoading(true);
     setError('');
+    setFeedback('');
 
     try {
-      const csrfToken = await fetchCsrfToken();
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/login`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        })
+      const loginPayload = JSON.stringify({
+        email: formData.email,
+        password: formData.password
       });
 
-      const data = await parseResponseBody(response);
+      const attemptLogin = async (csrfToken) => {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/login`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+          body: loginPayload
+        });
+
+        const data = await parseResponseBody(response);
+        return { response, data };
+      };
+
+      let csrfToken = await fetchCsrfToken();
+      let { response, data } = await attemptLogin(csrfToken);
+
+      if (isCsrfError(response, data)) {
+        clearCsrfToken();
+        csrfToken = await fetchCsrfToken({ force: true });
+        ({ response, data } = await attemptLogin(csrfToken));
+      }
 
       if (response.ok) {
         setRetryAfterSeconds(0);
@@ -145,7 +174,14 @@ const Login = () => {
   };
 
   if (showForgotPassword) {
-    return <ForgotPassword onBackToLogin={() => setShowForgotPassword(false)} />;
+    return (
+      <ForgotPassword
+        onBackToLogin={(nextFeedback) => {
+          setShowForgotPassword(false);
+          setFeedback(nextFeedback || '');
+        }}
+      />
+    );
   }
 
   return (
@@ -188,6 +224,7 @@ const Login = () => {
 
               <AuthCard title="Login" subtitle="Use your registered blog admin account details.">
                 <form className={styles.form} onSubmit={handleSubmit}>
+                  {feedback && <div className={styles.success}>{feedback}</div>}
                   {error && <div className={styles.error}>{error}</div>}
                   {retryAfterSeconds > 0 && (
                     <div className={styles.rateLimitNotice}>

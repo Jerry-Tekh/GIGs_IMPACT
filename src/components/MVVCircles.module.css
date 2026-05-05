@@ -1,13 +1,13 @@
-﻿.mvvWrapper {
+.mvvWrapper {
   width: 100%;
   position: relative;
   text-align: left;
 }
 
 .mainHeading {
-  font-size: 1.5rem;
+  font-size: var(--fs-h3);
   color: #666;
-  font-weight: bold;
+  font-weight: var(--fw-semibold);
   letter-spacing: 1px;
   margin-bottom: 30px;
 }
@@ -44,8 +44,8 @@
   border-radius: 50%;
   border: none;
   color: white;
-  font-weight: bold;
-  font-size: 1.4rem;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-h3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,13 +88,13 @@
 }
 
 .textDisplay h3 {
-  font-size: 1.2rem;
+  font-size: var(--fs-h4);
   color: #a32a29; /* Mission Red */
   margin-bottom: 10px;
 }
 
 .textDisplay p {
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   color: #666;
   line-height: 1.6;
 }
@@ -102,7 +102,7 @@
 /* Adjust layout on smaller devices */
 @media (max-width: 600px) {
   .diagramContainer { height: 300px; }
-  .circle { width: 120px; height: 120px; font-size: 1.1rem; }
+  .circle { width: 120px; height: 120px; font-size: var(--fs-h4); }
   .green { left: 10px; }
   .orange { right: 10px; }
 }

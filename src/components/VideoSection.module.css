@@ -1,4 +1,4 @@
-﻿.videoSection {
+.videoSection {
   padding: 80px 10% 30px;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: var(--fs-h1);
   color: #e68a00;
   flex: 1;
   line-height: 1;
@@ -18,7 +18,7 @@
 
 .description {
   flex: 1;
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.6;
 }
 
@@ -50,7 +50,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 2rem;
+  font-size: var(--fs-h1);
   z-index: 2;
   cursor: pointer;
 }
@@ -67,7 +67,7 @@
     height: 300px;
   }
   .title {
-    font-size: 1.5rem;
+    font-size: var(--fs-h3);
   }
 }
 

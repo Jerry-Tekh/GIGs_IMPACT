@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styles from './App.module.css';
 import useCurrentUser from './hooks/useCurrentUser.js';
 
@@ -16,30 +16,32 @@ import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
+import { smoothScrollToElement, smoothScrollToY } from './utils/smoothScroll.js';
 
-import Dashboard from './pages/Admin/DashBoard.jsx';
-import CreatePost from './pages/Admin/CreatePost.jsx';
-import ManagePosts from './pages/Admin/ManagePost.jsx';
-import ManageUsers from './pages/Admin/ManageUsers.jsx';
-import AuthorDashboard from './pages/Author/DashBoard.jsx';
-import AuthorManagePost from './pages/Author/ManagePost.jsx';
-import AuthorCreatePost from './pages/Author/CreatePost.jsx';
-import ReaderDashboard from './pages/Blog/ReaderDashboard.jsx';
-import AboutPage from './pages/About/AboutPage.jsx';
-import Program from './pages/Program/Program.jsx';
-import Blog from './pages/Blog/Blog.jsx';
-import SinglePost from './pages/Blog/SinglePost.jsx';
-import Login from './AuthPage/Login.jsx';
-import Signup from './AuthPage/Signup.jsx';
-import ContactPage from './pages/Contact/ContactPage.jsx';
-// import PageLoader from './components/PageLoader.jsx';
+const Dashboard = lazy(() => import('./pages/Admin/DashBoard.jsx'));
+const CreatePost = lazy(() => import('./pages/Admin/CreatePost.jsx'));
+const ManagePosts = lazy(() => import('./pages/Admin/ManagePost.jsx'));
+const ManageUsers = lazy(() => import('./pages/Admin/ManageUsers.jsx'));
+const AuthorDashboard = lazy(() => import('./pages/Author/DashBoard.jsx'));
+const AuthorManagePost = lazy(() => import('./pages/Author/ManagePost.jsx'));
+const AuthorCreatePost = lazy(() => import('./pages/Author/CreatePost.jsx'));
+const ReaderDashboard = lazy(() => import('./pages/Blog/ReaderDashboard.jsx'));
+const AboutPage = lazy(() => import('./pages/About/AboutPage.jsx'));
+const Program = lazy(() => import('./pages/Program/Program.jsx'));
+const Blog = lazy(() => import('./pages/Blog/Blog.jsx'));
+const SinglePost = lazy(() => import('./pages/Blog/SinglePost.jsx'));
+const Login = lazy(() => import('./AuthPage/Login.jsx'));
+const Signup = lazy(() => import('./AuthPage/Signup.jsx'));
+const VerifyEmail = lazy(() => import('./AuthPage/VerifyEmail.jsx'));
+const ResetPassword = lazy(() => import('./AuthPage/ResetPassword.jsx'));
+const ContactPage = lazy(() => import('./pages/Contact/ContactPage.jsx'));
 
 function ScrollToHash() {
   const location = useLocation();
 
   useEffect(() => {
     if (!location.hash) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      smoothScrollToY(0);
       return;
     }
 
@@ -47,7 +49,7 @@ function ScrollToHash() {
     const element = document.getElementById(id);
     if (element) {
       setTimeout(() => {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        smoothScrollToElement(element, 100);
       }, 50);
     }
   }, [location]);
@@ -90,80 +92,97 @@ function PublicPage({ children }) {
   );
 }
 
+function RouteFallback() {
+  return (
+    <div className={styles.routeFallback} role="status" aria-live="polite">
+      <div className={styles.routeFallbackCard}>
+        <span className={styles.routeFallbackSpinner} />
+        <p>Loading page...</p>
+      </div>
+    </div>
+  );
+}
+
+function withRouteSuspense(element) {
+  return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
+}
+
 function AppRoutes() {
   const { user, isLoading, refreshUser } = useCurrentUser();
 
   return (
     <div className={styles.appWrapper}>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={withRouteSuspense(<Login />)} />
+        <Route path="/signup" element={withRouteSuspense(<Signup />)} />
+        <Route path="/verify-email/:token" element={withRouteSuspense(<VerifyEmail />)} />
+        <Route path="/reset-password/:token" element={withRouteSuspense(<ResetPassword />)} />
 
         <Route
           path="/admin/dashboard"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['admin']}>
               <Dashboard user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
-          }
+          )}
         />
         <Route
           path="/admin/createPost"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['admin']}>
               <CreatePost user={user} />
             </RoleProtectedRoute>
-          }
+          )}
         />
         <Route
           path="/admin/posts"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['admin']}>
               <ManagePosts user={user} />
             </RoleProtectedRoute>
-          }
+          )}
         />
         <Route
           path="/admin/users"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['admin']}>
               <ManageUsers user={user} />
             </RoleProtectedRoute>
-          }
+          )}
         />
 
         <Route
           path="/author/dashboard"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['author']}>
               <AuthorDashboard user={user} />
             </RoleProtectedRoute>
-          }
+          )}
         />
         <Route
           path="/author/createPost"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['author']}>
               <AuthorCreatePost user={user} />
             </RoleProtectedRoute>
-          }
+          )}
         />
         <Route
           path="/author/posts"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['author']}>
               <AuthorManagePost user={user} />
             </RoleProtectedRoute>
-          }
+          )}
         />
 
         <Route
           path="/reader/dashboard"
-          element={
+          element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['reader']}>
               <ReaderDashboard user={user} />
             </RoleProtectedRoute>
-          }
+          )}
         />
 
         <Route
@@ -176,43 +195,43 @@ function AppRoutes() {
         />
         <Route
           path="/about"
-          element={
+          element={withRouteSuspense(
             <PublicPage>
               <AboutPage />
             </PublicPage>
-          }
+          )}
         />
         <Route
           path="/programs"
-          element={
+          element={withRouteSuspense(
             <PublicPage>
               <Program />
             </PublicPage>
-          }
+          )}
         />
         <Route
           path="/blog"
-          element={
+          element={withRouteSuspense(
             <PublicPage>
               <Blog />
             </PublicPage>
-          }
+          )}
         />
         <Route
           path="/blog/:id"
-          element={
+          element={withRouteSuspense(
             <PublicPage>
               <SinglePost />
             </PublicPage>
-          }
+          )}
         />
         <Route
           path="/contact"
-          element={
+          element={withRouteSuspense(
             <PublicPage>
               <ContactPage />
             </PublicPage>
-          }
+          )}
         />
         <Route
           path="*"

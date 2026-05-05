@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import founderImage from '../../assets/Founder.jpg';
 import { siteData } from '../../SiteData.js';
 import styles from './AboutPage.module.css';
+import { smoothScrollToElement, smoothScrollToY } from '../../utils/smoothScroll.js';
 
 const aboutTabs = {
   mission:
@@ -33,15 +34,23 @@ const impactCards = [
   }
 ];
 
+const founderStoryLines = [
+  "I didn't start from abundance. I started from questions.",
+  "I saw talents wasting. I saw people waiting. I saw a system that wasn't creating enough opportunities. And I realized something: change will not come from waiting, it will come from building.",
+  'GIGs Impact Community is not just an organization. It is a movement to help people discover who they are, use what they have, and create something meaningful from it.',
+  "You don't need everything to start. You just need to start with what you have.",
+  'Stay with us. You will discover something about your life.'
+];
+
 const About = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('mission');
 
-  const frameworkPreview = useMemo(() => siteData.programs.stages.slice(0, 3), []);
+  const frameworkPreview = useMemo(() => siteData.programs.stages.slice(0, 2), []);
 
   useEffect(() => {
     if (!location.hash) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      smoothScrollToY(0);
       return;
     }
 
@@ -49,7 +58,7 @@ const About = () => {
     const element = document.getElementById(id);
     if (element) {
       setTimeout(() => {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        smoothScrollToElement(element, 100);
       }, 50);
     }
   }, [location]);
@@ -86,11 +95,11 @@ const About = () => {
 
             <div className={styles.heroStats}>
               <div>
-                <strong>3</strong>
+                <strong>Three</strong>
                 <span>core anchors</span>
               </div>
               <div>
-                <strong>7</strong>
+                <strong>Seven</strong>
                 <span>growth stages</span>
               </div>
             </div>
@@ -102,8 +111,8 @@ const About = () => {
         <section className={styles.storySection} id="our-story">
           <div className={styles.storyGrid}>
             <div className={styles.storyCopy}>
-              <span className={styles.sectionTag}>Our Community</span>
-              <h2>We build people, pathways, and real opportunities for impact.</h2>
+              <span className={styles.sectionTag}>Founder&apos;s Story</span>
+              <h2>What began with hard questions became a movement built to unlock unused potential.</h2>
               <p>
                 GIGs Impact Community was born from a deep personal journey. The founder grew up in Agric
                 Quarters, Coal Camp, Enugu State, where opportunities were limited and survival often shaped what
@@ -139,12 +148,12 @@ const About = () => {
                 <img src={founderImage} alt="Founder of GIGs Impact Community" className={styles.profileImg} />
                 <div className={styles.floatingCard}>
                   <span className={styles.panelCaption}>Founder Story</span>
-                  <h3>Built from lived experience and a commitment to lasting change.</h3>
-                  <ul className={styles.featureList}>
-                    <li>Built from lived experience</li>
-                    <li>Focused on unused potential</li>
-                    <li>Committed to lasting impact</li>
-                  </ul>
+                  <h3>"You don't need everything to start. You just need to start with what you have."</h3>
+                  <div className={styles.storyQuote}>
+                    {founderStoryLines.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -199,6 +208,18 @@ const About = () => {
                 </div>
               </article>
             ))}
+
+            <article className={`${styles.frameworkCard} ${styles.frameworkCtaCard}`}>
+              <span className={styles.stageIndex}>Full Journey</span>
+             
+              <p>
+                Explore all seven stages and see how the full development path moves from self-discovery to
+                lifelong impact.
+              </p>
+              <Link to="/programs#stage-framework" className={styles.frameworkCtaBtn}>
+                View Seven-Stage Framework
+              </Link>
+            </article>
           </div>
         </section>
 
@@ -207,8 +228,8 @@ const About = () => {
             <span className={styles.sectionTagLight}>Founder&apos;s Message</span>
             <h2>Change will come from building.</h2>
             <p>
-              &quot;I didn&apos;t start from abundance. I started from questions. I saw talents wasting. I saw people
-              waiting. And I realized something, change will come from building.&quot;
+              The work of this community starts with a simple belief: people do not need perfect conditions to
+              begin. They need clarity, structure, and the courage to start with what they already have.
             </p>
             <Link to="/contact" className={styles.primaryBtn}>
               Connect With Us

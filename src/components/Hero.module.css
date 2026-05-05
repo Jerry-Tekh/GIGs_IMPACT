@@ -32,15 +32,16 @@
 .kicker {
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: clamp(0.72rem, 1vw, 0.8rem);
-  font-weight: 700;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
   color: #dce7ff;
+    color: var(--color-primary);
   margin-bottom: 16px;
 }
 
 .title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-semibold);
   color: #ffffff;
   line-height: 1.15;
   margin-bottom: 20px;
@@ -51,8 +52,9 @@
 }
 
 .description {
-  font-size: clamp(0.98rem, 1.6vw, 1.06rem);
+  font-size: var(--fs-body);
   color: #eef3ff;
+   color: var(--color-accent);
   margin-bottom: 30px;
   max-width: 590px;
   line-height: 1.8;
@@ -67,8 +69,9 @@
 .primaryBtn,
 .videoBtn {
   border-radius: 0;
-  font-weight: 700;
-  padding: 12px 20px;
+  font-weight: var(--fw-semibold);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -97,7 +100,7 @@
 }
 
 .playIcon {
-  font-size: 0.76rem;
+  font-size: var(--fs-caption);
 }
 
 .imageGrid {
@@ -122,15 +125,15 @@
 
 .panelLabel {
   text-transform: uppercase;
-  font-size: 0.73rem;
+  font-size: var(--fs-caption);
   letter-spacing: 0.12em;
   color: var(--color-accent-strong);
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
 }
 
 .mainImg h3 {
   margin: 10px 0;
-  font-size: clamp(1.2rem, 2vw, 1.35rem);
+  font-size: var(--fs-h4);
 }
 
 .mainImg p {
@@ -149,13 +152,13 @@
 }
 
 .topImg h4 {
-  font-size: clamp(0.95rem, 1.4vw, 1rem);
+  font-size: var(--fs-body);
   margin-bottom: 6px;
   color: var(--color-text);
 }
 
 .topImg p {
-  font-size: clamp(0.88rem, 1.3vw, 0.92rem);
+  font-size: var(--fs-body-sm);
   color: #6b7280;
   line-height: 1.7;
 }
@@ -172,11 +175,11 @@
 
 .statBadge h3 {
   color: var(--color-primary);
-  font-size: 1.2rem;
+  font-size: var(--fs-h4);
 }
 
 .statBadge p {
-  font-size: clamp(0.8rem, 1.2vw, 0.84rem);
+  font-size: var(--fs-caption);
   color: #6b7280;
 }
 
@@ -194,7 +197,7 @@
   border: 2px solid #fff;
   display: grid;
   place-items: center;
-  font-size: 0.7rem;
+  font-size: var(--fs-caption);
   color: var(--color-text);
   margin-left: -6px;
 }

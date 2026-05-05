@@ -1,8 +1,45 @@
-﻿import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import styles from './Hero.module.css';
 import { siteData } from '../SiteData.js';
+
+const CountUpStat = ({ end, suffix = '' }) => {
+  const [value, setValue] = useState(0);
+  const counterRef = useRef(null);
+  const isInView = useInView(counterRef, { once: true, amount: 0.6 });
+
+  useEffect(() => {
+    if (!isInView) {
+      return undefined;
+    }
+
+    const duration = 1600;
+    let animationFrameId = 0;
+    const startTime = window.performance.now();
+
+    const updateValue = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(end * eased));
+
+      if (progress < 1) {
+        animationFrameId = window.requestAnimationFrame(updateValue);
+      }
+    };
+
+    animationFrameId = window.requestAnimationFrame(updateValue);
+
+    return () => window.cancelAnimationFrame(animationFrameId);
+  }, [end, isInView]);
+
+  return (
+    <span ref={counterRef}>
+      {value}
+      {suffix}
+    </span>
+  );
+};
 
 const Hero = () => {
   return (
@@ -49,7 +86,9 @@ const Hero = () => {
           </div>
 
           <div className={styles.statBadge}>
-            <h3>150+</h3>
+            <h3>
+              <CountUpStat end={150} suffix="+" />
+            </h3>
             <p>Happy Volunteers</p>
             <div className={styles.avatars}>
               <div className={styles.avatar}>A</div>

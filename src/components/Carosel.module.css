@@ -20,15 +20,15 @@
   display: inline-block;
   margin-bottom: 10px;
   color: var(--color-accent);
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .heading {
   color: #ffffff;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--fs-h1);
 }
 
 .controls {
@@ -38,13 +38,14 @@
 
 .navButton {
   min-width: 82px;
-  padding: 12px 16px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: transparent;
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.76rem;
+  font-size: var(--fs-caption);
   cursor: pointer;
 }
 
@@ -97,14 +98,14 @@
   gap: 10px;
   margin-bottom: 18px;
   color: var(--color-accent);
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .content h3 {
-  font-size: clamp(2rem, 4vw, 3.3rem);
+  font-size: var(--fs-h1);
   line-height: 1.08;
   margin-bottom: 14px;
 }
@@ -154,7 +155,7 @@
 }
 
 .railCopy strong {
-  font-size: 0.96rem;
+  font-size: var(--fs-body);
 }
 
 .railCopy small {

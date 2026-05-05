@@ -15,7 +15,7 @@ const iconMap = {
 const actionLinkMap = {
   'Join the Community': {
     href: 'https://chat.whatsapp.com/BkmArlYRcTu8xHNnFQpSD1?mode=gi_t',
-    label: 'Join WhatsApp Community',
+    label: 'Join Community',
     external: true
   },
   'Partner With Us': {
@@ -61,11 +61,11 @@ const ActionCards = () => {
 
             <div className={styles.signalRow}>
               <div className={styles.signalCard}>
-                <strong>4</strong>
+                <strong>Four</strong>
                 <span>Clear ways to Engage</span>
               </div>
               <div className={styles.signalCard}>
-                <strong >1</strong>
+                <strong >One</strong>
                 <span>Shared Mission</span>
               </div>
             </div>

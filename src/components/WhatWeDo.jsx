@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
+  FaArrowLeft,
   FaArrowRight,
   FaBullhorn,
   FaComments,
@@ -71,9 +72,17 @@ const WhatWeDo = () => {
   const stages = siteData.programs.stages.slice(0, 7);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const showPreviousStage = () => {
+    setActiveIndex((currentIndex) => (currentIndex === 0 ? stages.length - 1 : currentIndex - 1));
+  };
+
+  const showNextStage = () => {
+    setActiveIndex((currentIndex) => (currentIndex + 1) % stages.length);
+  };
+
   useEffect(() => {
     const intervalId = window.setInterval(() => {
-      setActiveIndex((currentIndex) => (currentIndex + 1) % stages.length);
+      showNextStage();
     }, 3200);
 
     return () => window.clearInterval(intervalId);
@@ -100,7 +109,7 @@ const WhatWeDo = () => {
 
             </p>
 
-            <div className={styles.metricStrip}>
+           {/* <div className={styles.metricStrip}>
               <div className={styles.metricCard}>
                 <strong>7</strong>
                 <span>Linked Phases</span>
@@ -109,7 +118,7 @@ const WhatWeDo = () => {
                 <strong>1</strong>
                 <span>Connected Transformation Path</span>
               </div>
-            </div>
+            </div>*/}
 
             <div className={styles.pathwayCard}>
               <span className={styles.pathwayLabel}>Framework direction</span>
@@ -134,23 +143,28 @@ const WhatWeDo = () => {
           >
             <div className={styles.sliderMeta}>
               <span className={styles.sliderLabel}>preview stages</span>
-              <span className={styles.sliderCount}>
-                {activeIndex + 1} / {stages.length}
-              </span>
+              <div className={styles.sliderControls}>
+                <button type="button" className={styles.sliderControlBtn} onClick={showPreviousStage} aria-label="Previous stage">
+                  <FaArrowLeft />
+                </button>
+                <button type="button" className={styles.sliderControlBtn} onClick={showNextStage} aria-label="Next stage">
+                  <FaArrowRight />
+                </button>
+              </div>
             </div>
 
             <div className={styles.sliderViewport}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={stages[activeIndex].stage}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.5, ease: 'easeInOut' }}
-                >
-                  <ServiceCard stage={stages[activeIndex]} index={activeIndex} />
-                </motion.div>
-              </AnimatePresence>
+              <motion.div
+                className={styles.sliderTrack}
+                animate={{ x: `-${activeIndex * 100}%` }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {stages.map((stage, index) => (
+                  <div key={stage.stage} className={styles.slide}>
+                    <ServiceCard stage={stage} index={index} />
+                  </div>
+                ))}
+              </motion.div>
             </div>
 
             <div className={styles.sliderDots} aria-label="Stage navigation">

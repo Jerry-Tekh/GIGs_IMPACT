@@ -102,17 +102,17 @@ const ContactPage = () => {
             <span className={styles.panelLabel}>Response Promise</span>
             <h2>We aim to make every conversation clear and action-oriented.</h2>
             <p>
-              Use the form below to reach us . We will respond within 1 business day
+              Use the form below to reach us . We will respond within one business day
               and guide you on the next steps to get your questions answered, ideas
             </p>
 
             <div className={styles.heroStats}>
               <div>
-                <strong>1 Day</strong>
+                <strong>One Day</strong>
                 <span>Effective Response</span>
               </div>
               <div>
-                <strong>3</strong>
+                <strong>Three</strong>
                 <span>Ways to connect</span>
               </div>
             </div>

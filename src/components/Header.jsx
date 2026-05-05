@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import styles from './Header.module.css';
 import logo from './../assets/logo.png';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { smoothScrollToY } from '../utils/smoothScroll.js';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,10 +14,7 @@ const Header = () => {
   const closeMenu = () => setIsOpen(false);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    smoothScrollToY(0);
   };
 
   useEffect(() => {

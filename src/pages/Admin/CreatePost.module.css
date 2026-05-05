@@ -1,4 +1,4 @@
-﻿/* PAGE WRAPPER */
+/* PAGE WRAPPER */
 .pageWrapper {
   width: 100%;
   max-width: 100%;
@@ -57,22 +57,22 @@
 }
 
 .headerContent h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: var(--fs-h2);
   color: var(--color-text);
   margin: 0 0 8px 0;
-  font-weight: 800;
+  font-weight: var(--fw-semibold);
 }
 
 .headerContent p {
   margin: 0;
   color: #6b7280;
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
 }
 
 .closeBtn {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: var(--fs-h2);
   cursor: pointer;
   color: #6b7280;
   padding: 0;
@@ -116,9 +116,9 @@
 }
 
 .label {
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   color: var(--color-text);
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -135,7 +135,7 @@
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.96);
   color: var(--color-text);
-  font-size: 1rem;
+  font-size: var(--fs-body);
   transition: all 0.2s ease;
   font-family: inherit;
   box-sizing: border-box;
@@ -160,13 +160,13 @@
 }
 
 .titleInput {
-  font-size: clamp(1.4rem, 2vw, 1.8rem);
-  font-weight: 700;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
   line-height: 1.3;
 }
 
 .excerptInput {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   min-height: 80px;
   resize: vertical;
 }
@@ -177,7 +177,7 @@
   line-height: 1.8;
   white-space: pre-wrap;
   font-family: 'Courier New', monospace;
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
 }
 
 /* SIDEBAR */
@@ -227,7 +227,7 @@
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text);
   user-select: none;
 }
@@ -243,24 +243,25 @@
   margin: 0;
   color: #6b7280;
   line-height: 1.6;
-  font-size: 0.92rem;
+  font-size: var(--fs-body-sm);
 }
 
 /* BUTTON */
 .publishBtn {
   width: 100%;
-  padding: 15px 24px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
   background: var(--color-accent);
   color: #181810;
   border: none;
   border-radius: 8px;
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
   cursor: pointer;
   box-shadow: 0 8px 16px rgba(255, 219, 36, 0.2);
   transition: all 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.85rem;
+  font-size: var(--fs-body-sm);
   margin-top: 16px;
 }
 
@@ -281,7 +282,7 @@
   border: 1px solid #fecaca;
   border-radius: 8px;
   color: #c53030;
-  font-size: 0.9rem;
+  font-size: var(--fs-body-sm);
   margin-bottom: 16px;
 }
 
@@ -333,15 +334,15 @@
 .feedbackCountdown {
   display: inline-block;
   margin-top: 10px;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-semibold);
   color: #b91c1c;
 }
 
 
 
 .sidebar label {
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
 }
 
 .checkbox {
@@ -382,8 +383,8 @@
 .previewLabel {
   display: inline-block;
   margin-bottom: 6px;
-  font-size: 0.8rem;
-  font-weight: 800;
+  font-size: var(--fs-button);
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #1e5af3;
@@ -391,7 +392,7 @@
 
 .previewHeader h3 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: var(--fs-h3);
   color: var(--color-text);
 }
 
@@ -407,8 +408,8 @@
   border-radius: 999px;
   background: rgba(30, 90, 243, 0.08);
   color: #274690;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-semibold);
 }
 
 .previewArticle {
@@ -445,12 +446,12 @@
   background: linear-gradient(135deg, rgba(30, 90, 243, 0.06), rgba(255, 219, 36, 0.12));
   color: #64748b;
   text-align: center;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
 }
 
 .previewBody h1 {
   margin: 0 0 14px;
-  font-size: clamp(1.8rem, 2.4vw, 2.6rem);
+  font-size: var(--fs-h2);
   line-height: 1.15;
   color: #0f172a;
 }
@@ -458,7 +459,7 @@
 .previewExcerpt {
   margin: 0 0 18px;
   color: #475569;
-  font-size: 1.02rem;
+  font-size: var(--fs-body);
   line-height: 1.7;
   padding-bottom: 18px;
   border-bottom: 1px solid rgba(148, 163, 184, 0.28);
@@ -567,7 +568,7 @@
   }
 
   .titleInput {
-    font-size: 24px;
+    font-size: var(--fs-h2);
   }
 
   .preview {
@@ -596,7 +597,7 @@
   }
 
   .headerContent h2 {
-    font-size: 1.4rem;
+    font-size: var(--fs-h3);
   }
 
   .form {
@@ -610,7 +611,7 @@
   }
 
   .titleInput {
-    font-size: 1.2rem;
+    font-size: var(--fs-h4);
   }
 
   .pageWrapper.editModal {
@@ -654,7 +655,7 @@
   }
 
   .previewBody h1 {
-    font-size: 1.5rem;
+    font-size: var(--fs-h3);
   }
 
 
