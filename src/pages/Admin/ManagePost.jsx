@@ -15,7 +15,7 @@ const getPostStatus = (post) => {
   return 'Pending';
 };
 
-const ManagePosts = ({ user }) => {
+const ManagePosts = ({ user, refreshUser }) => {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState('');
@@ -93,7 +93,7 @@ const ManagePosts = ({ user }) => {
   });
 
   return (
-    <Layout user={user} title="Manage Posts" navItems={getNavigationForRole('admin')}>
+    <Layout user={user} title="Manage Posts" navItems={getNavigationForRole('admin')} refreshUser={refreshUser}>
       <div className={styles.managePage}>
         <section className={styles.heroSection}>
           <motion.div className={styles.heroContent} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -178,6 +178,69 @@ const ManagePosts = ({ user }) => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+              <div className={styles.mobileCardList}>
+                {filteredPosts.map((post) => (
+                  <details key={post.id} className={styles.mobileCard}>
+                    <summary className={styles.mobileCardSummary}>
+                      <div className={styles.mobileCardPrimary}>
+                        <strong>{post.title}</strong>
+                        <span>{post.author || 'Unknown author'}</span>
+                      </div>
+                      <div className={styles.mobileCardMeta}>
+                        <span className={styles.categoryBadge}>{post.category || 'General'}</span>
+                        <span className={`${styles.statusBadge} ${post.is_published ? styles.published : styles.pending}`}>
+                          {getPostStatus(post)}
+                        </span>
+                      </div>
+                    </summary>
+
+                    <div className={styles.mobileCardBody}>
+                      <div className={styles.mobileDetailGrid}>
+                        <div className={styles.mobileDetailItem}>
+                          <span className={styles.mobileDetailLabel}>Author</span>
+                          <strong>{post.author || 'Unknown author'}</strong>
+                        </div>
+                        <div className={styles.mobileDetailItem}>
+                          <span className={styles.mobileDetailLabel}>Category</span>
+                          <strong>{post.category || 'General'}</strong>
+                        </div>
+                        <div className={styles.mobileDetailItem}>
+                          <span className={styles.mobileDetailLabel}>Status</span>
+                          <strong>{getPostStatus(post)}</strong>
+                        </div>
+                      </div>
+
+                      <div className={styles.mobileActionRow}>
+                        {!post.is_published && (
+                          <>
+                            <button className={styles.approveBtn} onClick={() => handleApprove(post.id)} title="Approve post">
+                              <FaCheck />
+                              <span>Approve</span>
+                            </button>
+                            <button className={styles.rejectBtn} onClick={() => handleReject(post.id)} title="Reject post">
+                              <FaTimes />
+                              <span>Reject</span>
+                            </button>
+                          </>
+                        )}
+                        <button
+                          className={styles.editBtn}
+                          onClick={() => { setSelectedPost(post); setShowModal(true); }}
+                          title="Edit post"
+                        >
+                          <FaEdit />
+                          <span>Edit</span>
+                        </button>
+                        <button className={styles.deleteBtn} onClick={() => setDeleteId(post.id)} title="Delete post">
+                          <FaTrash />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  </details>
+                ))}
               </div>
             </motion.div>
           ) : (

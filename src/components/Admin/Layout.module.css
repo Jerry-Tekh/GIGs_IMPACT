@@ -1,4 +1,4 @@
-.adminLayout {
+﻿.adminLayout {
   --sidebar-width: 228px;
   --sidebar-collapsed-width: 96px;
   --content-gap: 20px;
@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   margin-left: var(--current-sidebar-width);
-  padding: var(--content-gap);
+ 
   transition: margin-left 0.3s ease;
 }
 

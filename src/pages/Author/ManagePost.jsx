@@ -6,7 +6,7 @@ import styles from '../Admin/ManagePost.module.css';
 import { apiFetch } from '../../utils/apiClient.js';
 import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
 
-const ManagePost = ({ user }) => {
+const ManagePost = ({ user, refreshUser }) => {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState('');
   const [selectedPost, setSelectedPost] = useState(null);
@@ -41,7 +41,7 @@ const ManagePost = ({ user }) => {
   };
 
   return (
-    <Layout user={user} title="My Posts" navItems={getNavigationForRole('author')}>
+    <Layout user={user} title="My Posts" navItems={getNavigationForRole('author')} refreshUser={refreshUser}>
       <div className={styles.managePage}>
         <section className={styles.heroSection}>
           <div className={styles.heroContent}>
@@ -101,6 +101,51 @@ const ManagePost = ({ user }) => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+              <div className={styles.mobileCardList}>
+                {filteredPosts.map((post) => (
+                  <details key={post.id} className={styles.mobileCard}>
+                    <summary className={styles.mobileCardSummary}>
+                      <div className={styles.mobileCardPrimary}>
+                        <strong>{post.title}</strong>
+                        <span>{post.category || 'General'}</span>
+                      </div>
+                      <div className={styles.mobileCardMeta}>
+                        <span className={`${styles.statusBadge} ${post.is_published ? styles.published : styles.pending}`}>
+                          {post.is_published ? 'Published' : 'Pending'}
+                        </span>
+                      </div>
+                    </summary>
+
+                    <div className={styles.mobileCardBody}>
+                      <div className={styles.mobileDetailGrid}>
+                        <div className={styles.mobileDetailItem}>
+                          <span className={styles.mobileDetailLabel}>Category</span>
+                          <strong>{post.category || 'General'}</strong>
+                        </div>
+                        <div className={styles.mobileDetailItem}>
+                          <span className={styles.mobileDetailLabel}>Status</span>
+                          <strong>{post.is_published ? 'Published' : 'Pending'}</strong>
+                        </div>
+                      </div>
+
+                      <div className={styles.mobileActionRow}>
+                        <button
+                          className={styles.editBtn}
+                          onClick={() => { setSelectedPost(post); setShowModal(true); }}
+                        >
+                          <FaEdit />
+                          <span>Edit</span>
+                        </button>
+                        <button className={styles.deleteBtn} onClick={() => setDeleteId(post.id)}>
+                          <FaTrash />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  </details>
+                ))}
               </div>
             </div>
           ) : (

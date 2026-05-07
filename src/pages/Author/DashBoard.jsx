@@ -8,20 +8,30 @@ import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
 // import PageLoader from '../../components/PageLoader.jsx';
 import { formatReadableDate } from '../../utils/date.js';
 
-const AuthorDashboard = ({ user }) => {
+const AuthorDashboard = ({ user, refreshUser }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
+  const [accessRequirement, setAccessRequirement] = useState('');
 
   useEffect(() => {
     const loadPosts = async () => {
       try {
         setLoadError('');
+        setAccessRequirement('');
         const data = await apiFetch('/api/posts/author/myposts');
         setPosts(data || []);
       } catch (error) {
         console.error(error);
-        setLoadError('We could not load your latest author activity right now.');
+        if (error?.status === 403 && error?.payload?.requiresMFASetup) {
+          setAccessRequirement('mfa');
+          setLoadError('Multi-Factor Authentication must be enabled before author tools can load.');
+        } else if (error?.status === 403 && error?.payload?.requiresSecurityVerification) {
+          setAccessRequirement('verification');
+          setLoadError('This session needs extra verification before author tools can load.');
+        } else {
+          setLoadError('We could not load your latest author activity right now.');
+        }
       } finally {
         setIsLoading(false);
       }
@@ -36,7 +46,7 @@ const AuthorDashboard = ({ user }) => {
   // Loader spinner removed for non-dashboard pages
   if (isLoading) {
     return (
-      <Layout user={user} title="Author Workspace" navItems={getNavigationForRole('author')}>
+      <Layout user={user} title="Author Workspace" navItems={getNavigationForRole('author')} refreshUser={refreshUser}>
         <div style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <span className="inlineSpinner" style={{ width: 34, height: 34, border: '3px solid #eee', borderTop: '3px solid #1e5af3', borderRadius: '50%', animation: 'spin 0.85s linear infinite', display: 'inline-block' }} />
           <p>Loading author workspace...</p>
@@ -46,9 +56,20 @@ const AuthorDashboard = ({ user }) => {
   }
 
   return (
-    <Layout user={user} title="Author Workspace" navItems={getNavigationForRole('author')}>
+    <Layout user={user} title="Author Workspace" navItems={getNavigationForRole('author')} refreshUser={refreshUser}>
       <div className={dashboardStyles.dashboardPage}>
         {loadError && <div className={dashboardStyles.errorBanner}>{loadError}</div>}
+        {accessRequirement ? (
+          <section className={dashboardStyles.securityNotice}>
+            <span className={dashboardStyles.sectionTag}>Access Notice</span>
+            <h2>{accessRequirement === 'mfa' ? 'Complete MFA setup from your profile settings' : 'Verify this session before continuing'}</h2>
+            <p>
+              {accessRequirement === 'mfa'
+                ? 'Open the profile/settings button in the top bar and enable MFA. As soon as that setup is complete, your author tools will start working normally.'
+                : 'This login was flagged for extra review. Complete the security verification flow first, then refresh the dashboard.'}
+            </p>
+          </section>
+        ) : null}
         <section className={dashboardStyles.heroSection}>
           <div className={dashboardStyles.heroContent}>
             <span className={dashboardStyles.eyebrow}>Author Studio</span>

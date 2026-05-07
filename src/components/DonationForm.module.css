@@ -144,7 +144,7 @@
 
 .infoCol li {
   background: rgba(255, 255, 255, 0.03);
-  border-left: 3px solid var(--color-accent-strong);
+  border-left: 3px solid var(--color-accent);
   padding: 12px 14px;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.7;

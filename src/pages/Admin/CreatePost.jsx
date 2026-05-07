@@ -391,7 +391,7 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
   );
 };
 
-const CreatePost = ({ user }) => {
+const CreatePost = ({ user, refreshUser }) => {
   const navigate = useNavigate();
 
   return (
@@ -399,6 +399,7 @@ const CreatePost = ({ user }) => {
       user={user}
       title="Admin Workspace"
       navItems={getNavigationForRole('admin')}
+      refreshUser={refreshUser}
     >
       <CreatePostModal onClose={() => navigate('/admin/dashboard')} role="admin" />
     </Layout>

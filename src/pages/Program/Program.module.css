@@ -44,6 +44,8 @@
 .panelLabel,
 .sectionTagLight {
   color: #ffe27a;
+   z-index: 2;
+  position: relative;
 }
 
 .sectionTag {
@@ -108,17 +110,41 @@
 .heroPanel {
   padding: 32px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(220, 231, 255, 0.2);
-  box-shadow: 0 18px 40px rgba(3, 18, 66, 0.2);
+  /*border: 1px solid rgba(220, 231, 255, 0.2);*/
+  background: url('./../../assets/WhatWeDo/competence.png');
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
+  position: relative;
+  color: #fff;
+  min-height : 300px;
+  max-height : 320px;
+}
+
+.heroPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at top right, rgba(0, 0, 0, 0.44), transparent 84%),
+    linear-gradient(140deg, rgba(0, 0, 0, 0.38), transparent 85%);
+
+    
+  pointer-events: none;
 }
 
 .heroPanel h2 {
+  position: relative;
+  z-index: 2;
   margin: 14px 0 14px;
    font-size: var(--fs-h2);
   line-height: 1.16;
 }
 
 .heroPanel p {
+  position: relative;
+  z-index: 2;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.75;
 }

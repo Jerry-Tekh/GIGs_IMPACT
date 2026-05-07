@@ -2,6 +2,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './DonationForm.module.css';
 
+import volunteer from './../assets/volunteer3.png';
+
 const DonationForm = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -107,6 +109,7 @@ const DonationForm = () => {
 
         <motion.aside className={styles.infoCol}>
           <h4>Volunteer Requirements</h4>
+          <img src={volunteer} alt="" />
           <ul>
             <li>Willingness to serve</li>
             <li>Commitment to growth</li>

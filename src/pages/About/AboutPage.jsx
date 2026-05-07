@@ -6,6 +6,10 @@ import { siteData } from '../../SiteData.js';
 import styles from './AboutPage.module.css';
 import { smoothScrollToElement, smoothScrollToY } from '../../utils/smoothScroll.js';
 
+
+
+
+
 const aboutTabs = {
   mission:
     'To build a talent-driven ecosystem that develops individuals into skilled, value-driven, and independent contributors while creating pathways for sustainable income, enterprise, and large-scale employment by developing strong values such as honesty, integrity, and discipline and equipping youth with the mindset and skills required for success.',
@@ -93,7 +97,7 @@ const About = () => {
               visible in everyday life.
             </p>
 
-            <div className={styles.heroStats}>
+            {/*<div className={styles.heroStats}>
               <div>
                 <strong>Three</strong>
                 <span>core anchors</span>
@@ -102,7 +106,7 @@ const About = () => {
                 <strong>Seven</strong>
                 <span>growth stages</span>
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       </motion.section>

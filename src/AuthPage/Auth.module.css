@@ -303,12 +303,37 @@
 
 .infoNotice {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.8rem;
   padding: 1rem;
   border: 1px solid #dce7ff;
   background: #f8fbff;
   color: #1f3b82;
+}
+
+.methodToggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.methodToggleBtn,
+.methodToggleActive {
+  min-height: 46px;
+  border: 1px solid #dce7ff;
+  background: #ffffff;
+  color: #1e3a8a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+
+.methodToggleActive {
+  background: #eff5ff;
+  border-color: #1e5af3;
 }
 
 .rateLimitNotice {
@@ -394,5 +419,9 @@
 
   .authCard {
     padding: 22px 18px;
+  }
+
+  .methodToggle {
+    grid-template-columns: 1fr;
   }
 }

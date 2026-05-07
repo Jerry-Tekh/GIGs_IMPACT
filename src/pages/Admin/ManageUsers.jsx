@@ -7,7 +7,7 @@ import { apiFetch } from '../../utils/apiClient.js';
 import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
 import { formatReadableDate } from '../../utils/date.js';
 
-const ManageUsers = ({ user }) => {
+const ManageUsers = ({ user, refreshUser }) => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
   const [savingUserId, setSavingUserId] = useState(null);
@@ -59,7 +59,7 @@ const ManageUsers = ({ user }) => {
   });
 
   return (
-    <Layout user={user} title="Manage Users" navItems={getNavigationForRole('admin')}>
+    <Layout user={user} title="Manage Users" navItems={getNavigationForRole('admin')} refreshUser={refreshUser}>
       <div className={styles.managePage}>
         <section className={styles.heroSection}>
           <motion.div className={styles.heroContent} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -132,6 +132,50 @@ const ManageUsers = ({ user }) => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+              <div className={styles.mobileCardList}>
+                {filteredUsers.map((member) => (
+                  <details key={member.id} className={styles.mobileCard}>
+                    <summary className={styles.mobileCardSummary}>
+                      <div className={styles.mobileCardPrimary}>
+                        <strong>{member.full_name}</strong>
+                        <span>{member.email}</span>
+                      </div>
+                      <div className={styles.mobileCardMeta}>
+                        <span className={styles.categoryBadge}>{member.role}</span>
+                      </div>
+                    </summary>
+
+                    <div className={styles.mobileCardBody}>
+                      <div className={styles.mobileDetailGrid}>
+                        <div className={styles.mobileDetailItem}>
+                          <span className={styles.mobileDetailLabel}>Email</span>
+                          <strong className={styles.mobileValueWrap}>{member.email}</strong>
+                        </div>
+                        <div className={styles.mobileDetailItem}>
+                          <span className={styles.mobileDetailLabel}>Joined</span>
+                          <strong>{formatReadableDate(member.created_at)}</strong>
+                        </div>
+                      </div>
+
+                      <div className={styles.mobileFieldBlock}>
+                        <label className={styles.mobileFieldLabel} htmlFor={`role-${member.id}`}>Role</label>
+                        <select
+                          id={`role-${member.id}`}
+                          className={styles.mobileSelect}
+                          value={member.role}
+                          disabled={savingUserId === member.id}
+                          onChange={(event) => handleRoleChange(member.id, event.target.value)}
+                        >
+                          <option value="reader">Reader</option>
+                          <option value="author">Author</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                      </div>
+                    </div>
+                  </details>
+                ))}
               </div>
             </div>
           ) : (

@@ -130,7 +130,7 @@ function AppRoutes() {
           path="/admin/createPost"
           element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['admin']}>
-              <CreatePost user={user} />
+              <CreatePost user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
           )}
         />
@@ -138,7 +138,7 @@ function AppRoutes() {
           path="/admin/posts"
           element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['admin']}>
-              <ManagePosts user={user} />
+              <ManagePosts user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
           )}
         />
@@ -146,7 +146,7 @@ function AppRoutes() {
           path="/admin/users"
           element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['admin']}>
-              <ManageUsers user={user} />
+              <ManageUsers user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
           )}
         />
@@ -155,7 +155,7 @@ function AppRoutes() {
           path="/author/dashboard"
           element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['author']}>
-              <AuthorDashboard user={user} />
+              <AuthorDashboard user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
           )}
         />
@@ -163,7 +163,7 @@ function AppRoutes() {
           path="/author/createPost"
           element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['author']}>
-              <AuthorCreatePost user={user} />
+              <AuthorCreatePost user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
           )}
         />
@@ -171,7 +171,7 @@ function AppRoutes() {
           path="/author/posts"
           element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['author']}>
-              <AuthorManagePost user={user} />
+              <AuthorManagePost user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
           )}
         />
@@ -180,7 +180,7 @@ function AppRoutes() {
           path="/reader/dashboard"
           element={withRouteSuspense(
             <RoleProtectedRoute user={user} isLoading={isLoading} allowedRoles={['reader']}>
-              <ReaderDashboard user={user} />
+              <ReaderDashboard user={user} refreshUser={refreshUser} />
             </RoleProtectedRoute>
           )}
         />

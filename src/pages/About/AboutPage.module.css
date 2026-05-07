@@ -52,6 +52,8 @@
 .panelLabel,
 .sectionTagLight {
   color: #ffe27a;
+   z-index: 2;
+  position: relative;
 }
 
 .sectionTag,
@@ -79,6 +81,8 @@
 
 .heroCopy p,
 .heroPanel p {
+  position: relative;
+  z-index: 2;
   color: rgba(255, 255, 255, 0.84);
 }
 
@@ -119,12 +123,32 @@
 
 .heroPanel {
   padding: 32px;
+  position: relative;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(220, 231, 255, 0.2);
+  background: url(./../../assets/About/partnerBg.png);
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
+  
   box-shadow: 0 18px 40px rgba(3, 18, 66, 0.2);
 }
 
+
+.heroPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at top right, rgba(0, 0, 0, 0.44), transparent 84%),
+    linear-gradient(140deg, rgba(0, 0, 0, 0.38), transparent 85%);
+
+    
+  pointer-events: none;
+}
 .heroPanel h2 {
+  position: relative;
+  z-index: 2;
   margin: 14px 0;
   color: #ffffff;
    font-size: var(--fs-h2);

@@ -106,7 +106,7 @@ const ContactPage = () => {
               and guide you on the next steps to get your questions answered, ideas
             </p>
 
-            <div className={styles.heroStats}>
+            {/*<div className={styles.heroStats}>
               <div>
                 <strong>One Day</strong>
                 <span>Effective Response</span>
@@ -115,7 +115,7 @@ const ContactPage = () => {
                 <strong>Three</strong>
                 <span>Ways to connect</span>
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       </motion.section>

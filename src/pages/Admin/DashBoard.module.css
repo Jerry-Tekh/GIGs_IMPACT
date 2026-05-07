@@ -1,8 +1,8 @@
 .dashboardPage {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 0 0 20px;
+  gap: 20px;
+  padding: 0 0 16px;
 }
 
 .errorBanner {
@@ -12,8 +12,28 @@
   color: #b91c1c;
 }
 
+.securityNotice {
+  padding: 20px 22px;
+  background: linear-gradient(135deg, rgba(11, 29, 102, 0.98) 0%, rgba(30, 90, 243, 0.95) 72%);
+  color: #ffffff;
+  box-shadow: 0 22px 42px rgba(18, 30, 78, 0.16);
+}
+
+.securityNotice h2 {
+  margin: 0 0 10px;
+  font-size: var(--fs-h4);
+}
+
+.securityNotice p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.65;
+  font-size: var(--fs-body-sm);
+  max-width: 760px;
+}
+
 .heroSection {
-  padding: 32px;
+  padding: 26px 28px;
   background:
     radial-gradient(circle at top right, rgba(255, 219, 36, 0.22), transparent 26%),
     linear-gradient(135deg, rgba(11, 29, 102, 0.98) 0%, rgba(30, 90, 243, 0.95) 72%);
@@ -41,16 +61,16 @@
 }
 
 .heroContent h1 {
-  font-size: var(--fs-h2);
+  font-size: var(--fs-h3);
   font-weight: var(--fw-semibold);
   margin-bottom: 10px;
-  line-height: 1.08;
+  line-height: 1.14;
 }
 
 .heroContent p {
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-sm);
   color: rgba(255, 255, 255, 0.82);
-  line-height: 1.7;
+  line-height: 1.65;
   max-width: 560px;
 }
 
@@ -89,8 +109,8 @@
 .sectionHeader {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 20px;
+  gap: 4px;
+  margin-bottom: 16px;
   text-align: left;
 }
 
@@ -105,7 +125,7 @@
 }
 
 .sectionHeader h2 {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h4);
   color: var(--color-text);
   margin: 0;
 }
@@ -113,11 +133,11 @@
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
+  gap: 14px;
 }
 
 .statCard {
-  padding: 22px 20px;
+  padding: 18px 18px;
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid rgba(30, 90, 243, 0.12);
   border-radius: 0;
@@ -127,8 +147,8 @@
 }
 
 .statIcon {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -136,7 +156,7 @@
   color: #1e5af3;
   background: rgba(30, 90, 243, 0.08);
   border-radius: 0;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .statCard h3 {
@@ -149,7 +169,7 @@
 }
 
 .statNumber {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h4);
   font-weight: var(--fw-semibold);
   color: var(--color-primary-deep);
   margin-bottom: 6px;
@@ -161,7 +181,7 @@
 }
 
 .recentSection {
-  padding: 26px;
+  padding: 20px 22px;
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(35, 35, 255, 0.08);
   border-radius: 0;
@@ -175,11 +195,11 @@
 .postsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
+  gap: 14px;
 }
 
 .postCard {
-  padding: 22px 20px;
+  padding: 18px 18px;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(30, 90, 243, 0.12);
   border-radius: 0;
@@ -199,7 +219,7 @@
 
 .postCard h3 {
   margin: 0;
-  font-size: var(--fs-body);
+  font-size: var(--fs-body-sm);
   color: var(--color-text);
   flex: 1;
   line-height: 1.35;
@@ -241,11 +261,11 @@
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 
 .summaryCard {
-  padding: 20px 18px;
+  padding: 16px 16px;
   border-radius: 0;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(30, 90, 243, 0.12);
@@ -261,7 +281,7 @@
 
 .summaryCard strong {
   color: #0b1d66;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h4);
 }
 
 .postDate {
@@ -288,7 +308,7 @@
 
 .emptyState {
   text-align: center;
-  padding: 42px 24px;
+  padding: 34px 20px;
   color: #6b7280;
   border-radius: 0;
   background: rgba(247, 248, 255, 0.84);
@@ -301,14 +321,14 @@
 }
 
 .emptyState p {
-  font-size: var(--fs-h4);
+  font-size: var(--fs-body);
   margin-bottom: 24px;
 }
 
 @media (max-width: 900px) {
   .heroSection {
     flex-direction: column;
-    padding: 28px 24px;
+    padding: 24px 22px;
   }
 
   .heroAction {
@@ -322,7 +342,7 @@
 
   .statsSection,
   .recentSection {
-    padding: 22px;
+    padding: 18px;
   }
 
   .statsGrid,
@@ -337,23 +357,23 @@
   }
 
   .heroSection {
-    padding: 24px 18px;
+    padding: 22px 18px;
   }
 
   .statsSection,
   .recentSection {
-    padding: 18px;
+    padding: 16px;
   }
 
   .statCard {
-    padding: 20px 18px;
+    padding: 16px;
   }
 
   .postCard {
-    padding: 18px 16px;
+    padding: 16px;
   }
 
   .emptyState {
-    padding: 32px 18px;
+    padding: 28px 16px;
   }
 }

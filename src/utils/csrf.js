@@ -9,6 +9,8 @@ const parseJson = async (response) => {
   if (!response.ok) {
     const error = new Error(payload?.message || 'Failed to fetch CSRF token');
     error.status = response.status;
+    error.payload = payload;
+    error.retryAfter = payload?.retryAfterSeconds || payload?.retryAfter || response.headers.get('Retry-After');
     throw error;
   }
 

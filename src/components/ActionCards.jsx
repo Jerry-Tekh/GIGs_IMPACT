@@ -59,7 +59,7 @@ const ActionCards = () => {
               into community, partnership, learning, or insight.
             </p>
 
-            <div className={styles.signalRow}>
+            {/*<div className={styles.signalRow}>
               <div className={styles.signalCard}>
                 <strong>Four</strong>
                 <span>Clear ways to Engage</span>
@@ -68,7 +68,7 @@ const ActionCards = () => {
                 <strong >One</strong>
                 <span>Shared Mission</span>
               </div>
-            </div>
+            </div>*/}
 
             {primaryLink.external ? (
               <a href={primaryLink.href} target="_blank" rel="noreferrer" className={styles.primaryCta}>

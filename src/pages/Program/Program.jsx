@@ -154,7 +154,7 @@ const Program = () => {
               Every training experience is designed to sit inside a bigger development architecture, not outside
               it.
             </p>
-            <div className={styles.heroStats}>
+           {/* <div className={styles.heroStats}>
               <div>
                 <strong>Seven</strong>
                 <span>framework stages</span>
@@ -163,7 +163,7 @@ const Program = () => {
                 <strong>Six Plus</strong>
                 <span>program tracks</span>
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       </motion.section>

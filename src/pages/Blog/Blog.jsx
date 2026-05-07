@@ -106,11 +106,11 @@ const Blog = () => {
             <div className={styles.heroStats}>
               <div>
                 <strong>{articles.length}</strong>
-                <span>loaded articles</span>
+                <span>Articles</span>
               </div>
               <div>
                 <strong>{categories.length || 1}</strong>
-                <span>content categories</span>
+                <span>Content categories</span>
               </div>
             </div>
           </div>

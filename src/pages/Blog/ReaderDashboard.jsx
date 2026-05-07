@@ -9,7 +9,7 @@ import { getReadingHistory } from '../../utils/readingHistory.js';
 // import PageLoader from '../../components/PageLoader.jsx';
 import { formatReadableDate } from '../../utils/date.js';
 
-const ReaderDashboard = ({ user }) => {
+const ReaderDashboard = ({ user, refreshUser }) => {
   const [latestPosts, setLatestPosts] = useState([]);
   const [history, setHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +38,7 @@ const ReaderDashboard = ({ user }) => {
   // Loader spinner removed for non-dashboard pages
   if (isLoading) {
     return (
-      <Layout user={user} title="Reader Dashboard" navItems={getNavigationForRole('reader')}>
+      <Layout user={user} title="Reader Dashboard" navItems={getNavigationForRole('reader')} refreshUser={refreshUser}>
         <div style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <span className="inlineSpinner" style={{ width: 34, height: 34, border: '3px solid #eee', borderTop: '3px solid #1e5af3', borderRadius: '50%', animation: 'spin 0.85s linear infinite', display: 'inline-block' }} />
           <p>Loading reader dashboard...</p>
@@ -48,7 +48,7 @@ const ReaderDashboard = ({ user }) => {
   }
 
   return (
-    <Layout user={user} title="Reader Dashboard" navItems={getNavigationForRole('reader')}>
+    <Layout user={user} title="Reader Dashboard" navItems={getNavigationForRole('reader')} refreshUser={refreshUser}>
       <div className={dashboardStyles.dashboardPage}>
         {loadError && <div className={dashboardStyles.errorBanner}>{loadError}</div>}
         <section className={dashboardStyles.heroSection}>

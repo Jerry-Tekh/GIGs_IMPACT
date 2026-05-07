@@ -9,7 +9,7 @@ import styles from './DashBoard.module.css';
 import { apiFetch } from '../../utils/apiClient.js';
 import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, refreshUser }) => {
   const [stats, setStats] = useState({ posts: 0, categories: 0, views: 0 });
   const [recentPosts, setRecentPosts] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
@@ -17,11 +17,13 @@ const Dashboard = ({ user }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
+  const [accessRequirement, setAccessRequirement] = useState('');
 
   useEffect(() => {
     const loadDashboard = async () => {
       try {
         setLoadError('');
+        setAccessRequirement('');
         const [statsData, manageData, pendingData, usersData] = await Promise.all([
           apiFetch('/api/admin/stats'),
           apiFetch('/api/posts/manage'),
@@ -36,7 +38,15 @@ const Dashboard = ({ user }) => {
         setUsers(usersData.users || []);
       } catch (error) {
         console.error(error);
-        setLoadError('Dashboard data could not be loaded right now.');
+        if (error?.status === 403 && error?.payload?.requiresMFASetup) {
+          setAccessRequirement('mfa');
+          setLoadError('Multi-Factor Authentication must be enabled before privileged admin data can load.');
+        } else if (error?.status === 403 && error?.payload?.requiresSecurityVerification) {
+          setAccessRequirement('verification');
+          setLoadError('This session needs extra verification before sensitive admin tools can load.');
+        } else {
+          setLoadError('Dashboard data could not be loaded right now.');
+        }
       } finally {
         setLoading(false);
       }
@@ -56,7 +66,7 @@ const Dashboard = ({ user }) => {
   // Inline loader for dashboard loading state
   if (loading) {
     return (
-      <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')}>
+      <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')} refreshUser={refreshUser}>
         <div style={{ minHeight: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <span style={{ width: 52, height: 52, border: '4px solid #eee', borderTop: '4px solid #1e5af3', borderRadius: '50%', animation: 'spin 0.85s linear infinite', display: 'inline-block' }} />
           <h2>Loading your dashboard</h2>
@@ -68,9 +78,20 @@ const Dashboard = ({ user }) => {
   }
 
   return (
-    <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')}>
+    <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')} refreshUser={refreshUser}>
       <div className={styles.dashboardPage}>
         {loadError && <div className={styles.errorBanner}>{loadError}</div>}
+        {accessRequirement ? (
+          <section className={styles.securityNotice}>
+            <span className={styles.sectionTag}>Access Notice</span>
+            <h2>{accessRequirement === 'mfa' ? 'Finish MFA setup from your profile settings' : 'Verify this session before continuing'}</h2>
+            <p>
+              {accessRequirement === 'mfa'
+                ? 'Use the profile/settings button in the top bar to enable MFA. Once setup is complete, refresh the dashboard and your admin data will load normally.'
+                : 'This login was flagged as high risk. Please complete the required verification flow, then reload the dashboard.'}
+            </p>
+          </section>
+        ) : null}
         <section className={styles.heroSection}>
           <motion.div className={styles.heroContent} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <span className={styles.eyebrow}>Editorial Control</span>
@@ -117,7 +138,7 @@ const Dashboard = ({ user }) => {
           </div>
         </section>
 
-        <Analytics />
+        {!accessRequirement ? <Analytics /> : null}
 
         <section className={styles.recentSection}>
           <div className={styles.sectionHeader}>

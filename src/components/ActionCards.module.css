@@ -22,6 +22,8 @@
   z-index: 1;
 }
 
+
+
 .shell {
   display: grid;
   grid-template-columns: minmax(300px, 0.9fr) minmax(320px, 1.1fr);
@@ -36,6 +38,10 @@
   justify-content: flex-start;
   padding: 40px 36px;
   background: linear-gradient(155deg, #0b1d66 0%, #1e5af3 100%);
+  background: url('./../assets/sucesspath.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: none;
   color: #ffffff;
   overflow: hidden;
   max-height: 550px;
@@ -48,6 +54,11 @@
   background:
     radial-gradient(circle at top right, rgba(255, 219, 36, 0.34), transparent 34%),
     linear-gradient(140deg, rgba(255, 255, 255, 0.08), transparent 55%);
+  background:
+    radial-gradient(circle at top right, rgba(0, 0, 0, 0.44), transparent 84%),
+    linear-gradient(140deg, rgba(0, 0, 0, 0.38), transparent 85%);
+
+    
   pointer-events: none;
 }
 
@@ -122,14 +133,13 @@
   color: #181810;
   font-weight: var(--fw-semibold);
   border-radius: 0;
-  box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   font-size: var(--fs-body-sm);
+  margin-top: 100px;
 }
 
 .primaryCta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 38px rgba(255, 219, 36, 0.3);
 }
 
 .primaryArrow {
@@ -150,10 +160,9 @@
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(30, 90, 243, 0.12);
-  padding: 30px 28px;
+  padding: 20px 28px;
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 18px 36px rgba(30, 90, 243, 0.09);
   overflow: hidden;
   min-height: 260px;
   display: flex;
@@ -212,14 +221,13 @@
 }
 
 .iconBackground {
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   background: linear-gradient(135deg, #1e5af3, #0b1d66);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 14px 28px rgba(30, 90, 243, 0.22);
   transition: all 0.3s ease;
 }
 
@@ -234,7 +242,7 @@
 }
 
 .cardTitle {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h4);
   font-weight: var(--fw-semibold);
   color: var(--color-text);
   margin: 0 0 14px;

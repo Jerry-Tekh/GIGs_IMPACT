@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
+import { FaArrowLeft, FaEnvelope, FaEye, FaEyeSlash, FaKey, FaLock, FaShieldAlt } from 'react-icons/fa';
 import AuthCard from '../components/AuthCard';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
@@ -31,6 +31,9 @@ const Login = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [retryAfterSeconds, setRetryAfterSeconds] = useState(0);
   const [feedback, setFeedback] = useState('');
+  const [mfaChallenge, setMfaChallenge] = useState(null);
+  const [mfaMethod, setMfaMethod] = useState('otp');
+  const [mfaValue, setMfaValue] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -84,6 +87,19 @@ const Login = () => {
     return secondsUntilRetry > 0 ? secondsUntilRetry : 0;
   };
 
+  const applyRateLimitFeedback = (message, retryAfterValue, fallbackMessage) => {
+    const retryDelay = parseRetryAfterSeconds(retryAfterValue);
+
+    if (retryDelay > 0) {
+      setRetryAfterSeconds(retryDelay);
+      setError(message || `Too many attempts. Please wait ${retryDelay} seconds before trying again.`);
+      return true;
+    }
+
+    setError(message || fallbackMessage);
+    return false;
+  };
+
   const parseResponseBody = async (response) => {
     const rawBody = await response.text();
 
@@ -112,6 +128,9 @@ const Login = () => {
     setIsLoading(true);
     setError('');
     setFeedback('');
+    setMfaChallenge(null);
+    setMfaValue('');
+    setMfaMethod('otp');
 
     try {
       const loginPayload = JSON.stringify({
@@ -144,6 +163,17 @@ const Login = () => {
       }
 
       if (response.ok) {
+        if (data?.requiresMFA && data?.mfaSessionToken) {
+          setRetryAfterSeconds(0);
+          setCsrfToken(csrfToken);
+          setMfaChallenge({
+            mfaSessionToken: data.mfaSessionToken,
+            expiresAt: data.expiresAt
+          });
+          setFeedback(data.message || 'Finish MFA verification to complete login.');
+          return;
+        }
+
         setRetryAfterSeconds(0);
         setCsrfToken(data?.csrfToken || csrfToken);
         notifyAuthChanged();
@@ -166,8 +196,91 @@ const Login = () => {
           setError(data.message || 'Login failed. Please try again.');
         }
       }
-    } catch {
-      setError('Network error. Please check your connection and try again.');
+    } catch (error) {
+      if (error?.status === 429) {
+        applyRateLimitFeedback(
+          error?.payload?.message || error?.message,
+          error?.payload?.retryAfterSeconds || error?.payload?.retryAfter || error?.retryAfter,
+          'Too many login attempts. Please try again shortly.'
+        );
+      } else {
+        setError('Network error. Please check your connection and try again.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleMfaVerify = async (event) => {
+    event.preventDefault();
+
+    if (!mfaChallenge?.mfaSessionToken || isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+    setFeedback('');
+
+    try {
+      let csrfToken = await fetchCsrfToken();
+      const requestBody = {
+        mfaSessionToken: mfaChallenge.mfaSessionToken,
+        ...(mfaMethod === 'otp'
+          ? { otp: mfaValue }
+          : { backupCode: mfaValue })
+      };
+
+      const attemptVerify = async (nextCsrfToken) => {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/mfa/login-verify`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': nextCsrfToken
+          },
+          body: JSON.stringify(requestBody)
+        });
+
+        const data = await parseResponseBody(response);
+        return { response, data };
+      };
+
+      let { response, data } = await attemptVerify(csrfToken);
+
+      if (isCsrfError(response, data)) {
+        clearCsrfToken();
+        csrfToken = await fetchCsrfToken({ force: true });
+        ({ response, data } = await attemptVerify(csrfToken));
+      }
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          applyRateLimitFeedback(
+            data?.message,
+            data?.retryAfterSeconds || data?.retryAfter || response.headers.get('Retry-After'),
+            'Too many MFA attempts. Please try again shortly.'
+          );
+        } else {
+          setError(data?.message || 'MFA verification failed. Please try again.');
+        }
+        return;
+      }
+
+      setCsrfToken(data?.csrfToken || csrfToken);
+      notifyAuthChanged();
+      navigate(getDashboardPath(data?.data?.role));
+    } catch (error) {
+      console.error(error);
+      if (error?.status === 429) {
+        applyRateLimitFeedback(
+          error?.payload?.message || error?.message,
+          error?.payload?.retryAfterSeconds || error?.payload?.retryAfter || error?.retryAfter,
+          'Too many MFA attempts. Please try again shortly.'
+        );
+      } else {
+        setError('We could not verify your MFA code. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -219,11 +332,15 @@ const Login = () => {
             <div className={styles.authPanel}>
               <div className={styles.panelIntro}>
                 <span className={styles.sectionTag}>Welcome Back</span>
-                <h2>Sign in to continue to your dashboard.</h2>
+                <h2>{mfaChallenge ? 'Verify your MFA code to finish signing in.' : 'Sign in to continue to your dashboard.'}</h2>
               </div>
 
-              <AuthCard title="Login" subtitle="Use your registered blog admin account details.">
-                <form className={styles.form} onSubmit={handleSubmit}>
+              <AuthCard
+                title={mfaChallenge ? 'Multi-Factor Verification' : 'Login'}
+                subtitle={mfaChallenge ? 'Enter the authenticator code or a backup code tied to your account.' : 'Use your registered blog admin account details.'}
+              >
+                {!mfaChallenge ? (
+                  <form className={styles.form} onSubmit={handleSubmit}>
                   {feedback && <div className={styles.success}>{feedback}</div>}
                   {error && <div className={styles.error}>{error}</div>}
                   {retryAfterSeconds > 0 && (
@@ -290,24 +407,103 @@ const Login = () => {
                     {isLoading && <span className={styles.loadingSpinner} />}
                     {isLoading ? 'Signing In...' : retryAfterSeconds > 0 ? `Try again in ${retryAfterSeconds}s` : 'Sign In'}
                   </motion.button>
-                </form>
+                  </form>
+                ) : (
+                  <form className={styles.form} onSubmit={handleMfaVerify}>
+                    {feedback && <div className={styles.success}>{feedback}</div>}
+                    {error && <div className={styles.error}>{error}</div>}
+                    <div className={styles.infoNotice}>
+                      <FaShieldAlt />
+                      <div>
+                        <strong>MFA required</strong>
+                        <p className={styles.feedbackDetail}>
+                          Your password was accepted. Complete MFA to unlock the dashboard and privileged tools.
+                        </p>
+                      </div>
+                    </div>
 
-                <div className={styles.loginLinks}>
-                  <button
-                    type="button"
-                    onClick={() => setShowForgotPassword(true)}
-                    className={styles.forgotPasswordLink}
-                  >
-                    Forgot password?
-                  </button>
-                </div>
+                    <div className={styles.methodToggle}>
+                      <button
+                        type="button"
+                        className={mfaMethod === 'otp' ? styles.methodToggleActive : styles.methodToggleBtn}
+                        onClick={() => {
+                          setMfaMethod('otp');
+                          setMfaValue('');
+                        }}
+                      >
+                        <FaShieldAlt /> Authenticator code
+                      </button>
+                      <button
+                        type="button"
+                        className={mfaMethod === 'backup' ? styles.methodToggleActive : styles.methodToggleBtn}
+                        onClick={() => {
+                          setMfaMethod('backup');
+                          setMfaValue('');
+                        }}
+                      >
+                        <FaKey /> Backup code
+                      </button>
+                    </div>
 
-                <p className={styles.switchText}>
-                  Don&apos;t have an account?{' '}
-                  <Link to="/signup" className={styles.switchLink}>
-                    Create one here
-                  </Link>
-                </p>
+                    <motion.div className={styles.inputGroup}>
+                      {mfaMethod === 'otp' ? <FaShieldAlt className={styles.inputIcon} /> : <FaKey className={styles.inputIcon} />}
+                      <input
+                        type="text"
+                        name="mfaValue"
+                        placeholder={mfaMethod === 'otp' ? '6-digit authenticator code' : 'Backup code'}
+                        value={mfaValue}
+                        onChange={(event) => {
+                          const value = event.target.value;
+                          setMfaValue(mfaMethod === 'otp' ? value.replace(/\D/g, '').slice(0, 6) : value.toUpperCase());
+                        }}
+                        className={styles.input}
+                        required
+                        autoComplete="one-time-code"
+                      />
+                    </motion.div>
+
+                    <div className={styles.authActionStack}>
+                      <motion.button type="submit" className={styles.submitBtn} disabled={isLoading || !mfaValue.trim()}>
+                        {isLoading && <span className={styles.loadingSpinner} />}
+                        {isLoading ? 'Verifying...' : 'Verify and continue'}
+                      </motion.button>
+
+                      <button
+                        type="button"
+                        className={styles.backBtn}
+                        onClick={() => {
+                          setMfaChallenge(null);
+                          setMfaValue('');
+                          setFeedback('');
+                          setError('');
+                        }}
+                      >
+                        <FaArrowLeft /> Back to login
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                {!mfaChallenge ? (
+                  <>
+                    <div className={styles.loginLinks}>
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className={styles.forgotPasswordLink}
+                      >
+                        Forgot password?
+                      </button>
+                    </div>
+
+                    <p className={styles.switchText}>
+                      Don&apos;t have an account?{' '}
+                      <Link to="/signup" className={styles.switchLink}>
+                        Create one here
+                      </Link>
+                    </p>
+                  </>
+                ) : null}
               </AuthCard>
             </div>
           </div>
