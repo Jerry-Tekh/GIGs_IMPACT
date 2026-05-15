@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBookOpen, FaHistory, FaUser } from 'react-icons/fa';
 import Layout from '../../components/Layout.jsx';
-import dashboardStyles from '../admin/DashBoard.module.css';
+import dashboardStyles from './../admin/DashBoard.module.css';
 import { apiFetch } from '../../../../utils/apiClient.js';
 import { getNavigationForRole } from '../../config/navigation.js';
 import { getReadingHistory } from '../../../../utils/readingHistory.js';

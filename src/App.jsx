@@ -18,7 +18,7 @@ import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
 import { smoothScrollToElement, smoothScrollToY } from './utils/smoothScroll.js';
 
-const Dashboard = lazy(() => import('./features/dashboard/pages/admin/Dashboard.jsx'));
+const Dashboard = lazy(() => import('./features/dashboard/pages/admin/DashBoard.jsx'));
 const CreatePost = lazy(() => import('./features/dashboard/pages/admin/CreatePost.jsx'));
 const ManagePosts = lazy(() => import('./features/dashboard/pages/admin/ManagePosts.jsx'));
 const ManageUsers = lazy(() => import('./features/dashboard/pages/admin/ManageUsers.jsx'));
