@@ -5,6 +5,7 @@ import founderImage from '../../assets/Founder.jpg';
 import { siteData } from '../../SiteData.js';
 import styles from './AboutPage.module.css';
 import { smoothScrollToElement, smoothScrollToY } from '../../utils/smoothScroll.js';
+import { riseItem, sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
 
 
 
@@ -71,7 +72,7 @@ const About = () => {
     <div className={styles.page}>
       <motion.section className={styles.hero}>
         <div className={styles.heroGrid}>
-          <div className={styles.heroCopy}>
+          <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
             <span className={styles.eyebrow}>About Us</span>
             <h1>We are building a movement that turns overlooked talent into structure, value, and impact.</h1>
             <p>
@@ -87,9 +88,9 @@ const About = () => {
                 View Programs
               </Link>
             </div>
-          </div>
+          </motion.div>
 
-          <div className={styles.heroPanel}>
+          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
             <span className={styles.panelLabel}>What Drives Us</span>
             <h2>People should not stay trapped in unused potential when structure can change the story.</h2>
             <p>
@@ -107,14 +108,21 @@ const About = () => {
                 <span>growth stages</span>
               </div>
             </div>*/}
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
       <main className={styles.main}>
-        <section className={styles.storySection} id="our-story">
+        <motion.section
+          className={styles.storySection}
+          id="our-story"
+          variants={staggerGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
           <div className={styles.storyGrid}>
-            <div className={styles.storyCopy}>
+            <motion.div className={styles.storyCopy} variants={slideLeft}>
               <span className={styles.sectionTag}>Founder&apos;s Story</span>
               <h2>What began with hard questions became a movement built to unlock unused potential.</h2>
               <p>
@@ -145,9 +153,9 @@ const About = () => {
                 <span className={styles.panelCaption}>Current Focus</span>
                 <p>{aboutTabs[activeTab]}</p>
               </article>
-            </div>
+            </motion.div>
 
-            <div className={styles.storyVisual} id="founder-story">
+            <motion.div className={styles.storyVisual} id="founder-story" variants={slideRight}>
               <div className={styles.imageShell}>
                 <img src={founderImage} alt="Founder of GIGs Impact Community" className={styles.profileImg} />
                 <div className={styles.floatingCard}>
@@ -155,28 +163,36 @@ const About = () => {
                   <h3>"You don't need everything to start. You just need to start with what you have."</h3>
                   <div className={styles.storyQuote}>
                     {founderStoryLines.map((line) => (
-                      <p key={line}>{line}</p>
+                      <motion.p key={line} variants={riseItem}>
+                        {line}
+                      </motion.p>
                     ))}
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
 
-        <section className={styles.impactSection}>
-          <div className={styles.sectionHeader}>
+        <motion.section
+          className={styles.impactSection}
+          variants={sectionFade}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          <motion.div className={styles.sectionHeader} variants={riseItem}>
             <span className={styles.sectionTag}>How It Works</span>
             <h2>The same transformation logic on the homepage also shapes our mission in practice.</h2>
             <p>
               We are not building disconnected activities. We are creating a full ecosystem that develops people,
               equips them, and connects them to meaningful outcomes.
             </p>
-          </div>
+          </motion.div>
 
-          <div className={styles.impactGrid}>
+          <motion.div className={styles.impactGrid} variants={staggerGroup}>
             {impactCards.map((card) => (
-              <article key={card.title} className={styles.infoCard}>
+              <motion.article key={card.title} className={styles.infoCard} variants={riseItem} whileHover={{ y: -6 }}>
                 <span className={styles.sectionTag}>{card.tag}</span>
                 <h3>{card.title}</h3>
                 {card.text ? <p>{card.text}</p> : null}
@@ -187,20 +203,26 @@ const About = () => {
                     ))}
                   </ul>
                 ) : null}
-              </article>
+              </motion.article>
             ))}
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
 
-        <section className={styles.frameworkSection}>
-          <div className={styles.sectionHeader}>
+        <motion.section
+          className={styles.frameworkSection}
+          variants={sectionFade}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          <motion.div className={styles.sectionHeader} variants={riseItem}>
             <span className={styles.sectionTag}>Framework Snapshot</span>
             <h2>Our programs sit inside a bigger journey of personal and economic transformation.</h2>
-          </div>
+          </motion.div>
 
-          <div className={styles.frameworkGrid}>
+          <motion.div className={styles.frameworkGrid} variants={staggerGroup}>
             {frameworkPreview.map((stage) => (
-              <article key={stage.stage} className={styles.frameworkCard}>
+              <motion.article key={stage.stage} className={styles.frameworkCard} variants={riseItem} whileHover={{ y: -6 }}>
                 <span className={styles.stageIndex}>Stage {stage.stage}</span>
                 <h3>{stage.title}</h3>
                 <div className={styles.tokenList}>
@@ -210,10 +232,14 @@ const About = () => {
                     </span>
                   ))}
                 </div>
-              </article>
+              </motion.article>
             ))}
 
-            <article className={`${styles.frameworkCard} ${styles.frameworkCtaCard}`}>
+            <motion.article
+              className={`${styles.frameworkCard} ${styles.frameworkCtaCard}`}
+              variants={riseItem}
+              whileHover={{ y: -6 }}
+            >
               <span className={styles.stageIndex}>Full Journey</span>
              
               <p>
@@ -223,12 +249,18 @@ const About = () => {
               <Link to="/programs#stage-framework" className={styles.frameworkCtaBtn}>
                 View Seven-Stage Framework
               </Link>
-            </article>
-          </div>
-        </section>
+            </motion.article>
+          </motion.div>
+        </motion.section>
 
-        <section className={styles.quoteSection}>
-          <div className={styles.quoteShell}>
+        <motion.section
+          className={styles.quoteSection}
+          variants={sectionFade}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          <motion.div className={styles.quoteShell} variants={staggerGroup}>
             <span className={styles.sectionTagLight}>Founder&apos;s Message</span>
             <h2>Change will come from building.</h2>
             <p>
@@ -238,8 +270,8 @@ const About = () => {
             <Link to="/contact" className={styles.primaryBtn}>
               Connect With Us
             </Link>
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
       </main>
     </div>
   );

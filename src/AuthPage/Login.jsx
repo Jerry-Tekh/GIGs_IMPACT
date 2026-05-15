@@ -313,7 +313,7 @@ const Login = () => {
 
               <div className={styles.statGrid}>
                 <div className={styles.statCard}>
-                  <strong>1</strong>
+                  <strong>One</strong>
                   <span>Editorial workspace</span>
                 </div>
                 <div className={styles.statCard}>

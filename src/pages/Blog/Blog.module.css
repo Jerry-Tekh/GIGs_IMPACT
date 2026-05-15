@@ -1,5 +1,5 @@
 .page {
-  background: linear-gradient(180deg, #f6f8ff 0%, #ffffff 100%);
+  
   color: #002b7f;
   overflow-x: clip;
 }
@@ -9,6 +9,9 @@
 .articlesSection,
 .newsletterSection {
   padding: 84px 8%;
+}
+.articlesSection {
+  padding-top: 10px;
 }
 
 .hero {
@@ -82,7 +85,7 @@
   padding: var(--btn-pad-y) var(--btn-pad-x);
   min-height: var(--btn-min-height);
   font-weight: var(--fw-semibold);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  
 }
 
 .primaryBtn,
@@ -90,7 +93,7 @@
 .newsletterForm button {
   background: var(--color-accent);
   color: #181810;
-  box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
+  
 }
 
 .secondaryBtn {
@@ -114,7 +117,7 @@
   background-position: contain;
   background-size: cover;
   background-repeat: none;
-  box-shadow: 0 18px 40px rgba(3, 18, 66, 0.2);
+ 
 }
 
 .heroPanel::before {
@@ -200,7 +203,7 @@
   padding: 24px;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(30, 90, 243, 0.14);
-  box-shadow: 0 18px 40px rgba(30, 90, 243, 0.08);
+  
 }
 
 .searchInput {
@@ -217,35 +220,66 @@
 .newsletterForm input:focus {
   outline: none;
   border-color: #1e5af3;
-  box-shadow: 0 0 0 4px rgba(30, 90, 243, 0.14);
+
 }
 
 .categoriesContainer {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
   margin-top: 12px;
+  padding: 10px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #f8fbff 0%, #f2f7ff 100%);
+  border: 1px solid rgba(30, 90, 243, 0.08);
 }
 
 .categoryBtn,
 .pagination button {
-  padding: var(--btn-pad-y) var(--btn-pad-x);
-  min-height: var(--btn-min-height);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  min-height: 40px;
   border: 1px solid #dce7ff;
-  background: #ffffff;
-  color: #002b7f;
+  background: rgba(255, 255, 255, 0.92);
+  color: #143a8f;
   font-weight: var(--fw-semibold);
-  font-size: var(--fs-caption);
-  text-transform: uppercase;
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
   cursor: pointer;
+  border-radius: 999px;
+  
+
 }
 
-.categoryBtn.active,
+.categoryBtn {
+  text-transform: none;
+}
+
+.categoryDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(30, 90, 243, 0.35);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.active,
 .categoryBtn:hover,
+.activePage,
 .pagination button.activePage {
-  background: #1e5af3;
-  border-color: #1e5af3;
+  background:  #1e5af3;
+ 
   color: #ffffff;
+  
+  transform: translateY(-1px);
+}
+
+.active .categoryDot,
+.categoryBtn:hover .categoryDot {
+  background: #ffe27a;
+  transform: scale(1.15);
 }
 
 .sectionIntro {
@@ -271,14 +305,14 @@
   min-height: 300px;
   background-position: center;
   background-size: cover;
-  box-shadow: 0 18px 40px rgba(30, 90, 243, 0.08);
+
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+ 
 }
 
 .articleCard:hover {
   transform: translateY(-6px) !important;
-  box-shadow: 0 24px 46px rgba(30, 90, 243, 0.16);
+
 }
 
 .articleContent {
@@ -417,6 +451,7 @@
   .newsletterSection {
     padding: 72px 6%;
   }
+
 
   .heroGrid,
   .controlsGrid,

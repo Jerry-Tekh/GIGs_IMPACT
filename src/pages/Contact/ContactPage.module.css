@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #f6f8ff 0%, #ffffff 100%);
+  
   color: #002b7f;
 }
 
@@ -76,14 +76,14 @@
   padding: var(--btn-pad-y) var(--btn-pad-x);
   min-height: var(--btn-min-height);
   font-weight: var(--fw-semibold);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  
 }
 
 .primaryBtn,
 .submitButton {
   background: var(--color-accent);
   color: #181810;
-  box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
+ 
 }
 
 .secondaryBtn {
@@ -104,14 +104,14 @@
 .form {
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(30, 90, 243, 0.14);
-  box-shadow: 0 18px 40px rgba(30, 90, 243, 0.08);
+  
 }
 
 .heroPanel {
   padding: 32px;
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(220, 231, 255, 0.2);
-  box-shadow: 0 18px 40px rgba(3, 18, 66, 0.2);
+ 
 }
 
 .heroPanel h2 {
@@ -173,6 +173,25 @@
 .copyCard,
 .form {
   padding: 28px;
+}
+
+.infoCardTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.infoIcon {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(11, 29, 102, 0.96), rgba(30, 90, 243, 0.92));
+  color: #ffe27a;
+ 
+  font-size: 1rem;
 }
 
 .infoCard h3 {
@@ -254,14 +273,14 @@
   padding: 16px 18px;
   background: #f9fbff;
   color: #002b7f;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  
 }
 
 .formRow input:focus,
 .formRow textarea:focus {
   outline: none;
   border-color: #1e5af3;
-  box-shadow: 0 0 0 4px rgba(30, 90, 243, 0.14);
+  
 }
 
 .formRow textarea {

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import styles from './Program.module.css';
 import { siteData } from '../../SiteData.js';
+import { riseItem, sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
 
 const stageDetails = [
   {
@@ -130,7 +131,7 @@ const Program = () => {
     <div className={styles.page}>
       <motion.section className={styles.hero}>
         <div className={styles.heroGrid}>
-          <div className={styles.heroCopy}>
+          <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
             <span className={styles.eyebrow}>Programs</span>
             <h1>Our programs are built around the same 7-stage transformation system you see on the home page.</h1>
             <p>
@@ -145,9 +146,9 @@ const Program = () => {
                 Explore Program Tracks
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          <div className={styles.heroPanel}>
+          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
             <span className={styles.panelLabel}>Transformation Path</span>
             <h2>Potential to Skill to Value to Income to Influence</h2>
             <p>
@@ -164,23 +165,35 @@ const Program = () => {
                 <span>program tracks</span>
               </div>
             </div>*/}
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
-      <section className={styles.frameworkSection} id="stage-framework">
-        <div className={styles.sectionHeader}>
+      <motion.section
+        className={styles.frameworkSection}
+        id="stage-framework"
+        variants={sectionFade}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+      >
+        <motion.div className={styles.sectionHeader} variants={riseItem}>
           <span className={styles.sectionTag}>Seven-Stage Framework</span>
           <h2>The full journey from self-awareness to lifelong impact.</h2>
           <p>
             Every stage below expands our framework.
             Each phase has its own mindset, skill, and opportunity focus that builds on the previous one.
           </p>
-        </div>
+        </motion.div>
 
-        <div className={styles.frameworkFlow}>
+        <motion.div className={styles.frameworkFlow} variants={staggerGroup}>
           {framework.map((stage, index) => (
-            <article key={stage.stage} className={styles.stageCard}>
+            <motion.article
+              key={stage.stage}
+              className={styles.stageCard}
+              variants={riseItem}
+              whileHover={{ y: -6 }}
+            >
               <div className={styles.stageHead}>
                 <span className={styles.stageIndex}>Stage {stage.stage}</span>
                 <span className={styles.stageStatus}>Framework Phase</span>
@@ -215,19 +228,26 @@ const Program = () => {
               </div>
 
               {index < framework.length - 1 && <div className={styles.stageConnector} aria-hidden="true" />}
-            </article>
+            </motion.article>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section className={styles.catalogSection} id="program-catalog">
-        <div className={styles.catalogIntro}>
-          <div>
+      <motion.section
+        className={styles.catalogSection}
+        id="program-catalog"
+        variants={sectionFade}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+      >
+        <motion.div className={styles.catalogIntro} variants={staggerGroup}>
+          <motion.div variants={riseItem}>
             <span className={styles.sectionTag}>Program Tracks</span>
             <h2>Practical learning experiences built inside the framework.</h2>
-          </div>
+          </motion.div>
 
-          <div className={styles.filterContainer}>
+          <motion.div className={styles.filterContainer} variants={riseItem}>
             <button className={`${styles.filterBtn} ${activeTab === 'all' ? styles.active : ''}`} onClick={() => setActiveTab('all')}>
               All Programs
             </button>
@@ -243,12 +263,18 @@ const Program = () => {
             <button className={`${styles.filterBtn} ${activeTab === 'wellness' ? styles.active : ''}`} onClick={() => setActiveTab('wellness')}>
               Wellness
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className={styles.programsGrid}>
+        <motion.div className={styles.programsGrid} variants={staggerGroup} layout>
           {filteredPrograms.map((program) => (
-            <article key={program.id} className={styles.programCard}>
+            <motion.article
+              key={program.id}
+              className={styles.programCard}
+              variants={riseItem}
+              whileHover={{ y: -6 }}
+              layout
+            >
               <div className={styles.cardTop}>
                 <span className={styles.categoryBadge}>{program.category.toUpperCase()}</span>
                 <span className={styles.comingSoonBadge}>COMING SOON</span>
@@ -278,28 +304,34 @@ const Program = () => {
               </div>
 
               <button className={styles.enrollBtn}>Explore Program</button>
-            </article>
+            </motion.article>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section className={styles.ctaSection}>
-        <div className={styles.ctaShell}>
-          <div>
+      <motion.section
+        className={styles.ctaSection}
+        variants={sectionFade}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+      >
+        <motion.div className={styles.ctaShell} variants={staggerGroup}>
+          <motion.div variants={riseItem}>
             <span className={styles.sectionTagLight}>Next Step</span>
             <h2>Ready to grow through a structure that turns ability into measurable value?</h2>
-          </div>
+          </motion.div>
 
-          <div className={styles.ctaActions}>
+          <motion.div className={styles.ctaActions} variants={riseItem}>
             <Link to="/contact" className={styles.primaryBtn}>
               Talk To Us
             </Link>
             <a href="#stage-framework" className={styles.secondaryBtnLight}>
               Revisit The Framework
             </a>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </motion.div>
+      </motion.section>
     </div>
   );
 };

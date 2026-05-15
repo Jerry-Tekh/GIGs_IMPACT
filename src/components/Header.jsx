@@ -3,9 +3,18 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styles from './Header.module.css';
 import logo from './../assets/logo.png';
+import { FaBookOpen, FaEnvelope, FaHome, FaInfoCircle, FaLayerGroup } from 'react-icons/fa';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { MdClose } from 'react-icons/md';
 import { smoothScrollToY } from '../utils/smoothScroll.js';
+
+const navItems = [
+  { to: '/', label: 'Home', icon: FaHome, scrollToTop: true },
+  { to: '/about', label: 'About', icon: FaInfoCircle },
+  { to: '/programs', label: 'Programs', icon: FaLayerGroup },
+  { to: '/blog', label: 'Blog', icon: FaBookOpen },
+  { to: '/contact', label: 'Contact', icon: FaEnvelope, scrollToTop: true }
+];
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,31 +83,38 @@ const Header = () => {
           </motion.button>
 
           <motion.ul className={`${styles.navLinks} ${isOpen ? styles.open : ''}`} initial={false} animate={{ opacity: 1 }}>
-            <li>
-              <NavLink to="/" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={() => { closeMenu(); scrollToTop(); }}>
-                Home
-              </NavLink>
+            <li className={styles.mobileMenuIntro}>
+              <div className={styles.mobileMenuBrand}>
+                <img src={logo} alt="GigImpact Logo" />
+                <div>
+                  <strong>GIGs IMPACT</strong>
+                  <p>Talent. Growth. Impact</p>
+                </div>
+              </div>
             </li>
-            <li>
-              <NavLink to="/about" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/programs" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
-                Programs
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/blog" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeMenu}>
-                Blog
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={() => { closeMenu(); scrollToTop(); }}>
-                Contact
-              </NavLink>
-            </li>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) => (isActive ? styles.activeLink : '')}
+                    onClick={() => {
+                      closeMenu();
+                      if (item.scrollToTop) {
+                        scrollToTop();
+                      }
+                    }}
+                  >
+                    <span className={styles.mobileNavIcon} aria-hidden="true">
+                      <Icon />
+                    </span>
+                    <span>{item.label}</span>
+                  </NavLink>
+                </li>
+              );
+            })}
           </motion.ul>
         </motion.nav>
       </motion.header>

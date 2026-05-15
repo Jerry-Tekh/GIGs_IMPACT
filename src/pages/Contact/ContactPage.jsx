@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import styles from './ContactPage.module.css';
+import { riseItem, sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
 
 const contactCards = [
   {
+    icon: FaEnvelope,
     label: 'Email',
     value: 'gigsimpact@gmail.com',
     note: 'For partnerships, support, and general enquiries.'
   },
   {
+    icon: FaPhoneAlt,
     label: 'Phone',
     value: '0814 616 3211',
     note: 'Reach out for direct community or program questions.'
   },
   {
+    icon: FaMapMarkerAlt,
     label: 'Location',
     value: 'Enugu, Nigeria',
     note: 'Our work is rooted locally while building toward wider impact.'
@@ -80,7 +85,7 @@ const ContactPage = () => {
     <div className={styles.page}>
       <motion.section className={styles.hero}>
         <div className={styles.heroGrid}>
-          <div className={styles.heroCopy}>
+          <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
             <span className={styles.eyebrow}>Contact</span>
             <h1>Let&apos;s talk about ideas, collaboration, and building practical impact together.</h1>
             <p>
@@ -96,14 +101,14 @@ const ContactPage = () => {
                 Email Us Directly
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          <div className={styles.heroPanel}>
+          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
             <span className={styles.panelLabel}>Response Promise</span>
             <h2>We aim to make every conversation clear and action-oriented.</h2>
             <p>
               Use the form below to reach us . We will respond within one business day
-              and guide you on the next steps to get your questions answered, ideas
+              and guide you on the next steps to get your questions answered.
             </p>
 
             {/*<div className={styles.heroStats}>
@@ -116,30 +121,52 @@ const ContactPage = () => {
                 <span>Ways to connect</span>
               </div>
             </div>*/}
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
-      <section className={styles.infoSection}>
-        <div className={styles.sectionHeader}>
+      <motion.section
+        className={styles.infoSection}
+        variants={sectionFade}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+      >
+        <motion.div className={styles.sectionHeader} variants={riseItem}>
           <span className={styles.sectionTag}>Get In Touch</span>
           <h2>Choose the contact path that fits your need.</h2>
-        </div>
+        </motion.div>
 
-        <div className={styles.infoGrid}>
-          {contactCards.map((card) => (
-            <article key={card.label} className={styles.infoCard}>
-              <span className={styles.infoLabel}>{card.label}</span>
-              <h3>{card.value}</h3>
-              <p>{card.note}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+        <motion.div className={styles.infoGrid} variants={staggerGroup}>
+          {contactCards.map((card) => {
+            const Icon = card.icon;
 
-      <section className={styles.formSection} id="contact-form">
-        <div className={styles.formGrid}>
-          <article className={styles.copyCard}>
+            return (
+              <motion.article key={card.label} className={styles.infoCard} variants={riseItem} whileHover={{ y: -6 }}>
+                <div className={styles.infoCardTop}>
+                  <span className={styles.infoIcon} aria-hidden="true">
+                    <Icon />
+                  </span>
+                  <span className={styles.infoLabel}>{card.label}</span>
+                </div>
+                <h3>{card.value}</h3>
+                <p>{card.note}</p>
+              </motion.article>
+            );
+          })}
+        </motion.div>
+      </motion.section>
+
+      <motion.section
+        className={styles.formSection}
+        id="contact-form"
+        variants={sectionFade}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+      >
+        <motion.div className={styles.formGrid} variants={staggerGroup}>
+          <motion.article className={styles.copyCard} variants={slideLeft}>
             <span className={styles.sectionTag}>Why Reach Out</span>
             <h2>We welcome partnership ideas, volunteer interest, and questions about the community.</h2>
             <p>
@@ -153,9 +180,9 @@ const ContactPage = () => {
               <li>Speaking, media, and collaboration requests</li>
               <li>Support for general questions and clarifications</li>
             </ul>
-          </article>
+          </motion.article>
 
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <motion.form className={styles.form} onSubmit={handleSubmit} variants={slideRight}>
             <AnimatePresence>
               {status && (
                 <motion.div
@@ -198,9 +225,9 @@ const ContactPage = () => {
             <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
-          </form>
-        </div>
-      </section>
+          </motion.form>
+        </motion.div>
+      </motion.section>
     </div>
   );
 };

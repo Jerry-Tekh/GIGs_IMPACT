@@ -1,4 +1,4 @@
-import { fetchCsrfToken } from './csrf.js';
+import { fetchCsrfToken, setCsrfToken } from './csrf.js';
 
 const buildApiUrl = (path) => `${import.meta.env.VITE_SERVER_URL}${path}`;
 
@@ -63,7 +63,13 @@ const refreshAccessToken = async () => {
         skipAuthRefresh: true
       });
 
-      return parseResponse(response);
+      const payload = await parseResponse(response);
+
+      if (payload?.csrfToken) {
+        setCsrfToken(payload.csrfToken);
+      }
+
+      return payload;
     })().finally(() => {
       refreshPromise = null;
     });
