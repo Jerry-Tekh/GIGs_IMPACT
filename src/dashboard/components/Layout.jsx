@@ -37,13 +37,15 @@ const Layout = ({ children, user, title, navItems = [], refreshUser }) => {
         isMobile && !sidebarCollapsed ? styles.mobileSidebarOpen : ''
       ].filter(Boolean).join(' ')}
     >
-      <Sidebar
-        collapsed={sidebarCollapsed}
-        onToggle={toggleSidebar}
-        onOpenSettings={() => setSettingsOpen(true)}
-        navItems={navItems}
-        user={user}
-      />
+      <div className={styles.sidebarShell}>
+        <Sidebar
+          collapsed={sidebarCollapsed}
+          onToggle={toggleSidebar}
+          onOpenSettings={() => setSettingsOpen(true)}
+          navItems={navItems}
+          user={user}
+        />
+      </div>
       {isMobile && !sidebarCollapsed && <div className={styles.backdrop} onClick={toggleSidebar} />}
       <div className={styles.mainContent}>
         <div className={styles.topbarShell}>

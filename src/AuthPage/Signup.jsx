@@ -6,7 +6,7 @@ import AuthCard from '../components/AuthCard';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import styles from './Auth.module.css';
-import { fetchCsrfToken, setCsrfToken } from '../utils/csrf.js';
+import { clearCsrfToken, fetchCsrfToken, setCsrfToken } from '../utils/csrf.js';
 
 const signupBenefits = [
   'Create an editorial account that matches the public site identity',
@@ -62,9 +62,11 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const nextValue = name === 'email' ? value.toLowerCase() : value;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: nextValue
     }));
   };
 
@@ -88,6 +90,24 @@ const Signup = () => {
     return true;
   };
 
+  const parseResponseBody = async (response) => {
+    const rawBody = await response.text();
+
+    if (!rawBody) {
+      return {};
+    }
+
+    try {
+      return JSON.parse(rawBody);
+    } catch {
+      return { message: rawBody };
+    }
+  };
+
+  const isCsrfError = (response, data) =>
+    response.status === 403 &&
+    ['CSRF token missing', 'Invalid CSRF token'].includes(data?.message);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -100,22 +120,35 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      const csrfToken = await fetchCsrfToken();
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/register`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({
-          full_name: formData.fullName,
-          email: formData.email,
-          password: formData.password
-        })
+      const registrationPayload = JSON.stringify({
+        full_name: formData.fullName,
+        email: formData.email,
+        password: formData.password
       });
 
-      const data = await response.json();
+      const attemptSignup = async (csrfToken) => {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/register`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+          body: registrationPayload
+        });
+
+        const data = await parseResponseBody(response);
+        return { response, data };
+      };
+
+      let csrfToken = await fetchCsrfToken();
+      let { response, data } = await attemptSignup(csrfToken);
+
+      if (isCsrfError(response, data)) {
+        clearCsrfToken();
+        csrfToken = await fetchCsrfToken({ force: true });
+        ({ response, data } = await attemptSignup(csrfToken));
+      }
 
       if (response.ok) {
         setCsrfToken(data?.csrfToken || csrfToken);
@@ -140,13 +173,9 @@ const Signup = () => {
           <div className={styles.authShell}>
             <div className={styles.authCopy}>
               <span className={styles.eyebrow}>Blog Signup</span>
-              <h1>Create a blog account that feels like part of the same GIGs Impact design system.</h1>
-              <p>
-                This signup flow now mirrors the visual rhythm of the public pages, so onboarding feels aligned
-                with the rest of the site from desktop to mobile.
-              </p>
-
-              <div className={styles.statGrid}>
+              <h1>Create your blog account.</h1>
+            
+            <div className={styles.statGrid}>
                 <div className={styles.statCard}>
                   <strong>Brand</strong>
                   <span>Consistent onboarding</span>
@@ -156,6 +185,7 @@ const Signup = () => {
                   <span>Responsive typography</span>
                 </div>
               </div>
+              
 
               <ul className={styles.featureList}>
                 {signupBenefits.map((item) => (
@@ -167,7 +197,7 @@ const Signup = () => {
             <div className={styles.authPanel}>
               <div className={styles.panelIntro}>
                 <span className={styles.sectionTag}>Create Account</span>
-                <h2>Set up your account and get ready to publish.</h2>
+                
               </div>
 
               <AuthCard title="Sign Up" subtitle="Create your admin account to start managing blog content.">

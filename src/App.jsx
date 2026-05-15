@@ -16,16 +16,19 @@ import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
+import RouteFallback from './components/RouteFallback.jsx';
 import { smoothScrollToElement, smoothScrollToY } from './utils/smoothScroll.js';
 
-const Dashboard = lazy(() => import('./features/dashboard/pages/admin/DashBoard.jsx'));
-const CreatePost = lazy(() => import('./features/dashboard/pages/admin/CreatePost.jsx'));
-const ManagePosts = lazy(() => import('./features/dashboard/pages/admin/ManagePosts.jsx'));
-const ManageUsers = lazy(() => import('./features/dashboard/pages/admin/ManageUsers.jsx'));
-const AuthorDashboard = lazy(() => import('./features/dashboard/pages/author/Dashboard.jsx'));
-const AuthorManagePost = lazy(() => import('./features/dashboard/pages/author/ManagePosts.jsx'));
-const AuthorCreatePost = lazy(() => import('./features/dashboard/pages/author/CreatePost.jsx'));
-const ReaderDashboard = lazy(() => import('./features/dashboard/pages/reader/Dashboard.jsx'));
+
+
+const Dashboard = lazy(() => import('./dashboard/pages/admin/Dashboard.jsx'));
+const CreatePost = lazy(() => import('./dashboard/pages/admin/CreatePost.jsx'));
+const ManagePosts = lazy(() => import('./dashboard/pages/admin/ManagePosts.jsx'));
+const ManageUsers = lazy(() => import('./dashboard/pages/admin/ManageUsers.jsx'));
+const AuthorDashboard = lazy(() => import('./dashboard/pages/author/Dashboard.jsx'));
+const AuthorManagePost = lazy(() => import('./dashboard/pages/author/ManagePosts.jsx'));
+const AuthorCreatePost = lazy(() => import('./dashboard/pages/author/CreatePost.jsx'));
+const ReaderDashboard = lazy(() => import('./dashboard/pages/reader/Dashboard.jsx'));
 const AboutPage = lazy(() => import('./pages/About/AboutPage.jsx'));
 const Program = lazy(() => import('./pages/Program/Program.jsx'));
 const Blog = lazy(() => import('./pages/Blog/Blog.jsx'));
@@ -92,16 +95,7 @@ function PublicPage({ children }) {
   );
 }
 
-function RouteFallback() {
-  return (
-    <div className={styles.routeFallback} role="status" aria-live="polite">
-      <div className={styles.routeFallbackCard}>
-        <span className={styles.routeFallbackSpinner} />
-        <p>Loading page...</p>
-      </div>
-    </div>
-  );
-}
+// Using shared RouteFallback component
 
 function withRouteSuspense(element) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;

@@ -7,7 +7,7 @@
 
 /* HERO SECTION */
 .heroSection {
-  padding: 42px 28px;
+  padding: 28px;
   background:
     radial-gradient(circle at top right, rgba(255, 219, 36, 0.18), transparent 24%),
     linear-gradient(135deg, #0b1d66 0%, #1e5af3 100%);
@@ -58,6 +58,16 @@
   background: #fff1f2;
   color: #b42318;
   border: 1px solid #fecdd3;
+}
+
+.successBanner {
+  margin-bottom: 20px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.08), rgba(16, 185, 129, 0.12));
+  color: #0f5132;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  box-shadow: 0 14px 28px rgba(15, 81, 50, 0.06);
 }
 
 /* FILTER BAR */

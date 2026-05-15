@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaCheckCircle, FaClock, FaFileAlt, FaTags, FaUsers } from 'react-icons/fa';
-import Layout from '../../components/Admin/Layout.jsx';
-import Analytics from '../../components/Analytics.jsx';
+import Layout from '../../components/Layout.jsx';
+import Analytics from './../../../components/Analytics.jsx';
+import { apiFetch } from './../../../utils/apiClient.js';
+
+
 
 import styles from './DashBoard.module.css';
-import { apiFetch } from '../../utils/apiClient.js';
-import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
+
+
+
+
+import { getNavigationForRole } from '../../config/navigation.js';
 
 const Dashboard = ({ user, refreshUser }) => {
   const [stats, setStats] = useState({ posts: 0, categories: 0, views: 0 });
@@ -18,6 +24,18 @@ const Dashboard = ({ user, refreshUser }) => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [accessRequirement, setAccessRequirement] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location.state?.feedback?.message) {
+      return;
+    }
+
+    setFeedback(location.state.feedback.message);
+    navigate(location.pathname, { replace: true, state: null });
+  }, [location.pathname, location.state, navigate]);
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -80,6 +98,7 @@ const Dashboard = ({ user, refreshUser }) => {
   return (
     <Layout user={user} title="Admin Workspace" navItems={getNavigationForRole('admin')} refreshUser={refreshUser}>
       <div className={styles.dashboardPage}>
+        {feedback && <div className={styles.successBanner}>{feedback}</div>}
         {loadError && <div className={styles.errorBanner}>{loadError}</div>}
         {accessRequirement ? (
           <section className={styles.securityNotice}>

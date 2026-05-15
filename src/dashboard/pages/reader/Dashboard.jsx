@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBookOpen, FaHistory, FaUser } from 'react-icons/fa';
-import Layout from '../../components/Layout.jsx';
-import dashboardStyles from './../admin/DashBoard.module.css';
-import { apiFetch } from '../../../../utils/apiClient.js';
-import { getNavigationForRole } from '../../config/navigation.js';
-import { getReadingHistory } from '../../../../utils/readingHistory.js';
+import Layout from './../../components/Layout.jsx';
+import dashboardStyles from './../admin/Dashboard.module.css';
+import { apiFetch } from './../../../utils/apiClient.js';
+import { getNavigationForRole } from './../../config/navigation.js';
+import { getReadingHistory } from './../../../utils/readingHistory.js';
+
 // import PageLoader from '../../components/PageLoader.jsx';
-import { formatReadableDate } from '../../../../utils/date.js';
+import { formatReadableDate } from  './../../../utils/date.js';
 
 const ReaderDashboard = ({ user, refreshUser }) => {
   const [latestPosts, setLatestPosts] = useState([]);

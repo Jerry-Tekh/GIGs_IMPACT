@@ -3,7 +3,8 @@ import { FaArrowLeft, FaBars, FaSignOutAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import styles from './Topbar.module.css';
 import logo from './../../assets/logo.png';
-import { logoutUser } from '../../utils/auth.js';
+
+import { logoutUser } from './../../utils/auth.js';
 
 const Topbar = ({ onMenuClick, user, title }) => {
   const navigate = useNavigate();

@@ -121,7 +121,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: min(88vw, 360px);
+    width: min(88vw, 330px);
     max-width: min(88vw, 360px);
     height: 100vh;
     background:
@@ -207,15 +207,15 @@
   .navLinks li a {
     display: flex;
     align-items: center;
+    color: #071529;
     gap: 12px;
     font-size: 1rem;
     padding: 10px;
     font-weight: var(--fw-semibold);
     border-bottom: none;
     border-radius: 18px;
-    color: #071529;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(248, 249, 252, 0.88));
-    border: 1px solid rgba(7, 15, 45, 0.07);
+ 
     
     
   }
@@ -223,7 +223,7 @@
   .navLinks li a:hover {
     color: var(--color-accent);
     background: rgba(30, 90, 243, 0.08);
-    border-color: rgba(30, 90, 243, 0.18);
+   
     
   }
 

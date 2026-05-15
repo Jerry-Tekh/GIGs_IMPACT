@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowRight, FaCheckCircle, FaClock, FaFileAlt } from 'react-icons/fa';
-import Layout from '../../components/Layout.jsx';
-import dashboardStyles from '../admin/DashBoard.module.css';
-import { apiFetch } from '../../../../utils/apiClient.js';
-import { getNavigationForRole } from '../../config/navigation.js';
+import Layout from './../../components/Layout.jsx';
+
+import dashboardStyles from './../admin/Dashboard.module.css';
+import { apiFetch } from './../../../utils/apiClient.js';
+import { getNavigationForRole }  from './../../config/navigation.js';
+
 // import PageLoader from '../../components/PageLoader.jsx';
-import { formatReadableDate } from '../../../../utils/date.js';
+import { formatReadableDate } from './../../../utils/date.js';
 
 const AuthorDashboard = ({ user, refreshUser }) => {
   const [posts, setPosts] = useState([]);

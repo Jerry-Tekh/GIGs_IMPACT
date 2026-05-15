@@ -87,7 +87,7 @@ const Header = () => {
               <div className={styles.mobileMenuBrand}>
                 <img src={logo} alt="GigImpact Logo" />
                 <div>
-                  <strong>GIGs IMPACT</strong>
+                  {/*<strong>GIGs IMPACT</strong>*/}
                   <p>Talent. Growth. Impact</p>
                 </div>
               </div>

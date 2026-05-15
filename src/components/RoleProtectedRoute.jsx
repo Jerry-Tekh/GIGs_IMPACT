@@ -1,14 +1,15 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getDashboardPath } from '../utils/auth.js';
+import RouteFallback from './RouteFallback.jsx';
 // import PageLoader from './PageLoader.jsx';
 
 const RoleProtectedRoute = ({ children, user, isLoading = false, allowedRoles = [] }) => {
   const location = useLocation();
 
-  // Loader spinner removed for non-dashboard pages
+  // Show shared route fallback while auth state is resolving
   if (isLoading) {
-    return null;
+    return <RouteFallback />;
   }
 
   if (!user) {

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { FaEdit, FaFileAlt, FaSearch, FaTrash } from 'react-icons/fa';
-import Layout from '../../components/Layout.jsx';
-import { CreatePostModal } from '../admin/CreatePost.jsx';
-import styles from '../admin/ManagePosts.module.css';
-import { apiFetch } from '../../../../utils/apiClient.js';
-import { getNavigationForRole } from '../../config/navigation.js';
+import Layout from './../../components/Layout.jsx';
+import { CreatePostModal } from './../admin/CreatePost.jsx';
+import styles from './../admin/ManagePosts.module.css';
+import { apiFetch } from './../../../utils/apiClient.js';
+import { getNavigationForRole } from './../../config/navigation.js';
+
 
 const ManagePost = ({ user, refreshUser }) => {
   const [posts, setPosts] = useState([]);

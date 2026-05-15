@@ -60,9 +60,15 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const nextValue = type === 'checkbox'
+      ? checked
+      : name === 'email'
+        ? value.toLowerCase()
+        : value;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: nextValue
     }));
   };
 

@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   overflow: visible;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+
   box-sizing: border-box;
 }
 
@@ -115,6 +115,14 @@
   gap: 8px;
 }
 
+.fieldHeader,
+.selectHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .label {
   font-weight: var(--fw-semibold);
   color: var(--color-text);
@@ -127,7 +135,7 @@
 .excerptInput,
 .contentInput,
 .input,
-.select {
+.fileInput {
   width: 100%;
   max-width: 100%;
   padding: 10px 14px;
@@ -144,7 +152,7 @@
 .titleInput,
 .excerptInput,
 .input,
-.select {
+.fileInput {
   min-height: 44px;
 }
 
@@ -152,11 +160,16 @@
 .excerptInput:focus,
 .contentInput:focus,
 .input:focus,
-.select:focus {
+.fileInput:focus {
   outline: none;
   border-color: #1e5af3;
   background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(30, 90, 243, 0.1);
+  
+}
+
+.fileInput {
+  padding: 11px 14px;
+  cursor: pointer;
 }
 
 .titleInput {
@@ -167,8 +180,7 @@
 
 .excerptInput {
   font-size: var(--fs-body-sm);
-  min-height: 72px;
-  resize: vertical;
+  min-height: 48px;
 }
 
 .contentInput {
@@ -201,14 +213,60 @@
   box-sizing: border-box;
 }
 
+.characterCount,
+.selectHint {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: var(--fw-semibold);
+}
+
+.selectShell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 14px 0 46px;
+  border: 1px solid rgba(30, 90, 243, 0.14);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(248, 251, 255, 0.98), rgba(255, 255, 255, 0.98));
+
+}
+
+.selectShell:focus-within {
+  border-color: #1e5af3;
+
+}
+
+.selectIcon {
+  position: absolute;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: #1e5af3;
+}
+
 .select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  width: 100%;
+  min-height: 50px;
+  padding: 0 34px 0 0;
+  border: none;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e5af3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 20px;
-  padding-right: 40px;
+  background-position: right center;
+  background-size: 18px;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  appearance: none;
   cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
 }
 
 /* CHECKBOX GROUP */
@@ -246,6 +304,20 @@
   font-size: var(--fs-body-sm);
 }
 
+.uploadInfo {
+  margin: 0;
+  color: #274690;
+  line-height: 1.6;
+  font-size: var(--fs-body-sm);
+}
+
+.inlineError {
+  margin: 0;
+  color: #b91c1c;
+  font-size: var(--fs-body-sm);
+  line-height: 1.5;
+}
+
 /* BUTTON */
 .publishBtn {
   width: 100%;
@@ -257,7 +329,7 @@
   border-radius: 8px;
   font-weight: var(--fw-semibold);
   cursor: pointer;
-  box-shadow: 0 8px 16px rgba(255, 219, 36, 0.2);
+  
   transition: all 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -267,7 +339,7 @@
 
 .publishBtn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(255, 219, 36, 0.28);
+
 }
 
 .publishBtn:disabled {
@@ -422,7 +494,7 @@
   border: 1px solid rgba(30, 90, 243, 0.12);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 16px 30px rgba(30, 41, 59, 0.08);
+ 
   box-sizing: border-box;
 }
 
@@ -529,6 +601,23 @@
   .contentInput {
     min-height: 280px;
   }
+}
+
+.feedbackCardSuccess {
+  border-color: rgba(16, 185, 129, 0.24);
+  background: linear-gradient(135deg, #f3fffb, #eefcf7);
+}
+
+.feedbackCardSuccess .feedbackIcon {
+  background: rgba(16, 185, 129, 0.12);
+  color: #0f766e;
+}
+
+.feedbackCardSuccess .feedbackContent strong,
+.feedbackCardSuccess .feedbackContent p,
+.feedbackCardSuccess .feedbackContent small,
+.feedbackCardSuccess .feedbackCountdown {
+  color: #0f766e;
 }
 
 

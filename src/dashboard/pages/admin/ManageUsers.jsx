@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaSearch, FaUsers } from 'react-icons/fa';
-import Layout from '../../components/Layout.jsx';
+import Layout from './../../components/Layout.jsx';
 import styles from './ManagePosts.module.css';
-import { apiFetch } from '../../../../utils/apiClient.js';
-import { getNavigationForRole } from '../../config/navigation.js';
-import { formatReadableDate } from '../../../../utils/date.js';
+import { apiFetch } from './../../../utils/apiClient.js';
+import { getNavigationForRole } from './../../config/navigation.js';
+import { formatReadableDate } from './../../../utils/date.js';
+
 
 const ManageUsers = ({ user, refreshUser }) => {
   const [users, setUsers] = useState([]);

@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaExclamationCircle } from 'react-icons/fa';
-import Layout from '../../components/Admin/Layout.jsx';
+import { FaExclamationCircle, FaLayerGroup } from 'react-icons/fa';
+import Layout from './../../components/Layout.jsx';
 import styles from './CreatePost.module.css';
-import { apiFetch } from '../../utils/apiClient.js';
-import { getNavigationForRole } from '../../utils/dashboardNavigation.js';
+import { apiFetch } from './../../../utils/apiClient.js';
+import  { getNavigationForRole } from './../../config/navigation.js';
+
+import {
+  cleanupUploadedBlogImages,
+  uploadBlogImageToCloudinary,
+  validateBlogImageFile
+} from './../../../utils/cloudinaryUpload.js';
 
 const getPreviewParagraphs = (content = '') =>
   content
@@ -13,12 +19,18 @@ const getPreviewParagraphs = (content = '') =>
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
 
+const EXCERPT_MAX_LENGTH = 60;
+
 const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
   const [categories, setCategories] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [error, setError] = useState('');
+  const [imageError, setImageError] = useState('');
   const [submitFeedback, setSubmitFeedback] = useState(null);
   const [feedbackCountdown, setFeedbackCountdown] = useState(0);
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
+  const [selectedImagePreviewUrl, setSelectedImagePreviewUrl] = useState('');
 
   const [form, setForm] = useState({
     title: '',
@@ -26,6 +38,7 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
     content: '',
     category_id: '',
     featured_image: '',
+    featured_image_public_id: '',
     read_time: '',
     is_published: role === 'admin'
   });
@@ -61,10 +74,17 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
       content: existingPost.content || '',
       category_id: existingPost.category_id || '',
       featured_image: existingPost.featured_image || '',
+      featured_image_public_id: existingPost.featured_image_public_id || '',
       read_time: existingPost.read_time || '',
       is_published: existingPost.is_published !== false
     });
   }, [existingPost]);
+
+  useEffect(() => () => {
+    if (selectedImagePreviewUrl) {
+      URL.revokeObjectURL(selectedImagePreviewUrl);
+    }
+  }, [selectedImagePreviewUrl]);
 
   useEffect(() => {
     if (!submitFeedback || submitFeedback.type !== 'error') {
@@ -93,7 +113,12 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
     const { name, value, type, checked } = event.target;
     setForm((current) => ({
       ...current,
-      [name]: type === 'checkbox' ? checked : value
+      [name]:
+        type === 'checkbox'
+          ? checked
+          : name === 'excerpt'
+            ? value.slice(0, EXCERPT_MAX_LENGTH)
+            : value
     }));
   };
 
@@ -108,6 +133,33 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
         event.target.selectionStart = event.target.selectionEnd = selectionStart + tab.length;
       });
     }
+  };
+
+  const handleFeaturedImageChange = (event) => {
+    const file = event.target.files?.[0] || null;
+
+    if (selectedImagePreviewUrl) {
+      URL.revokeObjectURL(selectedImagePreviewUrl);
+    }
+
+    if (!file) {
+      setSelectedImageFile(null);
+      setSelectedImagePreviewUrl('');
+      setImageError('');
+      return;
+    }
+
+    const validationError = validateBlogImageFile(file);
+    if (validationError) {
+      setSelectedImageFile(null);
+      setSelectedImagePreviewUrl('');
+      setImageError(validationError);
+      return;
+    }
+
+    setSelectedImageFile(file);
+    setSelectedImagePreviewUrl(URL.createObjectURL(file));
+    setImageError('');
   };
 
   const handleSubmit = async (event) => {
@@ -129,16 +181,25 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
       return;
     }
 
+    if (form.excerpt.trim().length > EXCERPT_MAX_LENGTH) {
+      setError(`Excerpt must be ${EXCERPT_MAX_LENGTH} characters or fewer`);
+      return;
+    }
+
+    if (!form.featured_image.trim() && !selectedImageFile) {
+      setError('Please choose a featured image');
+      return;
+    }
+
+    if (imageError) {
+      setError(imageError);
+      return;
+    }
+
     setIsSaving(true);
     setError('');
 
-    const payload =
-      role === 'author'
-        ? {
-            ...form,
-            is_published: false
-          }
-        : form;
+    let uploadedImage = null;
 
     const path = existingPost
       ? role === 'author'
@@ -151,21 +212,70 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
     const method = existingPost ? 'PUT' : 'POST';
 
     try {
+      let nextImageFields = {
+        featured_image: form.featured_image,
+        featured_image_public_id: form.featured_image_public_id
+      };
+
+      if (selectedImageFile) {
+        setIsUploadingImage(true);
+        uploadedImage = await uploadBlogImageToCloudinary(selectedImageFile);
+        nextImageFields = {
+          featured_image: uploadedImage.secure_url,
+          featured_image_public_id: uploadedImage.public_id
+        };
+      }
+
+      const payload =
+        role === 'author'
+          ? {
+              ...form,
+              ...nextImageFields,
+              is_published: false
+            }
+          : {
+              ...form,
+              ...nextImageFields
+            };
+
       await apiFetch(path, {
         method,
         body: JSON.stringify(payload)
       });
 
-      onClose();
+      setForm((current) => ({
+        ...current,
+        ...nextImageFields
+      }));
+      onClose?.({
+        type: 'success',
+        message: existingPost
+          ? isAuthor
+            ? 'Your post changes were saved successfully.'
+            : 'Post updated successfully.'
+          : isAuthor
+            ? 'Your post was submitted successfully for admin review.'
+            : payload.is_published
+              ? 'Post published successfully.'
+              : 'Post saved successfully.'
+      });
     } catch (err) {
       console.error(err);
+
+      if (uploadedImage?.public_id) {
+        await cleanupUploadedBlogImages([uploadedImage.public_id]);
+      }
+
       setSubmitFeedback({
         type: 'error',
         title: existingPost ? 'Changes were not saved' : isAuthor ? 'Post submission did not go through' : 'Post could not be published',
         message: err.message || 'Please review your content, confirm your connection, and try again.',
-        hint: 'Your draft is still here, so you can fix the issue and submit again without losing your work.'
+        hint: uploadedImage?.public_id
+          ? 'Your draft is still here. If you retry, the selected image will upload again without leaving an unused Cloudinary file behind.'
+          : 'Your draft is still here, so you can fix the issue and submit again without losing your work.'
       });
     } finally {
+      setIsUploadingImage(false);
       setIsSaving(false);
     }
   };
@@ -175,12 +285,13 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
     form.excerpt.trim() &&
     form.content.trim() &&
     form.category_id &&
-    form.featured_image.trim() &&
+    (form.featured_image.trim() || selectedImageFile) &&
     String(form.read_time).trim()
   );
   const isAuthor = role === 'author';
   const selectedCategory = categories.find((category) => String(category.id) === String(form.category_id));
   const previewParagraphs = getPreviewParagraphs(form.content);
+  const previewImage = selectedImagePreviewUrl || form.featured_image;
 
   return (
     <div
@@ -239,14 +350,19 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
             </motion.div>
 
             <motion.div className={styles.formGroup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
-              <label className={styles.label}>Excerpt</label>
+              <div className={styles.fieldHeader}>
+                <label className={styles.label}>Excerpt</label>
+                <span className={styles.characterCount}>{form.excerpt.length}/{EXCERPT_MAX_LENGTH}</span>
+              </div>
               <input
                 name="excerpt"
                 placeholder="A brief summary of your post..."
                 className={styles.excerptInput}
                 value={form.excerpt}
                 onChange={handleChange}
+                maxLength={EXCERPT_MAX_LENGTH}
               />
+              <p className={styles.helperText}>Keep this short and punchy. Maximum {EXCERPT_MAX_LENGTH} characters.</p>
             </motion.div>
 
             <motion.div className={styles.formGroup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
@@ -264,26 +380,43 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
 
           <div className={styles.sidebar}>
             <motion.div className={styles.sidebarSection} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}>
-              <label className={styles.label}>Category</label>
-              <select name="category_id" value={form.category_id} onChange={handleChange} className={styles.select}>
-                <option value="">Select Category</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+              <div className={styles.selectHeader}>
+                <label className={styles.label}>Category</label>
+                <span className={styles.selectHint}>Choose where this story belongs</span>
+              </div>
+              <div className={styles.selectShell}>
+                <span className={styles.selectIcon} aria-hidden="true">
+                  <FaLayerGroup />
+                </span>
+                <select name="category_id" value={form.category_id} onChange={handleChange} className={styles.select}>
+                  <option value="">Select Category</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </motion.div>
 
             <motion.div className={styles.sidebarSection} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-              <label className={styles.label}>Featured Image URL</label>
+              <label className={styles.label}>Featured Image</label>
               <input
-                name="featured_image"
-                placeholder="https://example.com/image.jpg"
-                className={styles.input}
-                value={form.featured_image}
-                onChange={handleChange}
+                type="file"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                className={styles.fileInput}
+                onChange={handleFeaturedImageChange}
               />
+              <p className={styles.helperText}>Allowed: JPG, JPEG, PNG, WEBP. Maximum file size: 1MB.</p>
+              {selectedImageFile && (
+                <p className={styles.uploadInfo}>
+                  {selectedImageFile.name} selected. The file will upload securely to Cloudinary when you save this post.
+                </p>
+              )}
+              {form.featured_image && !selectedImageFile && (
+                <p className={styles.uploadInfo}>A featured image is already attached to this post.</p>
+              )}
+              {imageError && <p className={styles.inlineError}>{imageError}</p>}
             </motion.div>
 
             <motion.div className={styles.sidebarSection} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
@@ -330,7 +463,15 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {isSaving ? 'Saving...' : existingPost ? 'Save Changes' : isAuthor ? 'Submit For Approval' : 'Publish Post'}
+              {isSaving || isUploadingImage
+                ? isUploadingImage
+                  ? 'Uploading Image...'
+                  : 'Saving...'
+                : existingPost
+                  ? 'Save Changes'
+                  : isAuthor
+                    ? 'Submit For Approval'
+                    : 'Publish Post'}
             </motion.button>
           </div>
 
@@ -352,9 +493,9 @@ const CreatePostModal = ({ onClose, existingPost, role = 'admin' }) => {
             </div>
 
             <article className={styles.previewArticle}>
-              {form.featured_image ? (
+              {previewImage ? (
                 <img
-                  src={form.featured_image}
+                  src={previewImage}
                   alt={form.title?.trim() || 'Post preview'}
                   className={styles.previewImage}
                 />
@@ -401,7 +542,16 @@ const CreatePost = ({ user, refreshUser }) => {
       navItems={getNavigationForRole('admin')}
       refreshUser={refreshUser}
     >
-      <CreatePostModal onClose={() => navigate('/admin/dashboard')} role="admin" />
+      <CreatePostModal
+        onClose={(result) => navigate('/admin/dashboard', result?.message ? {
+          state: {
+            feedback: {
+              message: result.message
+            }
+          }
+        } : undefined)}
+        role="admin"
+      />
     </Layout>
   );
 };

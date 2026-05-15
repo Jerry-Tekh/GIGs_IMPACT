@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCheck, FaEdit, FaFileAlt, FaSearch, FaTimes, FaTrash } from 'react-icons/fa';
-import Layout from '../../components/Layout.jsx';
+import Layout from './../../components/Layout.jsx';
 import { CreatePostModal } from './CreatePost.jsx';
 import styles from './ManagePosts.module.css';
-import { apiFetch } from '../../../../utils/apiClient.js';
-import { getNavigationForRole } from '../../config/navigation.js';
+import { apiFetch } from './../../../utils/apiClient.js';
+import { getNavigationForRole } from './../../config/navigation.js';
+
 
 const getPostStatus = (post) => {
   if (post.is_published) {

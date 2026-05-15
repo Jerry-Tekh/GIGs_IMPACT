@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaKey, FaShieldAlt, FaSignOutAlt, FaTimes, FaUserCircle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import { apiFetch } from '../../utils/apiClient.js';
-import { clearCsrfToken } from '../../utils/csrf.js';
-import { logoutUser, notifyAuthChanged } from '../../utils/auth.js';
+import { apiFetch } from './../../utils/apiClient.js';
+
+
+import { clearCsrfToken } from './../../utils/csrf.js';
+import { logoutUser, notifyAuthChanged } from './../../utils/auth.js';
 import styles from './DashboardSettingsPanel.module.css';
 
 const initialPasswordState = {
