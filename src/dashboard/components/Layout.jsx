@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Sidebar from './SideBar.jsx';
-import Topbar from './TopBar.jsx';
+import Sidebar from './Sidebar.jsx';
+import Topbar from './Topbar.jsx';
 import DashboardSettingsPanel from './DashboardSettingsPanel.jsx';
 import styles from './Layout.module.css';
 

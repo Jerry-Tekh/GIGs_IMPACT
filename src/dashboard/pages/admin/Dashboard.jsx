@@ -2,18 +2,15 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaCheckCircle, FaClock, FaFileAlt, FaTags, FaUsers } from 'react-icons/fa';
-import Layout from '../../components/Layout.jsx';
+import Layout from './../../components/Layout.jsx';
 import Analytics from './../../../components/Analytics.jsx';
 import { apiFetch } from './../../../utils/apiClient.js';
+import styles from './Dashboard.module.css';
 
 
-
-import styles from './DashBoard.module.css';
-
+import { getNavigationForRole } from './../../config/navigation.js';
 
 
-
-import { getNavigationForRole } from '../../config/navigation.js';
 
 const Dashboard = ({ user, refreshUser }) => {
   const [stats, setStats] = useState({ posts: 0, categories: 0, views: 0 });
