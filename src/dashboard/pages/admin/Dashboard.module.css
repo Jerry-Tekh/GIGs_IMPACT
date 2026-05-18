@@ -203,6 +203,61 @@
   margin-top: 16px;
 }
 
+.inlineSectionLoader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 120px;
+  color: #6b7280;
+}
+
+.inlineSectionLoader p {
+  margin: 0;
+  font-size: var(--fs-body-sm);
+}
+
+.inlineSectionSpinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(30, 90, 243, 0.16);
+  border-top-color: #1e5af3;
+  animation: dashboard-inline-spin 0.8s linear infinite;
+}
+
+.sectionPagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.sectionPagination button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #dce7ff;
+  background: rgba(255, 255, 255, 0.94);
+  color: #143a8f;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body-sm);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.sectionPagination button:hover,
+.activePage {
+  background: #1e5af3;
+  border-color: #1e5af3;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
 .postsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -334,6 +389,12 @@
 .emptyState p {
   font-size: var(--fs-body);
   margin-bottom: 24px;
+}
+
+@keyframes dashboard-inline-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 900px) {

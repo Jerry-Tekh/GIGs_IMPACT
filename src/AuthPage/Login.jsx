@@ -311,7 +311,7 @@ const Login = () => {
           <div className={styles.authShell}>
             <div className={styles.authCopy}>
               <span className={styles.eyebrow}>Blog Login</span>
-              <h1>Access the GIGs Impact blog page.</h1>
+              <h2>Access the GIGs Impact blog page.</h2>
               <p>
                 Sign in to manage articles,
               publishing activity, and content flow from one place.

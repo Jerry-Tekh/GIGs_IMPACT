@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaCheckCircle, FaClock, FaFileAlt, FaTags, FaUsers } from 'react-icons/fa';
 import Layout from './../../components/Layout.jsx';
 import Analytics from './../../../components/Analytics.jsx';
 import { apiFetch } from './../../../utils/apiClient.js';
+import { smoothScrollToElement } from './../../../utils/smoothScroll.js';
 import styles from './Dashboard.module.css';
 
 
 import { getNavigationForRole } from './../../config/navigation.js';
 
+const POSTS_PER_PAGE = 6;
 
 
 const Dashboard = ({ user, refreshUser }) => {
@@ -22,6 +24,8 @@ const Dashboard = ({ user, refreshUser }) => {
   const [loadError, setLoadError] = useState('');
   const [accessRequirement, setAccessRequirement] = useState('');
   const [feedback, setFeedback] = useState('');
+  const recentPostsPageRef = useRef(null);
+  const [recentPostsPage, setRecentPostsPage] = useState(1);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -47,7 +51,7 @@ const Dashboard = ({ user, refreshUser }) => {
         ]);
 
         setStats(statsData || { posts: 0, categories: 0, views: 0 });
-        setRecentPosts((manageData.posts || []).slice(0, 5));
+        setRecentPosts(manageData.posts || []);
         setPendingPosts((pendingData || []).slice(0, 5));
         setPendingCount((pendingData || []).length);
         setUsers(usersData.users || []);
@@ -77,6 +81,23 @@ const Dashboard = ({ user, refreshUser }) => {
     },
     { admin: 0, author: 0, reader: 0 }
   );
+
+  const recentPostsTotalPages = Math.max(1, Math.ceil(recentPosts.length / POSTS_PER_PAGE));
+  const paginatedRecentPosts = useMemo(() => {
+    const startIndex = (recentPostsPage - 1) * POSTS_PER_PAGE;
+    return recentPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [recentPosts, recentPostsPage]);
+
+  const handleRecentPostsPageChange = (nextPage) => {
+    if (nextPage === recentPostsPage) {
+      return;
+    }
+
+    setRecentPostsPage(nextPage);
+    window.requestAnimationFrame(() => {
+      smoothScrollToElement(recentPostsPageRef.current, 110, 650);
+    });
+  };
 
   // Inline loader for dashboard loading state
   if (loading) {
@@ -214,7 +235,7 @@ const Dashboard = ({ user, refreshUser }) => {
           </div>
         </section>
 
-        <section className={styles.recentSection}>
+        <section className={styles.recentSection} ref={recentPostsPageRef}>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionTag}>Recent Activity</span>
             <h2>Latest posts</h2>
@@ -222,8 +243,9 @@ const Dashboard = ({ user, refreshUser }) => {
 
           <div className={styles.postsContainer}>
             {recentPosts.length > 0 ? (
+              <>
               <div className={styles.postsGrid}>
-                {recentPosts.map((post) => (
+                {paginatedRecentPosts.map((post) => (
                   <motion.div key={post.id} className={styles.postCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
                     <div className={styles.postCardHeader}>
                       <h3>{post.title}</h3>
@@ -239,6 +261,21 @@ const Dashboard = ({ user, refreshUser }) => {
                   </motion.div>
                 ))}
               </div>
+              {recentPostsTotalPages > 1 ? (
+                <div className={styles.sectionPagination}>
+                  {Array.from({ length: recentPostsTotalPages }, (_, index) => (
+                    <button
+                      key={`admin-recent-${index + 1}`}
+                      type="button"
+                      onClick={() => handleRecentPostsPageChange(index + 1)}
+                      className={recentPostsPage === index + 1 ? styles.activePage : ''}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+              </>
             ) : (
               <div className={styles.emptyState}>
                 <FaFileAlt />

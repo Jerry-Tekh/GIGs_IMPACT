@@ -195,7 +195,7 @@
 
   .mobileMenuIntro p {
     margin: 0;
-    color: var(--color-accent);
+     color: var(--color-primary);
     font-size: 0.78rem;
     font-weight: var(--fw-semibold);
     line-height: 1.4;

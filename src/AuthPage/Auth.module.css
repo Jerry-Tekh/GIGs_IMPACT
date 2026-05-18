@@ -63,7 +63,7 @@
 }
 
 .statCard {
-  padding: 16px;
+  padding: 5opx;
   background: rgba(6, 16, 60, 0.28);
   border-left: 4px solid var(--color-accent);
 }

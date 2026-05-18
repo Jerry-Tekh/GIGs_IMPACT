@@ -3,7 +3,23 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import styles from './Program.module.css';
 import { siteData } from '../../SiteData.js';
-import { riseItem, sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
+import { slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
+
+const programSectionReveal = {
+  hidden: { y: 28 },
+  show: {
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+  }
+};
+
+const programItemReveal = {
+  hidden: { y: 22 },
+  show: {
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+  }
+};
 
 const stageDetails = [
   {
@@ -172,12 +188,12 @@ const Program = () => {
       <motion.section
         className={styles.frameworkSection}
         id="stage-framework"
-        variants={sectionFade}
+        variants={programSectionReveal}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
-        <motion.div className={styles.sectionHeader} variants={riseItem}>
+        <motion.div className={styles.sectionHeader} variants={programItemReveal}>
           <span className={styles.sectionTag}>Seven-Stage Framework</span>
           <h2>The full journey from self-awareness to lifelong impact.</h2>
           <p>
@@ -191,7 +207,7 @@ const Program = () => {
             <motion.article
               key={stage.stage}
               className={styles.stageCard}
-              variants={riseItem}
+              variants={programItemReveal}
               whileHover={{ y: -6 }}
             >
               <div className={styles.stageHead}>
@@ -236,18 +252,18 @@ const Program = () => {
       <motion.section
         className={styles.catalogSection}
         id="program-catalog"
-        variants={sectionFade}
+        variants={programSectionReveal}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
         <motion.div className={styles.catalogIntro} variants={staggerGroup}>
-          <motion.div variants={riseItem}>
+          <motion.div variants={programItemReveal}>
             <span className={styles.sectionTag}>Program Tracks</span>
             <h2>Practical learning experiences built inside the framework.</h2>
           </motion.div>
 
-          <motion.div className={styles.filterContainer} variants={riseItem}>
+          <motion.div className={styles.filterContainer} variants={programItemReveal}>
             <button className={`${styles.filterBtn} ${activeTab === 'all' ? styles.active : ''}`} onClick={() => setActiveTab('all')}>
               All Programs
             </button>
@@ -271,7 +287,7 @@ const Program = () => {
             <motion.article
               key={program.id}
               className={styles.programCard}
-              variants={riseItem}
+              variants={programItemReveal}
               whileHover={{ y: -6 }}
               layout
             >
@@ -311,18 +327,18 @@ const Program = () => {
 
       <motion.section
         className={styles.ctaSection}
-        variants={sectionFade}
+        variants={programSectionReveal}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
         <motion.div className={styles.ctaShell} variants={staggerGroup}>
-          <motion.div variants={riseItem}>
+          <motion.div variants={programItemReveal}>
             <span className={styles.sectionTagLight}>Next Step</span>
             <h2>Ready to grow through a structure that turns ability into measurable value?</h2>
           </motion.div>
 
-          <motion.div className={styles.ctaActions} variants={riseItem}>
+          <motion.div className={styles.ctaActions} variants={programItemReveal}>
             <Link to="/contact" className={styles.primaryBtn}>
               Talk To Us
             </Link>

@@ -1,5 +1,8 @@
 .page {
-  background: #ffffff;
+  background:
+    radial-gradient(circle at top left, rgba(255, 219, 36, 0.1), transparent 22%),
+    radial-gradient(circle at right 20%, rgba(30, 90, 243, 0.08), transparent 24%),
+    linear-gradient(180deg, #f7faff 0%, #ffffff 22%, #f8fbff 100%);
   color: #002b7f;
   overflow-x: clip;
 }
@@ -101,13 +104,13 @@
   padding: var(--btn-pad-y) var(--btn-pad-x);
   min-height: var(--btn-min-height);
   font-weight: var(--fw-semibold);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+
 }
 
 .primaryBtn {
   background: var(--color-accent);
   color: #181810;
-  box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
+ 
 }
 
 .secondaryBtn {
@@ -196,6 +199,26 @@
   padding-right: 0;
 }
 
+.storySection {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.92)),
+    radial-gradient(circle at top left, rgba(255, 219, 36, 0.1), transparent 28%);
+}
+
+.impactSection {
+  background:
+    linear-gradient(180deg, rgba(246, 250, 255, 0.96), rgba(255, 255, 255, 0.96)),
+    radial-gradient(circle at top right, rgba(30, 90, 243, 0.08), transparent 26%);
+  padding: 42px 28px;
+}
+
+.frameworkSection {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 250, 255, 0.96)),
+    radial-gradient(circle at left center, rgba(255, 219, 36, 0.08), transparent 24%);
+  padding: 42px 28px;
+}
+
 .quoteShell h2,
 storyCopy h2 {
   color: #161625;
@@ -260,9 +283,10 @@ storyCopy h2 {
 .tabPanel,
 .infoCard,
 .frameworkCard {
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(30, 90, 243, 0.14);
-  box-shadow: 0 18px 40px rgba(30, 90, 243, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 250, 255, 0.98));
+  border: 1px solid rgba(30, 90, 243, 0.16);
+ 
 }
 
 .tabPanel {
@@ -299,8 +323,9 @@ storyCopy h2 {
   transform: translateX(-50%) translateY(38%);
   bottom: 0;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(30, 90, 243, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 255, 0.98));
+  border: 1px solid rgba(30, 90, 243, 0.16);
   z-index: 10;
 }
 
@@ -328,8 +353,8 @@ storyCopy h2 {
 .featureList li,
 .pointList li {
   padding: 12px 14px;
-  background: #f8faff;
-  border: 1px solid rgba(30, 90, 243, 0.12);
+  background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%);
+  border: 1px solid rgba(30, 90, 243, 0.14);
   color: #32405f;
 }
 
@@ -398,8 +423,6 @@ storyCopy h2 {
   background: var(--color-accent);
   color: #181810;
   font-weight: var(--fw-semibold);
-  box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .frameworkCtaBtn:hover {
@@ -422,8 +445,8 @@ storyCopy h2 {
 
 .token {
   padding: 7px 12px;
-  border: 1px solid rgba(30, 90, 243, 0.12);
-  background: #f8faff;
+  border: 1px solid rgba(30, 90, 243, 0.14);
+  background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
   color: #32405f;
   font-size: var(--fs-body-sm);
   font-weight: var(--fw-medium);

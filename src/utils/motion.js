@@ -3,7 +3,7 @@ export const viewport = { once: true, amount: 0.18 };
 export const easeOut = [0.22, 1, 0.36, 1];
 
 export const sectionFade = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0.16, y: 32 },
   show: {
     opacity: 1,
     y: 0,
@@ -22,7 +22,7 @@ export const staggerGroup = {
 };
 
 export const riseItem = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0.16, y: 28 },
   show: {
     opacity: 1,
     y: 0,
@@ -31,7 +31,7 @@ export const riseItem = {
 };
 
 export const slideLeft = {
-  hidden: { opacity: 0, x: -32 },
+  hidden: { opacity: 0.16, x: -32 },
   show: {
     opacity: 1,
     x: 0,
@@ -40,7 +40,7 @@ export const slideLeft = {
 };
 
 export const slideRight = {
-  hidden: { opacity: 0, x: 32 },
+  hidden: { opacity: 0.16, x: 32 },
   show: {
     opacity: 1,
     x: 0,

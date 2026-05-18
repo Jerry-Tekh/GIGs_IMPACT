@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowRight, FaCheckCircle, FaClock, FaFileAlt } from 'react-icons/fa';
 import Layout from './../../components/Layout.jsx';
@@ -6,16 +6,21 @@ import Layout from './../../components/Layout.jsx';
 import dashboardStyles from './../admin/Dashboard.module.css';
 import { apiFetch } from './../../../utils/apiClient.js';
 import { getNavigationForRole }  from './../../config/navigation.js';
+import { smoothScrollToElement } from './../../../utils/smoothScroll.js';
 
 // import PageLoader from '../../components/PageLoader.jsx';
 import { formatReadableDate } from './../../../utils/date.js';
 
+const POSTS_PER_PAGE = 6;
+
 const AuthorDashboard = ({ user, refreshUser }) => {
   const [posts, setPosts] = useState([]);
+  const [postsPage, setPostsPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [accessRequirement, setAccessRequirement] = useState('');
   const [feedback, setFeedback] = useState('');
+  const latestSubmissionsRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -56,6 +61,22 @@ const AuthorDashboard = ({ user, refreshUser }) => {
 
   const approvedPosts = posts.filter((post) => post.is_published).length;
   const pendingPosts = posts.filter((post) => !post.is_published).length;
+  const totalPostPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (postsPage - 1) * POSTS_PER_PAGE;
+    return posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [posts, postsPage]);
+
+  const handlePostsPageChange = (nextPage) => {
+    if (nextPage === postsPage) {
+      return;
+    }
+
+    setPostsPage(nextPage);
+    window.requestAnimationFrame(() => {
+      smoothScrollToElement(latestSubmissionsRef.current, 110, 650);
+    });
+  };
 
   // Loader spinner removed for non-dashboard pages
   if (isLoading) {
@@ -121,7 +142,7 @@ const AuthorDashboard = ({ user, refreshUser }) => {
           </div>
         </section>
 
-        <section className={dashboardStyles.recentSection}>
+        <section className={dashboardStyles.recentSection} ref={latestSubmissionsRef}>
           <div className={dashboardStyles.sectionHeader}>
             <span className={dashboardStyles.sectionTag}>My Posts</span>
             <h2>Latest submissions</h2>
@@ -129,8 +150,9 @@ const AuthorDashboard = ({ user, refreshUser }) => {
 
           <div className={dashboardStyles.postsContainer}>
             {posts.length > 0 ? (
+              <>
               <div className={dashboardStyles.postsGrid}>
-                {posts.slice(0, 6).map((post) => (
+                {paginatedPosts.map((post) => (
                   <div key={post.id} className={dashboardStyles.postCard}>
                     <div className={dashboardStyles.postCardHeader}>
                       <h3>{post.title}</h3>
@@ -148,6 +170,21 @@ const AuthorDashboard = ({ user, refreshUser }) => {
                   </div>
                 ))}
               </div>
+              {totalPostPages > 1 ? (
+                <div className={dashboardStyles.sectionPagination}>
+                  {Array.from({ length: totalPostPages }, (_, index) => (
+                    <button
+                      key={`author-posts-${index + 1}`}
+                      type="button"
+                      onClick={() => handlePostsPageChange(index + 1)}
+                      className={postsPage === index + 1 ? dashboardStyles.activePage : ''}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+              </>
             ) : (
               <div className={dashboardStyles.emptyState}>
                 <FaFileAlt />

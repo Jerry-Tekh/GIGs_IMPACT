@@ -1,8 +1,41 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './DonationForm.module.css';
 
 import volunteer from './../assets/volunteer3.png';
+
+const RECAPTCHA_SCRIPT_ID = 'google-recaptcha-script';
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+const honeypotStyles = {
+  position: 'absolute',
+  left: '-9999px',
+  width: '1px',
+  height: '1px',
+  overflow: 'hidden'
+};
+
+const ensureRecaptchaScript = () => new Promise((resolve, reject) => {
+  if (window.grecaptcha?.render) {
+    resolve(window.grecaptcha);
+    return;
+  }
+
+  const existingScript = document.getElementById(RECAPTCHA_SCRIPT_ID);
+  if (existingScript) {
+    existingScript.addEventListener('load', () => resolve(window.grecaptcha), { once: true });
+    existingScript.addEventListener('error', () => reject(new Error('Failed to load reCAPTCHA.')), { once: true });
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.id = RECAPTCHA_SCRIPT_ID;
+  script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
+  script.async = true;
+  script.defer = true;
+  script.onload = () => resolve(window.grecaptcha);
+  script.onerror = () => reject(new Error('Failed to load reCAPTCHA.'));
+  document.body.appendChild(script);
+});
 
 const DonationForm = () => {
   const [loading, setLoading] = useState(false);
@@ -11,9 +44,49 @@ const DonationForm = () => {
     email: '',
     phone: '',
     skills: '',
-    contributionType: 'How would you like to contribute?'
+    contributionType: 'How would you like to contribute?',
+    website: ''
   });
   const [status, setStatus] = useState(null);
+  const [captchaReady, setCaptchaReady] = useState(false);
+  const captchaContainerRef = React.useRef(null);
+  const captchaWidgetIdRef = React.useRef(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (!RECAPTCHA_SITE_KEY || !captchaContainerRef.current) {
+      setCaptchaReady(false);
+      return undefined;
+    }
+
+    ensureRecaptchaScript()
+      .then((grecaptcha) => {
+        if (!isMounted || !captchaContainerRef.current || !grecaptcha?.render) {
+          return;
+        }
+
+        grecaptcha.ready(() => {
+          if (!isMounted || captchaWidgetIdRef.current !== null || !captchaContainerRef.current) {
+            return;
+          }
+
+          captchaWidgetIdRef.current = grecaptcha.render(captchaContainerRef.current, {
+            sitekey: RECAPTCHA_SITE_KEY
+          });
+          setCaptchaReady(true);
+        });
+      })
+      .catch(() => {
+        if (isMounted) {
+          setCaptchaReady(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,12 +97,27 @@ const DonationForm = () => {
     e.preventDefault();
     setLoading(true);
 
+    const recaptchaToken = captchaWidgetIdRef.current !== null && window.grecaptcha
+      ? window.grecaptcha.getResponse(captchaWidgetIdRef.current)
+      : '';
+
+    if (!recaptchaToken) {
+      setStatus('Please complete the reCAPTCHA check before submitting your application.');
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/contact/volunteer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          recaptchaToken
+        })
       });
+
+      const data = await response.json().catch(() => ({}));
 
       if (response.ok) {
         setStatus('Your application has been sent successfully!');
@@ -38,12 +126,16 @@ const DonationForm = () => {
           email: '',
           phone: '',
           skills: '',
-          contributionType: 'How would you like to contribute?'
+          contributionType: 'How would you like to contribute?',
+          website: ''
         });
+        if (captchaWidgetIdRef.current !== null && window.grecaptcha) {
+          window.grecaptcha.reset(captchaWidgetIdRef.current);
+        }
       } else {
-        setStatus('Something went wrong. Please try again.');
+        setStatus(data.errors?.[0] || data.message || 'Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch (_error) {
       setStatus('Error sending message. Please check your connection.');
     } finally {
       setLoading(false);
@@ -88,7 +180,26 @@ const DonationForm = () => {
               <option>Content creators</option>
               <option>Social media managers</option>
             </select>
-            <button className={styles.submit} disabled={loading}>
+
+            <div style={honeypotStyles} aria-hidden="true">
+              <label htmlFor="volunteer-website">Leave this field empty</label>
+              <input
+                id="volunteer-website"
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex="-1"
+                autoComplete="off"
+              />
+            </div>
+
+            <div className={styles.input}>
+              <div ref={captchaContainerRef} />
+              {!captchaReady && <small>Please wait while the security check loads.</small>}
+            </div>
+
+            <button className={styles.submit} disabled={loading || !captchaReady}>
               {loading ? 'Submitting...' : 'Submit Application'}
             </button>
           </motion.form>
@@ -123,4 +234,3 @@ const DonationForm = () => {
 };
 
 export default DonationForm;
-

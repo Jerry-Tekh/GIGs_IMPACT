@@ -4,6 +4,39 @@ import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import styles from './ContactPage.module.css';
 import { riseItem, sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
 
+const RECAPTCHA_SCRIPT_ID = 'google-recaptcha-script';
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+const honeypotStyles = {
+  position: 'absolute',
+  left: '-9999px',
+  width: '1px',
+  height: '1px',
+  overflow: 'hidden'
+};
+
+const ensureRecaptchaScript = () => new Promise((resolve, reject) => {
+  if (window.grecaptcha?.render) {
+    resolve(window.grecaptcha);
+    return;
+  }
+
+  const existingScript = document.getElementById(RECAPTCHA_SCRIPT_ID);
+  if (existingScript) {
+    existingScript.addEventListener('load', () => resolve(window.grecaptcha), { once: true });
+    existingScript.addEventListener('error', () => reject(new Error('Failed to load reCAPTCHA.')), { once: true });
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.id = RECAPTCHA_SCRIPT_ID;
+  script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
+  script.async = true;
+  script.defer = true;
+  script.onload = () => resolve(window.grecaptcha);
+  script.onerror = () => reject(new Error('Failed to load reCAPTCHA.'));
+  document.body.appendChild(script);
+});
+
 const contactCards = [
   {
     icon: FaEnvelope,
@@ -28,6 +61,9 @@ const contactCards = [
 const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState(null);
+  const [captchaReady, setCaptchaReady] = useState(false);
+  const captchaContainerRef = React.useRef(null);
+  const captchaWidgetIdRef = React.useRef(null);
 
   useEffect(() => {
     if (!status) {
@@ -38,16 +74,67 @@ const ContactPage = () => {
     return () => window.clearTimeout(timer);
   }, [status]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    if (!RECAPTCHA_SITE_KEY || !captchaContainerRef.current) {
+      setCaptchaReady(false);
+      return undefined;
+    }
+
+    ensureRecaptchaScript()
+      .then((grecaptcha) => {
+        if (!isMounted || !captchaContainerRef.current || !grecaptcha?.render) {
+          return;
+        }
+
+        grecaptcha.ready(() => {
+          if (!isMounted || captchaWidgetIdRef.current !== null || !captchaContainerRef.current) {
+            return;
+          }
+
+          captchaWidgetIdRef.current = grecaptcha.render(captchaContainerRef.current, {
+            sitekey: RECAPTCHA_SITE_KEY
+          });
+          setCaptchaReady(true);
+        });
+      })
+      .catch(() => {
+        if (isMounted) {
+          setCaptchaReady(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus(null);
 
+    const recaptchaToken = captchaWidgetIdRef.current !== null && window.grecaptcha
+      ? window.grecaptcha.getResponse(captchaWidgetIdRef.current)
+      : '';
+
+    if (!recaptchaToken) {
+      setStatus({
+        type: 'error',
+        message: 'Please complete the reCAPTCHA check before sending your message.'
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     const formData = {
       name: e.target.name.value,
       email: e.target.email.value,
       subject: e.target.subject.value,
-      message: e.target.message.value
+      message: e.target.message.value,
+      website: e.target.website.value,
+      recaptchaToken
     };
 
     try {
@@ -64,10 +151,13 @@ const ContactPage = () => {
           message: 'Your message has been sent successfully. We will get back to you soon.'
         });
         e.target.reset();
+        if (captchaWidgetIdRef.current !== null && window.grecaptcha) {
+          window.grecaptcha.reset(captchaWidgetIdRef.current);
+        }
       } else {
         setStatus({
           type: 'error',
-          message: data.message || 'We could not send your message right now. Please try again.'
+          message: data.errors?.[0] || data.message || 'We could not send your message right now. Please try again.'
         });
       }
     } catch (error) {
@@ -222,7 +312,26 @@ const ContactPage = () => {
               />
             </div>
 
-            <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
+            <div style={honeypotStyles} aria-hidden="true">
+              <label htmlFor="website">Leave this field empty</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex="-1"
+                autoComplete="off"
+              />
+            </div>
+
+            <div className={styles.formRow}>
+              <label>Security Check</label>
+              <div ref={captchaContainerRef} />
+              {!captchaReady && (
+                <small>Please wait while the security check loads.</small>
+              )}
+            </div>
+
+            <button type="submit" className={styles.submitButton} disabled={isSubmitting || !captchaReady}>
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </motion.form>
