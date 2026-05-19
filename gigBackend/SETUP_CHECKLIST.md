@@ -189,17 +189,17 @@ Before going to production:
 
 ---
 
-## 📋 API Endpoints Summary
+##  API Endpoints Summary
 
 ### Public Endpoints
 | Method | Path | Auth | Purpose |
 |--------|------|------|---------|
-| POST | `/api/auth/register` | ❌ | Create account |
-| POST | `/api/auth/login` | ❌ | Login |
-| POST | `/api/auth/refresh` | ❌ | Get new access token |
-| POST | `/api/auth/request-password-reset` | ❌ | Request reset code |
-| POST | `/api/auth/verify-reset-code` | ❌ | Verify reset code |
-| POST | `/api/auth/reset-password` | ❌ | Reset password |
+| POST | `/api/auth/register` |  | Create account |
+| POST | `/api/auth/login` | | Login |
+| POST | `/api/auth/refresh` |  | Get new access token |
+| POST | `/api/auth/request-password-reset` | | Request reset code |
+| POST | `/api/auth/verify-reset-code` | | Verify reset code |
+| POST | `/api/auth/reset-password` | | Reset password |
 
 ### Protected Endpoints (require access_token)
 | Method | Path | Auth | Purpose |
@@ -211,7 +211,7 @@ Before going to production:
 
 ---
 
-## 🚀 Frontend Integration
+## Frontend Integration
 
 ### Fetch API
 ```javascript
