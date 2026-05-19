@@ -1,0 +1,183 @@
+.mvvSection {
+  font-family: var(--font-base);
+  position: relative;
+  overflow: hidden;
+  padding: 82px 8%;
+  background:
+    radial-gradient(circle at top left, rgba(255, 219, 36, 0.12), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(30, 90, 243, 0.12), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+}
+
+.header {
+  max-width: 760px;
+  margin: 0 auto 34px;
+  display: grid;
+  gap: 12px;
+  text-align: center;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: var(--fs-caption);
+  color: var(--color-accent-strong);
+  
+ color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+}
+
+.mainTitle {
+  color: #06060d;
+  font-size: var(--fs-h1);
+  font-family: var(--font-base);
+  font-weight: var(--fw-semibold);
+}
+
+.subTitle {
+  font-size: var(--fs-body);
+  color: rgba(6, 6, 13, 0.72);
+  max-width: 800px;
+  line-height: 1.8;
+  margin: 0 auto;
+}
+
+.gridContainer {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.mvvColumn {
+  position: relative;
+  min-height: 0;
+  padding: 28px;
+  display: grid;
+  gap: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 248, 255, 0.98) 100%);
+  border: 1px solid rgba(30, 90, 243, 0.12);
+  box-shadow: 0 22px 44px rgba(17, 33, 89, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.mvvColumn:hover {
+  transform: translateY(-6px);
+  border-color: rgba(30, 90, 243, 0.2);
+  box-shadow: 0 28px 54px rgba(17, 33, 89, 0.14);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.iconWrap {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, rgba(11, 29, 102, 1), rgba(30, 90, 243, 0.96));
+  color: #ffffff;
+  font-size: var(--fs-h4);
+  box-shadow: 0 18px 28px rgba(11, 29, 102, 0.18);
+  font-family: var(--font-base);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 9px 14px;
+  background: rgba(30, 90, 243, 0.08);
+  color: var(--color-primary);
+  border: 1px solid rgba(30, 90, 243, 0.12);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cardBody {
+  display: grid;
+  gap: 10px;
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: var(--fs-caption);
+  color: rgba(6, 6, 13, 0.55);
+  font-weight: var(--fw-semibold);
+}
+
+.mvvColumn h3 {
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-family: var(--font-base);
+  font-weight: var(--fw-semibold);
+  color: #06060d;
+  letter-spacing: -0.03em;
+}
+
+.description {
+  font-size: var(--fs-body);
+  color: rgba(6, 6, 13, 0.72);
+  line-height: 1.8;
+  max-width: 34ch;
+}
+
+.pointList {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.pointList li {
+  position: relative;
+  padding-left: 18px;
+  color: #25314f;
+  font-size: var(--fs-body-sm);
+  line-height: 1.65;
+}
+
+.pointList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(255, 219, 36, 0.18);
+}
+
+@media (max-width: 980px) {
+  .mvvSection {
+    padding: 68px 6%;
+  }
+
+  .header {
+    margin-bottom: 28px;
+  }
+
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .mvvSection {
+    padding: 56px 4%;
+  }
+
+  .mvvColumn {
+    padding: 22px;
+  }
+}
