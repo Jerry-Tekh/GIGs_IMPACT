@@ -1,0 +1,468 @@
+.page {
+  background: linear-gradient(180deg, #f6f8ff 0%, #ffffff 100%);
+  color: #002b7f;
+  overflow-x: clip;
+}
+
+.hero,
+.frameworkSection,
+.catalogSection,
+.ctaSection {
+  padding: 84px 8%;
+  position: relative;
+}
+
+.hero {
+  background:
+    radial-gradient(circle at top right, rgba(255, 219, 36, 0.18), transparent 24%),
+    linear-gradient(135deg, #0b1d66 0%, #1e5af3 100%);
+  color: #ffffff;
+}
+
+.heroGrid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(320px, 1.05fr) minmax(280px, 0.95fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.eyebrow,
+.sectionTag,
+.sectionTagLight,
+.panelLabel,
+.columnLabel {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+}
+
+.eyebrow,
+.panelLabel,
+.sectionTagLight {
+  color: #ffe27a;
+   z-index: 2;
+  position: relative;
+}
+
+.sectionTag {
+  color: #1e5af3;
+}
+
+.heroCopy h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.04;
+  margin: 18px 0 18px;
+  color: #ffffff;
+}
+
+.heroCopy p {
+  max-width: 640px;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.85;
+}
+
+.heroActions,
+.ctaActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.primaryBtn,
+.secondaryBtn,
+.secondaryBtnLight,
+.enrollBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
+  font-weight: var(--fw-semibold);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.primaryBtn,
+.enrollBtn {
+  background: var(--color-accent);
+  color: #181810;
+  box-shadow: 0 16px 30px rgba(255, 219, 36, 0.22);
+}
+
+.secondaryBtn,
+.secondaryBtnLight {
+  border: 1px solid rgba(220, 231, 255, 0.45);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.primaryBtn:hover,
+.secondaryBtn:hover,
+.secondaryBtnLight:hover,
+.enrollBtn:hover {
+  transform: translateY(-2px);
+}
+
+.heroPanel {
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  /*border: 1px solid rgba(220, 231, 255, 0.2);*/
+  background: url('./../../assets/WhatWeDo/competence.png');
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
+  position: relative;
+  color: #fff;
+  min-height : 300px;
+  max-height : 320px;
+}
+
+.heroPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at top right, rgba(0, 0, 0, 0.44), transparent 84%),
+    linear-gradient(140deg, rgba(0, 0, 0, 0.38), transparent 85%);
+
+    
+  pointer-events: none;
+}
+
+.heroPanel h2 {
+  position: relative;
+  z-index: 2;
+  margin: 14px 0 14px;
+   font-size: var(--fs-h2);
+  line-height: 1.16;
+}
+
+.heroPanel p {
+  position: relative;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.75;
+}
+
+.heroStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.heroStats div {
+  padding: 0;
+}
+
+.heroStats strong {
+  display: block;
+  font-size: var(--fs-h3);
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.heroStats span {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+}
+
+.frameworkSection,
+.catalogSection {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.sectionHeader,
+.catalogIntro {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 34px;
+}
+
+.sectionHeader h2,
+.catalogIntro h2,
+.ctaShell h2 {
+  font-size: var(--fs-h1);
+  line-height: 1.08;
+  color: #161625;
+}
+
+.sectionHeader p,
+.catalogIntro p {
+  max-width: 760px;
+  color: #5d677c;
+  line-height: 1.8;
+}
+
+.frameworkFlow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.stageCard {
+  position: relative;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(30, 90, 243, 0.14);
+  box-shadow: 0 18px 40px rgba(30, 90, 243, 0.08);
+}
+
+.stageHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stageIndex,
+.stageStatus,
+.categoryBadge,
+.comingSoonBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 14px;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stageIndex,
+.categoryBadge {
+  background: #eef4ff;
+  color: #1e5af3;
+}
+
+.stageStatus {
+  background: #fff4bf;
+  color: #524508;
+}
+
+.comingSoonBadge {
+  background: var(--color-accent);
+  color: #181810;
+}
+
+.stageCard h3,
+.programCard h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  color: #161625;
+  margin-bottom: 12px;
+}
+
+.stageSummary,
+.stageDetail,
+.description {
+  color: #5d677c;
+  line-height: 1.8;
+}
+
+.stageSummary {
+  margin-bottom: 10px;
+}
+
+.stageDetail {
+  margin-bottom: 22px;
+}
+
+.stageColumns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.columnLabel {
+  color: #1e5af3;
+  margin-bottom: 12px;
+}
+
+.tokenList,
+.topicsList,
+.filterContainer {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.token,
+.topic {
+  padding: 7px 12px;
+  border: 1px solid rgba(30, 90, 243, 0.12);
+  background: #f8faff;
+  color: #32405f;
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-medium);
+}
+
+.stageConnector {
+  width: 84px;
+  height: 2px;
+  margin-top: 24px;
+  background: linear-gradient(90deg, #1e5af3, #ffdb24);
+}
+
+.catalogIntro {
+  grid-template-columns: 1fr;
+}
+
+.filterBtn {
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
+  border: 1px solid #dce7ff;
+  background: #ffffff;
+  color: #002b7f;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.filterBtn:hover,
+.filterBtn.active {
+  background: #1e5af3;
+  border-color: #1e5af3;
+  color: #ffffff;
+}
+
+.programsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.programCard {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(30, 90, 243, 0.14);
+  box-shadow: 0 18px 40px rgba(30, 90, 243, 0.08);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.description {
+  margin-bottom: 18px;
+}
+
+.programMeta {
+  display: grid;
+  gap: 8px;
+  padding: 16px 0;
+  border-top: 1px solid #dce7ff;
+  border-bottom: 1px solid #dce7ff;
+  margin-bottom: 18px;
+}
+
+.metaItem {
+  color: #5d677c;
+  font-size: var(--fs-body-sm);
+}
+
+.metaItem strong {
+  color: #161625;
+}
+
+.topics {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.topicsTitle {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #1e5af3;
+  margin-bottom: 10px;
+}
+
+.ctaSection {
+  background: linear-gradient(135deg, #0b1d66 0%, #1e5af3 100%);
+  color: #ffffff;
+}
+
+.ctaShell {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) auto;
+  gap: 22px;
+  align-items: center;
+}
+
+.sectionTagLight {
+  margin-bottom: 12px;
+}
+
+.ctaShell h2 {
+  color: #ffffff;
+}
+
+.secondaryBtnLight {
+  color: #ffffff;
+}
+
+@media (max-width: 980px) {
+  .hero,
+  .frameworkSection,
+  .catalogSection,
+  .ctaSection {
+    padding: 72px 6%;
+  }
+
+  .heroGrid,
+  .frameworkFlow,
+  .ctaShell,
+  .programsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero,
+  .frameworkSection,
+  .catalogSection,
+  .ctaSection {
+    padding: 60px 4%;
+  }
+
+  .heroPanel,
+  .stageCard,
+  .programCard {
+    padding: 22px 18px;
+  }
+
+  .heroActions,
+  .ctaActions {
+    flex-direction: column;
+  }
+
+  .primaryBtn,
+  .secondaryBtn,
+  .secondaryBtnLight,
+  .enrollBtn {
+    width: 100%;
+  }
+}
