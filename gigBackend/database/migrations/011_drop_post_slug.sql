@@ -1,0 +1,5 @@
+ALTER TABLE posts
+DROP CONSTRAINT IF EXISTS posts_slug_key;
+
+ALTER TABLE posts
+DROP COLUMN IF EXISTS slug;
