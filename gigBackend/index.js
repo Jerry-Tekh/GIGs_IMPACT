@@ -38,7 +38,7 @@ dotenv.config();
 
 // Create Express app
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 const defaultJsonParser = express.json({ limit: '100kb' });
 const defaultUrlEncodedParser = express.urlencoded({ limit: '100kb', extended: true });
 const authJsonParser = express.json({ limit: '50kb' });
