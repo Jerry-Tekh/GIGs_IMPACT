@@ -1,20 +1,48 @@
 import pg from "pg";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const backendRoot = path.resolve(__dirname, "..", "..");
+
+dotenv.config({ path: path.join(backendRoot, ".env") });
 
 const { Pool } = pg;
 
 let pool;
 
 const isProduction = process.env.NODE_ENV === "production";
+const databaseUrl = process.env.DATABASE_URL;
 
-if (process.env.DATABASE_URL) {
+const getSslConfig = () => {
+  const sslMode = (process.env.DB_SSL || process.env.PGSSLMODE || "").toLowerCase();
+
+  if (["false", "disable", "disabled", "0"].includes(sslMode)) {
+    return false;
+  }
+
+  if (["true", "require", "required", "no-verify"].includes(sslMode)) {
+    return { rejectUnauthorized: false };
+  }
+
+  if (["verify-ca", "verify-full"].includes(sslMode)) {
+    return { rejectUnauthorized: true };
+  }
+
+  if (databaseUrl?.includes("aivencloud.com")) {
+    return { rejectUnauthorized: false };
+  }
+
+  return isProduction ? { rejectUnauthorized: false } : false;
+};
+
+if (databaseUrl) {
   // Production (Aiven / Render)
-  //using DATABASE_URL with SSL configuration for production environments 
   pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: isProduction ? { rejectUnauthorized: false } : false,
+    connectionString: databaseUrl,
+    ssl: getSslConfig(),
   });
 } else {
   //  Local development

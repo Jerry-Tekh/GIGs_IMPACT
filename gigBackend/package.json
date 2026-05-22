@@ -5,10 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-  "start": "node index.js",
-   "dev": "node --watch index.js",
-  "test": "echo \"No tests yet\""
-},
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "migrate": "node src/utils/migrate.js",
+    "test": "echo \"No tests yet\""
+  },
   "keywords": [
     "gigsimpact"
   ],

@@ -87,7 +87,7 @@ const Hero = () => {
 
           <div className={styles.statBadge}>
             <h3>
-              <CountUpStat end={150} suffix="+" />
+              <CountUpStat end={4} suffix="+" />
             </h3>
             <p>Happy Volunteers</p>
             <div className={styles.avatars}>

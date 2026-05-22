@@ -1,4 +1,4 @@
-CREATE TABLE post_views (
+CREATE TABLE IF NOT EXISTS post_views (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id UUID REFERENCES posts(id) ON DELETE CASCADE,
   viewed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
