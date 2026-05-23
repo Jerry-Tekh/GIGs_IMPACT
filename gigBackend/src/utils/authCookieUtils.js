@@ -10,7 +10,7 @@ export const resolveCookieOptions = () => {
   const allowedSameSite = ['strict', 'lax', 'none'];
   const sameSite = allowedSameSite.includes(configuredSameSite)
     ? configuredSameSite
-    : (isProduction ? 'none' : 'lax');
+    : (isProduction ? 'None' : 'lax');
 
   let secure = process.env.COOKIE_SECURE
     ? process.env.COOKIE_SECURE === 'true'
