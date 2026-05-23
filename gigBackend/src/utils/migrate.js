@@ -12,7 +12,7 @@ const migrationTable = 'schema_migrations';
 
 const ensureMigrationTable = async () => {
   await pool.query(`
-    CREATE TABLE IF NOT EXISTS ${migrationTable} (i hav 
+    CREATE TABLE IF NOT EXISTS ${migrationTable} (
       id SERIAL PRIMARY KEY,
       filename TEXT UNIQUE NOT NULL,
       applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
