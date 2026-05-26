@@ -1,0 +1,143 @@
+/* ══════════════════════════════════════════
+   EFFICIENCY BADGE — Closing Statement
+   ══════════════════════════════════════════ */
+.badgeSection {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background:
+    radial-gradient(circle at top right, rgba(255, 219, 36, 0.12), transparent 28%),
+    linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-soft) 50%, var(--color-primary-mid) 100%);
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+
+
+/* ── Content wrapper ── */
+.contentWrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 52px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section intro ── */
+.sectionIntro {
+  max-width: 800px;
+}
+
+.sectionTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: var(--color-accent);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.sectionTag::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+.sectionIntro h2 {
+  color: #ffffff;
+  
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* ── Badge row ── */
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+/* ── Circular badge ── */
+.circle {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-shadow:
+    0 0 0 8px rgba(255, 219, 36, 0.12),
+    0 0 0 16px rgba(255, 219, 36, 0.06),
+    0 24px 32px rgba(255, 219, 36, 0.3);
+  position: relative;
+}
+
+/* Inner ring */
+.circle::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 1px solid rgba(24, 24, 16, 0.18);
+}
+
+.num {
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: #181810;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.label {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  color: rgba(24, 24, 16, 0.72);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── Paragraph next to badge ── */
+.badgeRow p {
+  flex: 1;
+  min-width: 260px;
+  color: rgba(255, 255, 255, 0.80);
+  color: #181810;
+  font-size: var(--fs-body-lg);
+  line-height: 1.85;
+  border-left: 3px solid var(--color-accent);
+  padding-left: 24px;
+  margin: 0;
+}
+
+/* ══ Responsive ══ */
+@media (max-width: 768px) {
+  .badgeSection { padding: var(--section-pad-y-tablet) var(--section-pad-x-tablet); }
+  .contentWrap { gap: 36px; }
+  .badgeRow { gap: 32px; }
+  .circle { width: 160px; height: 160px; }
+  .num { font-size: 1.875rem; }
+  .sectionIntro h2 { font-size: var(--fs-h2); }
+  .badgeRow p { font-size: var(--fs-body); padding-left: 18px; }
+}
+
+@media (max-width: 480px) {
+  .badgeSection { padding: var(--section-pad-y-mobile) var(--section-pad-x-mobile); }
+  .badgeRow { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .badgeRow p { min-width: unset; border-left: none; padding-left: 0; border-top: 3px solid var(--color-accent); padding-top: 18px; }
+  .circle { width: 140px; height: 140px; }
+  .num { font-size: 1.625rem; }
+}

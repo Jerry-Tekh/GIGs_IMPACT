@@ -302,7 +302,7 @@ export const secureCookieMiddleware = (req, res, next) => {
 
     // Log in development when cookies are set insecurely
     if (process.env.NODE_ENV === 'development' && !secureOptions.secure) {
-      console.warn(`⚠️  Cookie '${name}' is being set without secure flag (development mode)`);
+      console.warn(`  Cookie '${name}' is being set without secure flag (development mode)`);
     }
 
     return originalCookie(name, value, secureOptions);
