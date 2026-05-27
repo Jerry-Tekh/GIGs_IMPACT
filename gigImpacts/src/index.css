@@ -1,0 +1,345 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+:root {
+  --font-base: 'Poppins', sans-serif;
+  --fw-thin: 100;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Core brand palette — same hues, refined weights */
+  --color-primary: #2020e8;
+  --color-primary-deep: #0f0fa0;
+  --color-primary-mid: #1e5af3;
+  --color-navy: #06103c;
+  --color-navy-soft: #0b1d66;
+
+  --color-secondary: #807d52;
+  --color-accent: #ffdb24;
+  --color-accent-soft: rgba(255, 219, 36, 0.18);
+  --color-accent-strong: #dd3027;
+
+  --color-text: #0d0d2b;
+  --color-text-body: #1c1c3a;
+  --color-text-muted: #5a6278;
+  --color-text-light: #8895ae;
+
+  --color-surface: #fcfdff;
+  --color-surface-alt: #f7f9ff;
+  --color-surface-warm: #fffdfa;
+  --color-panel: #f4f7ff;
+  --color-panel-soft: #fbfbf7;
+
+  --color-border: rgba(30, 90, 243, 0.1);
+  --color-border-soft: rgba(30, 90, 243, 0.06);
+  --color-border-strong: rgba(11, 29, 102, 0.18);
+
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-accent: none;
+
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-card: 18px;
+  --radius-btn: 12px;
+  --radius-icon: 16px;
+  --radius-pill: 999px;
+
+  /* Type scale */
+  --fs-caption: 0.7rem;
+  --fs-label: 0.76rem;
+  --fs-button: 0.82rem;
+  --fs-body-sm: 0.82rem;
+  --fs-body: 0.88rem;
+  --fs-body-lg: 0.94rem;
+  --fs-h4: 1.02rem;
+  --fs-h3: 1.14rem;
+  --fs-h2: 1.34rem;
+  --fs-h1: 1.72rem;
+  --fs-display: 2.05rem;
+
+  /* Spacing */
+  --section-pad-x: 8%;
+  --section-pad-x-tablet: 6%;
+  --section-pad-x-mobile: 5%;
+  --section-pad-y: 96px;
+  --section-pad-y-tablet: 80px;
+  --section-pad-y-mobile: 64px;
+
+  /* Buttons */
+  --btn-pad-y: 12px;
+  --btn-pad-x: 28px;
+  --btn-min-height: 48px;
+
+  /* Transitions */
+  --transition-fast: 0.18s ease;
+  --transition-base: 0.28s ease;
+  --transition-slow: 0.44s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  font-size: var(--fs-body);
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-base);
+  font-weight: var(--fw-light);
+  color: var(--color-text-body);
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fbfcff 46%, #f6f8ff 100%);
+}
+
+/* Subtle noise-like page texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.7)),
+    radial-gradient(ellipse at 0% 0%, rgba(30, 90, 243, 0.035) 0%, transparent 52%),
+    radial-gradient(ellipse at 100% 100%, rgba(255, 219, 36, 0.04) 0%, transparent 52%);
+  z-index: -1;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-base);
+  font-weight: var(--fw-medium);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+
+p, li {
+  font-weight: var(--fw-light);
+  line-height: 1.85;
+}
+p + p { margin-top: 0.75em; }
+
+small, caption { font-size: var(--fs-caption); }
+
+button {
+  font-size: var(--fs-button);
+  font-weight: var(--fw-medium);
+  font-family: var(--font-base);
+  letter-spacing: 0.04em;
+}
+
+input, textarea, select {
+  font-weight: var(--fw-light);
+  font-family: var(--font-base);
+}
+
+label { font-weight: var(--fw-regular); }
+
+img { max-width: 100%; display: block; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+button, input, textarea, select {
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+button,
+input,
+textarea,
+select {
+  border-radius: var(--radius-btn);
+}
+
+img {
+  border-radius: var(--radius-sm);
+}
+
+:where(
+  [class*="card"],
+  [class*="Card"],
+  [class*="panel"],
+  [class*="Panel"],
+  [class*="modal"],
+  [class*="Modal"],
+  [class*="shell"],
+  [class*="Shell"],
+  [class*="viewport"],
+  [class*="Viewport"],
+  [class*="stage"],
+  [class*="Stage"],
+  [class*="tile"],
+  [class*="Tile"],
+  [class*="box"],
+  [class*="Box"]
+) {
+  border-radius: var(--radius-card);
+}
+
+:where(
+  [class*="btn"],
+  [class*="Btn"],
+  [class*="button"],
+  [class*="Button"],
+  [class*="tag"],
+  [class*="Tag"],
+  [class*="badge"],
+  [class*="Badge"],
+  [class*="pill"],
+  [class*="Pill"]
+) {
+  border-radius: var(--radius-btn);
+}
+
+:where(
+  [class*="card"],
+  [class*="Card"],
+  [class*="panel"],
+  [class*="Panel"],
+  [class*="modal"],
+  [class*="Modal"],
+  [class*="btn"],
+  [class*="Btn"],
+  [class*="button"],
+  [class*="Button"],
+  [class*="badge"],
+  [class*="Badge"],
+  [class*="tile"],
+  [class*="Tile"],
+  [class*="box"],
+  [class*="Box"]
+) {
+  box-shadow: none !important;
+}
+
+section, article, main, aside, form { scroll-margin-top: 110px; }
+
+::selection { background: var(--color-accent); color: var(--color-text); }
+
+/* ── Utility: section divider line ── */
+.section-rule {
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary-mid), var(--color-accent));
+  margin: 0 0 24px;
+}
+
+/* ── Responsive type scale ── */
+@media (min-width: 641px) {
+  :root {
+    --fs-caption: 0.74rem;
+    --fs-label: 0.8rem;
+    --fs-button: 0.86rem;
+    --fs-body-sm: 0.86rem;
+    --fs-body: 0.93rem;
+    --fs-body-lg: 1rem;
+    --fs-h4: 1.12rem;
+    --fs-h3: 1.32rem;
+    --fs-h2: 1.68rem;
+    --fs-h1: 2.16rem;
+    --fs-display: 2.72rem;
+    --btn-pad-y: 14px;
+    --btn-pad-x: 32px;
+    --btn-min-height: 52px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fs-h1: 2.36rem;
+    --fs-display: 3rem;
+    --btn-pad-y: 14px;
+    --btn-pad-x: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
