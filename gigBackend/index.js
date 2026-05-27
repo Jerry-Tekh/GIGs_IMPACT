@@ -11,6 +11,7 @@ import {
   requestIdMiddleware,
   generalLimiter,
   authLimiter,
+  refreshLimiter,
   passwordResetLimiter,
   verifyResetTokenLimiter,
   resetPasswordLimiter,
@@ -32,6 +33,7 @@ import adminRoutes from './src/routes/AdminRoutes.js';
 import contactRoutes from './src/routes/ContactRoutes.js';
 import userRoutes from './src/routes/UserRoutes.js';
 import uploadRoutes from './src/routes/uploadRoutes.js';
+import carouselRoutes from './src/routes/carouselRoutes.js';
 
 // Initialize environment
 dotenv.config();
@@ -87,6 +89,7 @@ app.use(generalLimiter);
 // Auth-specific rate limiter
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
+app.use('/api/auth/refresh', refreshLimiter);
 app.use('/api/auth/request-password-reset', passwordResetLimiter);
 app.use('/api/auth/verify-reset-token', verifyResetTokenLimiter);
 app.use('/api/auth/reset-password', resetPasswordLimiter);
@@ -102,6 +105,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/users', userRoutes); // Admin user management
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/carousels', carouselRoutes);
 
 // Health check endpoint (not rate limited)
 app.get('/health', (req, res) => {

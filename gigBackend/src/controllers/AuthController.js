@@ -801,6 +801,12 @@ export const logout = async (req, res) => {
       
       if (storedToken) {
         await revokeRefreshToken(storedToken.id);
+        await pool.query(
+          `UPDATE user_sessions
+           SET is_active = false, logged_out_at = NOW()
+           WHERE refresh_token_id = $1`,
+          [storedToken.id]
+        );
       }
     }
 

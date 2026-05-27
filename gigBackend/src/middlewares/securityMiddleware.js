@@ -192,25 +192,34 @@ export const csrfValidationMiddleware = (req, res, next) => {
  */
 export const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per window
+  max: 300, // 300 requests per window
   standardHeaders: true, // Return rate limit info in headers
   legacyHeaders: false,
   handler: createRateLimitHandler('Too many requests. Please try again later.'),
   skip: (req) => {
-    // Skip rate limiting for health checks
-    return req.path === '/health';
+    // Keep session recovery endpoints on their own limiter.
+    return req.path === '/health' || req.path === '/api/auth/refresh';
   },
 });
 
 
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // 10 attempts per window
+  max: 20, // 20 attempts per window
   standardHeaders: true,
   legacyHeaders: false,
   skipSuccessfulRequests: true, // Don't count successful logins
   keyGenerator: getRateLimitKey,
   handler: createRateLimitHandler('Too many login attempts. Please try again after 15 minutes.')
+});
+
+export const refreshLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: ipKeyGenerator,
+  handler: createRateLimitHandler('Too many session refresh attempts. Please log in again shortly.')
 });
 
 /*
@@ -219,7 +228,7 @@ export const authLimiter = rateLimit({
  */
 export const passwordResetLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3, // 3 reset requests per hour
+  max: 12, // 12 reset requests per hour
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: getRateLimitKey,
@@ -228,7 +237,7 @@ export const passwordResetLimiter = rateLimit({
 
 export const verifyResetTokenLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5,
+  max: 10,
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: getRateLimitKey,
@@ -237,7 +246,7 @@ export const verifyResetTokenLimiter = rateLimit({
 
 export const resetPasswordLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5,
+  max: 10,
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: getRateLimitKey,
@@ -246,7 +255,7 @@ export const resetPasswordLimiter = rateLimit({
 
 export const contactFormLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10,
+  max: 15,
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: ipKeyGenerator,
@@ -255,7 +264,7 @@ export const contactFormLimiter = rateLimit({
 
 export const contactEmailLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5,
+  max: 10,
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: getContactEmailRateLimitKey,
@@ -264,7 +273,7 @@ export const contactEmailLimiter = rateLimit({
 
 export const mfaVerifyLimiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 5,
+  max: 10,
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: (req) => req.body?.mfaSessionToken || ipKeyGenerator(req.ip),

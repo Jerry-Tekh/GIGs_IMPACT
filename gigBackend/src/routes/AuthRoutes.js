@@ -47,7 +47,7 @@ router.post('/mfa/login-verify', validateAllowedOrigin, csrfValidationMiddleware
 router.get('/me', protect, me);
 router.patch('/profile', validateAllowedOrigin, csrfValidationMiddleware, protect, requireVerifiedSession, updateMyProfile);
 router.post('/change-password', validateAllowedOrigin, csrfValidationMiddleware, protect, requireVerifiedSession, changePassword);
-router.post('/logout', validateAllowedOrigin, csrfValidationMiddleware, protect, logout);
+router.post('/logout', validateAllowedOrigin, csrfValidationMiddleware, logout);
 router.post('/logout-all', validateAllowedOrigin, csrfValidationMiddleware, protect, requireVerifiedSession, logoutAll);
 router.get('/active-sessions', protect, requireVerifiedSession, getActiveSessions);
 router.get('/mfa/status', protect, getMFAStatus);

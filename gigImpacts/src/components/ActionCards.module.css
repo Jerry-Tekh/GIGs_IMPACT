@@ -186,7 +186,7 @@
   justify-content: center;
   color: white;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
-  box-shadow: 0 4px 14px rgba(30, 90, 243, 0.2);
+
 }
 
 .card:hover .iconBackground {
