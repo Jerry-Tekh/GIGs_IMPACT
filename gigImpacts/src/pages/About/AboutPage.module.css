@@ -115,7 +115,7 @@
   padding: var(--btn-pad-y) var(--btn-pad-x);
   min-height: var(--btn-min-height);
   font-weight: var(--fw-bold);
-  border-radius: 2px;
+  border-radius: 12px;
   letter-spacing: 0.03em;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -149,7 +149,7 @@
   position: relative;
   
   min-height: 360px;
-  border-radius: 2px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -213,7 +213,7 @@
 /* ── Story section ── */
 .storySection {
   background: linear-gradient(180deg, var(--color-surface-alt) 0%, var(--color-surface) 100%);
-  border-radius: 2px;
+  border-radius: 12px;
   padding: 48px 36px;
   border: 1px solid var(--color-border-soft);
 }
@@ -280,7 +280,7 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 12px;
   transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
@@ -296,7 +296,7 @@
   padding: 28px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 2px;
+  border-radius: 12px;
   border-top: 3px solid var(--color-primary-mid);
 }
 
@@ -318,7 +318,7 @@
   object-fit: cover;
   object-position: top center;
   opacity: 0.92;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 
 .floatingCard {
@@ -332,7 +332,7 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-top: 3px solid var(--color-accent);
-  border-radius: 2px;
+  border-radius: 12px;
   box-shadow: var(--shadow-md);
   z-index: 10;
 }
@@ -357,7 +357,7 @@
     linear-gradient(135deg, rgba(30, 90, 243, 0.05), rgba(255, 219, 36, 0.08)),
     var(--color-panel);
   border: 1px solid rgba(30, 90, 243, 0.14);
-  border-radius: 2px;
+  border-radius: 12px;
   cursor: pointer;
   text-align: left;
   transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -366,7 +366,6 @@
 .storyAccordion:hover {
   transform: translateY(-2px);
   border-color: rgba(30, 90, 243, 0.26);
-  box-shadow: 0 16px 32px rgba(12, 29, 84, 0.08);
 }
 
 .storyAccordion:focus-visible {
@@ -386,6 +385,7 @@
   font-style: italic;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -473,7 +473,7 @@
   border: 1px solid rgba(30, 90, 243, 0.08);
   border-top: 3px solid var(--color-accent);
   box-shadow: 0 20px 44px rgba(14, 27, 69, 0.08);
-  border-radius: 2px;
+  border-radius: 12px;
   color: var(--color-text-body);
 }
 
@@ -527,10 +527,11 @@
 .frameworkGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .infoCard, .frameworkCard {
+  
   padding: 28px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 2px;
+  border-radius: 12px;
   transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
 }
 
@@ -564,7 +565,7 @@
   background: var(--color-accent);
   color: #181810;
   font-weight: var(--fw-bold);
-  border-radius: 2px;
+  border-radius: 12px;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   letter-spacing: 0.03em;
 }
@@ -590,7 +591,7 @@
   color: var(--color-text-body);
   font-size: var(--fs-caption);
   font-weight: var(--fw-medium);
-  border-radius: 2px;
+  border-radius: 12px;
   transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 

@@ -144,14 +144,19 @@ const ManageCarousel = ({ user, refreshUser }) => {
   const [showModal, setShowModal] = useState(false);
   const [selected, setSelected] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [itemsLoading, setItemsLoading] = useState(true);
 
   const fetchItems = async () => {
+    setItemsLoading(true);
     try {
+      setError('');
       const res = await apiFetch('/api/carousels', { requireAuth: true });
       setItems(res.items || []);
     } catch (err) {
       console.error(err);
       setError('Failed to load carousel items');
+    } finally {
+      setItemsLoading(false);
     }
   };
 
@@ -185,7 +190,12 @@ const ManageCarousel = ({ user, refreshUser }) => {
         <section className={styles.contentSection}>
           {error && <div className={styles.errorBanner}>{error}</div>}
 
-          {items.length > 0 ? (
+          {itemsLoading ? (
+            <div className={styles.inlineSectionLoader}>
+              <span className={styles.inlineSectionSpinner} aria-hidden="true" />
+              <p>Checking for carousel items to display...</p>
+            </div>
+          ) : items.length > 0 ? (
             <div className={styles.tableContainer}>
               <div className={styles.tableWrapper}>
                 <table className={styles.table}>

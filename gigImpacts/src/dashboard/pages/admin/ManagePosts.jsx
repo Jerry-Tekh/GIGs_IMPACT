@@ -26,23 +26,32 @@ const ManagePosts = ({ user, refreshUser }) => {
   const [deleteId, setDeleteId] = useState(null);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [postsLoading, setPostsLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
 
   const fetchPosts = async () => {
+    setPostsLoading(true);
     try {
+      setError('');
       const data = await apiFetch('/api/posts/manage', { requireAuth: true });
       setPosts(data.posts || []);
     } catch (err) {
       console.error(err);
       setError('Failed to load posts');
+    } finally {
+      setPostsLoading(false);
     }
   };
 
   const fetchCategories = async () => {
+    setCategoriesLoading(true);
     try {
       const data = await apiFetch('/api/categories', { headers: {}, requireAuth: true });
       setCategories(data || []);
     } catch (err) {
       console.error(err);
+    } finally {
+      setCategoriesLoading(false);
     }
   };
 
@@ -127,7 +136,7 @@ const ManagePosts = ({ user, refreshUser }) => {
             <div className={styles.filterGroup}>
               <select value={category} onChange={(event) => setCategory(event.target.value)} className={styles.categorySelect}>
                 <option value="all">All Categories</option>
-                {categories.map((cat) => (
+                {!categoriesLoading && categories.map((cat) => (
                   <option key={cat.id} value={cat.slug}>
                     {cat.name}
                   </option>
@@ -136,7 +145,12 @@ const ManagePosts = ({ user, refreshUser }) => {
             </div>
           </motion.div>
 
-          {filteredPosts.length > 0 ? (
+          {postsLoading ? (
+            <motion.div className={styles.inlineSectionLoader} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <span className={styles.inlineSectionSpinner} aria-hidden="true" />
+              <p>Checking for posts to display...</p>
+            </motion.div>
+          ) : filteredPosts.length > 0 ? (
             <motion.div className={styles.tableContainer} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
               <div className={styles.tableWrapper}>
                 <table className={styles.table}>

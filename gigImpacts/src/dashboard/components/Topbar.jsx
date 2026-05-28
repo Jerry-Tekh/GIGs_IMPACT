@@ -62,7 +62,7 @@ const Topbar = ({ onMenuClick, user, title }) => {
       </div>
 
       <div className={styles.topbarRight}>
-        <motion.button
+        {/*<motion.button
           className={styles.blogBtn}
           onClick={() => navigate('/blog')}
           whileHover={{ scale: 1.02 }}
@@ -72,7 +72,7 @@ const Topbar = ({ onMenuClick, user, title }) => {
         >
           <FaArrowLeft />
           <span>Back to Blog</span>
-        </motion.button>
+        </motion.button>*/}
 
         <motion.button
           className={styles.logoutBtn}

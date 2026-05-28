@@ -34,7 +34,7 @@
   background: url('./../assets/sucesspath.jpg') center / cover no-repeat;
   color: #ffffff;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 12px;
   max-height: 560px;
 }
 
@@ -97,7 +97,7 @@
   background: var(--color-accent);
   color: #181810;
   font-weight: var(--fw-bold);
-  border-radius: 2px;
+  border-radius: 12px;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   font-size: var(--fs-button);
   margin-top: auto;
@@ -123,7 +123,7 @@
 .card {
   background: #ffffff;
   border: 1px solid var(--color-border);
-  border-radius: 2px;
+  border-radius: 12px;
   padding: 28px;
   position: relative;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
@@ -173,7 +173,7 @@
   font-size: var(--fs-caption);
   font-weight: var(--fw-bold);
   letter-spacing: 0.1em;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 
 .iconBackground {
@@ -228,7 +228,7 @@
   font-weight: var(--fw-bold);
   font-size: var(--fs-body-sm);
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 12px;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   box-shadow: 0 6px 18px rgba(255, 219, 36, 0.22);
   letter-spacing: 0.02em;

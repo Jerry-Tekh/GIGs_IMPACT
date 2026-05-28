@@ -14,14 +14,19 @@ const ManageUsers = ({ user, refreshUser }) => {
   const [savingUserId, setSavingUserId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
+  const [usersLoading, setUsersLoading] = useState(true);
 
   const fetchUsers = async () => {
+    setUsersLoading(true);
     try {
+      setError('');
       const data = await apiFetch('/api/users', { requireAuth: true });
       setUsers(data.users || []);
     } catch (err) {
       console.error(err);
       setError('Failed to load registered users');
+    } finally {
+      setUsersLoading(false);
     }
   };
 
@@ -100,7 +105,12 @@ const ManageUsers = ({ user, refreshUser }) => {
             </div>
           </div>
 
-          {filteredUsers.length > 0 ? (
+          {usersLoading ? (
+            <div className={styles.inlineSectionLoader}>
+              <span className={styles.inlineSectionSpinner} aria-hidden="true" />
+              <p>Checking for registered users to display...</p>
+            </div>
+          ) : filteredUsers.length > 0 ? (
             <div className={styles.tableContainer}>
               <div className={styles.tableWrapper}>
                 <table className={styles.table}>

@@ -64,9 +64,8 @@
   background-position: center;
   background-repeat: no-repeat;
   color: #ffffff;
-  box-shadow: var(--shadow-lg);
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 
 
@@ -129,7 +128,7 @@
   gap: 4px;
   padding: 16px;
   background: rgba(6, 16, 60, 0.28);
-  border-radius: 2px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .metricCard strong {
@@ -178,7 +177,7 @@
   background: var(--color-accent);
   color: #181810;
   font-weight: var(--fw-bold);
-  border-radius: 2px;
+  border-radius: 12px;
   box-shadow: var(--shadow-accent);
   transition:
     transform var(--transition-fast),
@@ -557,7 +556,7 @@
   .introPanel {
     position: relative;
     top: auto;
-    border-radius: 2px;
+    border-radius: 12px;
   }
   .sliderViewport,
   .card {

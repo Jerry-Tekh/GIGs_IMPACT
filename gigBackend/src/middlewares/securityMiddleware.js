@@ -192,9 +192,10 @@ export const csrfValidationMiddleware = (req, res, next) => {
  */
 export const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 300, // 300 requests per window
+  max: 500, // 500 requests per window
   standardHeaders: true, // Return rate limit info in headers
   legacyHeaders: false,
+   skipSuccessfulRequests: true, // Don't count successful requests
   handler: createRateLimitHandler('Too many requests. Please try again later.'),
   skip: (req) => {
     // Keep session recovery endpoints on their own limiter.
@@ -217,6 +218,7 @@ export const refreshLimiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
   max: 20,
   standardHeaders: true,
+  skipSuccessfulRequests: true, // Don't count successful logins
   legacyHeaders: false,
   keyGenerator: ipKeyGenerator,
   handler: createRateLimitHandler('Too many session refresh attempts. Please log in again shortly.')
@@ -232,6 +234,8 @@ export const passwordResetLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: getRateLimitKey,
+  skipSuccessfulRequests: true, // Don't count successful logins
+
   handler: createRateLimitHandler('Too many password reset requests. Please try again later.')
 });
 
@@ -240,6 +244,8 @@ export const verifyResetTokenLimiter = rateLimit({
   max: 10,
   standardHeaders: true,
   legacyHeaders: false,
+  skipSuccessfulRequests: true, // Don't count successful logins
+
   keyGenerator: getRateLimitKey,
   handler: createRateLimitHandler('Too many reset link verification attempts. Please try again later.')
 });
@@ -249,6 +255,7 @@ export const resetPasswordLimiter = rateLimit({
   max: 10,
   standardHeaders: true,
   legacyHeaders: false,
+   skipSuccessfulRequests: true, 
   keyGenerator: getRateLimitKey,
   handler: createRateLimitHandler('Too many password reset attempts. Please try again later.')
 });
@@ -257,6 +264,7 @@ export const contactFormLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 15,
   standardHeaders: true,
+   skipSuccessfulRequests: true, 
   legacyHeaders: false,
   keyGenerator: ipKeyGenerator,
   handler: createRateLimitHandler('Too many contact form submissions from this network. Please try again later.')
@@ -266,6 +274,7 @@ export const contactEmailLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 10,
   standardHeaders: true,
+   skipSuccessfulRequests: true, 
   legacyHeaders: false,
   keyGenerator: getContactEmailRateLimitKey,
   handler: createRateLimitHandler('Too many submissions were sent for this email address. Please try again later.')
@@ -275,6 +284,7 @@ export const mfaVerifyLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 10,
   standardHeaders: true,
+ skipSuccessfulRequests: true, 
   legacyHeaders: false,
   keyGenerator: (req) => req.body?.mfaSessionToken || ipKeyGenerator(req.ip),
   handler: createRateLimitHandler('Too many MFA verification attempts. Please try again later.')

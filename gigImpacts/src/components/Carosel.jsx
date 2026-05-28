@@ -3,32 +3,36 @@ import { motion } from 'framer-motion';
 import styles from './Carosel.module.css';
 import { FaLock } from 'react-icons/fa';
 
-const Carousel = ({ slides: initialSlides = [] }) => {
-  const [slides, setSlides] = useState(initialSlides.length ? initialSlides : null);
-  // fallback default slides preserved visually if fetch fails
-  const [fallback] = useState([
-    {
-      title: 'Youth Empowerment Summit',
-      description: 'Networking and skill labs for emerging leaders',
-      image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=1200&q=80',
-      meta: 'Live Gathering'
-    },
-    {
-      title: 'Digital Skills Bootcamp',
-      description: '6-week hands-on training in digital tools',
-      image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80',
-      meta: 'Training Series'
-    },
-    {
-      title: 'Community Pitch Day',
-      description: 'Present ideas, win seed support',
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
-      meta: 'Opportunity Room'
-    }
-  ]);
+const fallbackSlides = [
+  {
+    title: 'Youth Empowerment Summit',
+    description: 'Networking and skill labs for emerging leaders',
+    image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=1200&q=80',
+    meta: 'Live Gathering'
+  },
+  {
+    title: 'Digital Skills Bootcamp',
+    description: '6-week hands-on training in digital tools',
+    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80',
+    meta: 'Training Series'
+  },
+  {
+    title: 'Community Pitch Day',
+    description: 'Present ideas, win seed support',
+    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+    meta: 'Opportunity Room'
+  }
+];
+
+const Carousel = ({ slides: initialSlides }) => {
+  const hasInitialSlides = Array.isArray(initialSlides) && initialSlides.length > 0;
+  const [slides, setSlides] = useState(hasInitialSlides ? initialSlides : null);
 
   useEffect(() => {
-    if (initialSlides && initialSlides.length) return;
+    if (hasInitialSlides) {
+      setSlides(initialSlides);
+      return;
+    }
 
     const load = async () => {
       try {
@@ -48,18 +52,18 @@ const Carousel = ({ slides: initialSlides = [] }) => {
         }));
         
         if (items.length) setSlides(items);
-        else setSlides(fallback);
+        //else setSlides(fallback);
       } catch (err) {
         console.error('Carousel fetch error:', err.message);
-        setSlides(fallback);
+       // setSlides(fallback);
       }
     };
 
 
     load();
-  }, [initialSlides, fallback]);
+  }, [hasInitialSlides, initialSlides]);
   const [cur, setCur] = useState(0);
-  const len = (slides || fallback).length;
+  const len = (slides || fallbackSlides).length;
 
   const prevSlide = () => setCur((current) => (current - 1 + len) % len);
   const nextSlide = () => setCur((current) => (current + 1) % len);
@@ -72,7 +76,7 @@ const Carousel = ({ slides: initialSlides = [] }) => {
 
   if (!len) return null;
 
-  const activeSlide = (slides || fallback)[cur];
+  const activeSlide = (slides || fallbackSlides)[cur];
 
   return (
     <motion.section
@@ -127,7 +131,7 @@ const Carousel = ({ slides: initialSlides = [] }) => {
         </div>
 
         <div className={styles.rail}>
-          {(slides || fallback).map((slide, index) => (
+          {(slides || fallbackSlides).map((slide, index) => (
             <button
               key={slide.title}
               type="button"
