@@ -7,7 +7,7 @@ export const transporter = nodemailer.createTransport({
 
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: process.env.SMTP_SECURE,
+  secure: process.env.SMTP_SECURE === 'true', // Convert string to boolean
 
 
   auth: {
