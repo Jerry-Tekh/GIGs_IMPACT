@@ -1,7 +1,7 @@
 /* ═══ PARTNERS SECTION ═══ */
 .partners {
   padding: var(--section-pad-y) var(--section-pad-x);
-  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+  background: var(--color-surface);
   position: relative;
 }
 
@@ -66,6 +66,7 @@
 
 .valueCard {
   background: var(--color-surface);
+  background: #ffffff;
   min-height: 200px;
   display: flex;
   flex-direction: column;

@@ -3,11 +3,8 @@
    ══════════════════════════════════════════ */
 .badgeSection {
   padding: var(--section-pad-y) var(--section-pad-x);
-  background:
-    radial-gradient(circle at top right, rgba(255, 219, 36, 0.12), transparent 28%),
-    linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-soft) 50%, var(--color-primary-mid) 100%);
-  position: relative;
-  background: #ffffff;
+ 
+  background: var(--color-surface);
   overflow: hidden;
 }
 

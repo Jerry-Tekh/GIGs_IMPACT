@@ -1,7 +1,7 @@
 /* ═══ IMPACT STATS SECTION ═══ */
 .wrapper {
   padding: var(--section-pad-y) var(--section-pad-x);
-  background: linear-gradient(180deg, var(--color-surface-alt) 0%, var(--color-surface) 100%);
+  background:  var(--color-surface-creame);
   position: relative;
 }
 
@@ -9,7 +9,7 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 3px;
+  height: 1px;
   background: linear-gradient(90deg, var(--color-primary-mid), var(--color-accent), transparent);
 }
 

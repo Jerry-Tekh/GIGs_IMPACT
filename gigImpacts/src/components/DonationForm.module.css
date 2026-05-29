@@ -79,7 +79,7 @@
 
 /* ── Form card ── */
 .formCard {
-  background: var(--color-surface);
+  background: var(--color-surface-creame);
   border: 1px solid var(--color-border);
   border-top: 2px solid var(--color-accent);
   border-radius: 12px;

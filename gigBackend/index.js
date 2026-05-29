@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -34,9 +34,6 @@ import contactRoutes from './src/routes/ContactRoutes.js';
 import userRoutes from './src/routes/UserRoutes.js';
 import uploadRoutes from './src/routes/uploadRoutes.js';
 import carouselRoutes from './src/routes/carouselRoutes.js';
-
-// Initialize environment
-dotenv.config();
 
 // Create Express app
 const app = express();
