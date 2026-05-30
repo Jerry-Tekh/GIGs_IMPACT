@@ -16,6 +16,35 @@ const signupBenefits = [
 
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_PASSWORD_LENGTH = 100;
+const FAILURE_RELOAD_DELAY_MS = 1200;
+const PASSWORD_RULES = [
+  {
+    label: `${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} characters`,
+    test: (password) => password.length >= MIN_PASSWORD_LENGTH && password.length <= MAX_PASSWORD_LENGTH
+  },
+  {
+    label: 'One uppercase letter',
+    test: (password) => /[A-Z]/.test(password)
+  },
+  {
+    label: 'One lowercase letter',
+    test: (password) => /[a-z]/.test(password)
+  },
+  {
+    label: 'One number',
+    test: (password) => /\d/.test(password)
+  },
+  {
+    label: 'One special character',
+    test: (password) => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)
+  }
+];
+
+const reloadAfterFailure = () => {
+  window.setTimeout(() => {
+    window.location.reload();
+  }, FAILURE_RELOAD_DELAY_MS);
+};
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -76,14 +105,16 @@ const Signup = () => {
     formData.password.trim() !== '' && 
     formData.confirmPassword.trim() !== '';
 
+  const failedPasswordRules = PASSWORD_RULES.filter((rule) => !rule.test(formData.password));
+
   const validateForm = () => {
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return false;
     }
 
-    if (formData.password.length < MIN_PASSWORD_LENGTH || formData.password.length > MAX_PASSWORD_LENGTH) {
-      setError(`Password must be between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH} characters long`);
+    if (failedPasswordRules.length > 0) {
+      setError(`Password must include: ${failedPasswordRules.map((rule) => rule.label.toLowerCase()).join(', ')}.`);
       return false;
     }
 
@@ -157,9 +188,11 @@ const Signup = () => {
         setRedirectCountdown(4);
       } else {
         setError(data.message || 'Registration failed. Please try again.');
+        reloadAfterFailure();
       }
     } catch {
       setError('Network error. Please check your connection and try again.');
+      reloadAfterFailure();
     } finally {
       setIsLoading(false);
     }
@@ -209,7 +242,7 @@ const Signup = () => {
                       <strong>Account created successfully.</strong>
                       <div className={styles.feedbackDetail}>
                         We sent a verification email to {createdEmail}. Please open it and verify your account before
-                        signing in.
+                        signing in. Check spam folder also.
                       </div>
                       <div className={styles.feedbackDetail}>
                         Redirecting to login in {redirectCountdown}s...
@@ -258,6 +291,7 @@ const Signup = () => {
                       minLength={MIN_PASSWORD_LENGTH}
                       maxLength={MAX_PASSWORD_LENGTH}
                       aria-label="Password"
+                      aria-describedby="password-requirements"
                     />
                     <button
                       type="button"
@@ -268,6 +302,23 @@ const Signup = () => {
                       {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   </motion.div>
+                  <div id="password-requirements" className={styles.passwordHint}>
+                    <span>Password must include:</span>
+                    <ul>
+                      {PASSWORD_RULES.map((rule) => {
+                        const isMet = rule.test(formData.password);
+
+                        return (
+                          <li
+                            key={rule.label}
+                            className={isMet ? styles.passwordRuleMet : styles.passwordRule}
+                          >
+                            {rule.label}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
 
                   <motion.div className={styles.inputGroup}>
                     <FaLock className={styles.inputIcon} />

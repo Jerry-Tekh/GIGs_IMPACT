@@ -243,6 +243,17 @@ const sendSessionVerificationEmail = async ({ user, anomalyResult, confirmToken,
   });
 };
 
+const assertMailAccepted = (mailResult, recipient) => {
+  const acceptedRecipients = mailResult?.accepted || [];
+  const wasAccepted = acceptedRecipients.some(
+    (acceptedRecipient) => acceptedRecipient?.toLowerCase?.() === recipient.toLowerCase()
+  );
+
+  if (!wasAccepted) {
+    throw new Error(`Verification email was not accepted for ${recipient}`);
+  }
+};
+
 /**
  * GET /auth/me
  * Get current authenticated user
@@ -361,6 +372,8 @@ export const verifyEmail = async (req, res) => {
  * - User cannot login until email is verified
  */
 export const register = async (req, res) => {
+  const client = await pool.connect();
+
   try {
     const { full_name, email, password } = req.body;
 
@@ -388,6 +401,7 @@ export const register = async (req, res) => {
 
     // Hash password (10 salt rounds for production-grade security)
     const hashedPassword = await bcrypt.hash(password, 10);
+    await client.query('BEGIN');
 
     // Create user with verified: false
     const user = await createUser({
@@ -395,7 +409,7 @@ export const register = async (req, res) => {
       email: normalizedEmail,
       password: hashedPassword,
       role: 'reader' // Default role for new users
-    });
+    }, client);
 
     // Generate verification token (32 bytes = 64 hex characters)
     const verificationToken = crypto.randomBytes(32).toString('hex');
@@ -409,13 +423,14 @@ export const register = async (req, res) => {
     await setEmailVerificationToken(
       user.id,
       verificationTokenHash,
-      verificationTokenExpires
+      verificationTokenExpires,
+      client
     );
 
     // Send verification email
     const verificationLink = `${process.env.CLIENT_ORIGIN}/verify-email/${verificationToken}`;
     
-    await transporter.sendMail({
+    const mailResult = await transporter.sendMail({
       from: `"GIGs Impact Team" <${process.env.EMAIL_USER}>`,
       to: normalizedEmail,
       subject: 'Verify your GIGs Impact email address',
@@ -457,6 +472,9 @@ export const register = async (req, res) => {
       text: `Hello ${sanitizedName},\n\nThank you for signing up! Please verify your email by visiting this link:\n\n${verificationLink}\n\nThis link expires in 24 hours.\n\nBest regards,\nGIGs Impact Team`
     });
 
+    assertMailAccepted(mailResult, normalizedEmail);
+    await client.query('COMMIT');
+
     res.status(201).json({
       success: true,
       message: 'Registration successful. Please check your email to verify your account.',
@@ -468,11 +486,19 @@ export const register = async (req, res) => {
       }
     });
   } catch (error) {
+    try {
+      await client.query('ROLLBACK');
+    } catch (rollbackError) {
+      console.error('POST /auth/register rollback error:', rollbackError);
+    }
+
     console.error('POST /auth/register error:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to register user'
+      message: 'Failed to register user. Verification email could not be sent.'
     });
+  } finally {
+    client.release();
   }
 };
 

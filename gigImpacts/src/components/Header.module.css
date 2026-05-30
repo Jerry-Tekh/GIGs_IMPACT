@@ -144,7 +144,7 @@
   .navLinks {
     position: fixed;
     top: 0; left: 0;
-    width: min(88vw, 280px);
+    width: min(88vw, 250px);
     height: 100vh;
     background: #ffffff;
     background: var(--color-surface);

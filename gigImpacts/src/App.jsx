@@ -17,6 +17,7 @@ import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
 import RouteFallback from './components/RouteFallback.jsx';
 import { smoothScrollToElement, smoothScrollToY } from './utils/smoothScroll.js';
+import { preloadRecaptcha } from './utils/recaptcha.js';
 
 
 
@@ -247,6 +248,10 @@ function AppRoutes() {
 }
 
 function App() {
+  useEffect(() => {
+    preloadRecaptcha();
+  }, []);
+
   return (
     <Router>
       <ScrollToHash />

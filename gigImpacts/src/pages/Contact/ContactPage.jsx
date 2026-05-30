@@ -3,9 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import styles from './ContactPage.module.css';
 import { riseItem, sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
+import { loadRecaptchaScript, RECAPTCHA_SITE_KEY } from '../../utils/recaptcha.js';
 
-const RECAPTCHA_SCRIPT_ID = 'google-recaptcha-script';
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const honeypotStyles = {
   position: 'absolute',
   left: '-9999px',
@@ -13,29 +12,6 @@ const honeypotStyles = {
   height: '1px',
   overflow: 'hidden'
 };
-
-const ensureRecaptchaScript = () => new Promise((resolve, reject) => {
-  if (window.grecaptcha?.render) {
-    resolve(window.grecaptcha);
-    return;
-  }
-
-  const existingScript = document.getElementById(RECAPTCHA_SCRIPT_ID);
-  if (existingScript) {
-    existingScript.addEventListener('load', () => resolve(window.grecaptcha), { once: true });
-    existingScript.addEventListener('error', () => reject(new Error('Failed to load reCAPTCHA.')), { once: true });
-    return;
-  }
-
-  const script = document.createElement('script');
-  script.id = RECAPTCHA_SCRIPT_ID;
-  script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
-  script.async = true;
-  script.defer = true;
-  script.onload = () => resolve(window.grecaptcha);
-  script.onerror = () => reject(new Error('Failed to load reCAPTCHA.'));
-  document.body.appendChild(script);
-});
 
 const contactCards = [
   {
@@ -82,7 +58,7 @@ const ContactPage = () => {
       return undefined;
     }
 
-    ensureRecaptchaScript()
+    loadRecaptchaScript()
       .then((grecaptcha) => {
         if (!isMounted || !captchaContainerRef.current || !grecaptcha?.render) {
           return;

@@ -1,22 +1,62 @@
-import nodemailer from 'nodemailer';
-import dns from 'node:dns';
+import sgMail from '@sendgrid/mail';
 import 'dotenv/config';
 
-dns.setDefaultResultOrder('ipv4first');
+const sendgridApiKey = process.env.SENDGRID_API_KEY;
+const defaultFrom = process.env.EMAIL_FROM || process.env.EMAIL_USER;
 
-const smtpPort = Number(process.env.SMTP_PORT || 587);
-const smtpSecureValue = process.env.SMTP_SECURE ?? process.env.SMPT_SECURE;
-const smtpSecure = smtpSecureValue
-  ? String(smtpSecureValue).toLowerCase() === 'true'
-  : smtpPort === 465;
+if (!sendgridApiKey) {
+  throw new Error('SENDGRID_API_KEY is required to send email with SendGrid.');
+}
 
-export const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: smtpPort,
-  secure: smtpSecure,
-  family: 4,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // App password
-  },
-});
+if (!defaultFrom) {
+  throw new Error('EMAIL_FROM or EMAIL_USER is required for the SendGrid sender address.');
+}
+
+sgMail.setApiKey(sendgridApiKey);
+
+const toAddressList = (value) => {
+  if (!value) return undefined;
+  return Array.isArray(value) ? value : [value];
+};
+
+const normalizeMailOptions = (mailOptions = {}) => {
+  const {
+    from,
+    to,
+    cc,
+    bcc,
+    replyTo,
+    subject,
+    text,
+    html,
+    attachments,
+    ...extraOptions
+  } = mailOptions;
+
+  return {
+    ...extraOptions,
+    from: from || defaultFrom,
+    to: toAddressList(to),
+    cc: toAddressList(cc),
+    bcc: toAddressList(bcc),
+    replyTo,
+    subject,
+    text,
+    html,
+    attachments
+  };
+};
+
+export const transporter = {
+  async sendMail(mailOptions) {
+    const message = normalizeMailOptions(mailOptions);
+    const [response] = await sgMail.send(message);
+
+    return {
+      accepted: message.to || [],
+      rejected: [],
+      response: response?.statusCode,
+      messageId: response?.headers?.['x-message-id']
+    };
+  }
+};

@@ -1,6 +1,6 @@
 import pool from '../config/db.js';
 
-export const createUser = async (user) => {
+export const createUser = async (user, client = pool) => {
   const { full_name, email, password, role } = user;
 
   const query = `
@@ -9,7 +9,7 @@ export const createUser = async (user) => {
     RETURNING *;
   `;
 
-  const result = await pool.query(query, [
+  const result = await client.query(query, [
     full_name,
     email,
     password,
@@ -216,8 +216,8 @@ export const updatePasswordAndInvalidateSessions = async (userId, email, hashedP
 /**
  * Store email verification token for user
  */
-export const setEmailVerificationToken = async (userId, verificationTokenHash, expiresAt) => {
-  const result = await pool.query(
+export const setEmailVerificationToken = async (userId, verificationTokenHash, expiresAt, client = pool) => {
+  const result = await client.query(
     `UPDATE users
      SET verification_token = $1,
          verification_token_expires = $2

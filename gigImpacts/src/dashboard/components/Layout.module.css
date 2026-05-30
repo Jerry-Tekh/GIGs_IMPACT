@@ -37,7 +37,7 @@
   top: var(--content-gap);
   align-self: start;
   height: calc(100vh - var(--content-gap) * 2);
-  border-radius: 2px;
+  border-radius: 12px;
   overflow: hidden;
 }
 

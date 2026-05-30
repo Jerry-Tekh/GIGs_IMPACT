@@ -18,6 +18,13 @@ const loginBenefits = [
 
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_PASSWORD_LENGTH = 100;
+const FAILURE_RELOAD_DELAY_MS = 1200;
+
+const reloadAfterFailure = () => {
+  window.setTimeout(() => {
+    window.location.reload();
+  }, FAILURE_RELOAD_DELAY_MS);
+};
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -201,6 +208,8 @@ const Login = () => {
         } else {
           setError(data.message || 'Login failed. Please try again.');
         }
+
+        reloadAfterFailure();
       }
     } catch (error) {
       if (error?.status === 429) {
@@ -212,6 +221,8 @@ const Login = () => {
       } else {
         setError('Network error. Please check your connection and try again.');
       }
+
+      reloadAfterFailure();
     } finally {
       setIsLoading(false);
     }
