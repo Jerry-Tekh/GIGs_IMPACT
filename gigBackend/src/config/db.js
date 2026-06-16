@@ -32,7 +32,14 @@ const getSslConfig = () => {
   }
 
   if (databaseUrl?.includes("aivencloud.com")) {
+    // Aiven uses certificates that in some environments require skipping
+    // strict verification (keep existing behavior).
     return { rejectUnauthorized: false };
+  }
+
+  // Neon (neon.tech) provides valid TLS certs — enable verification.
+  if (databaseUrl?.includes("neon.tech")) {
+    return { rejectUnauthorized: true };
   }
 
   return isProduction ? { rejectUnauthorized: false } : false;
