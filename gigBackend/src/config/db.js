@@ -62,4 +62,34 @@ if (databaseUrl) {
   });
 }
 
+// Lightweight retry helper tuned for serverless cold-starts (Neon)
+function sleep(ms) {
+  return new Promise((res) => setTimeout(res, ms));
+}
+
+export async function queryWithRetry(text, params, options = {}) {
+  const retries = Number(options.retries ?? 5);
+  const minDelay = Number(options.minDelay ?? 1000);
+
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      return await pool.query(text, params);
+    } catch (err) {
+      const msg = String(err && (err.message || err.code || "")).toLowerCase();
+
+      // Common transient messages for cold starts / transient network errors
+      const transient = /starting up|server is starting|connection refused|econnreset|econnrefused|closed the connection|tls handshake|57p03|57p01|57p02/.test(msg);
+
+      if (!transient || attempt === retries - 1) {
+        // Not a transient/cold-start error or out of retries: rethrow
+        throw err;
+      }
+
+      // Exponential backoff with small jitter
+      const delay = Math.min(minDelay * Math.pow(2, attempt), 5000) + Math.floor(Math.random() * 250);
+      await sleep(delay);
+    }
+  }
+}
+
 export default pool;
