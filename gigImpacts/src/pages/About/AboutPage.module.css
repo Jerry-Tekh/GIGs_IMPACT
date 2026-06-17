@@ -532,20 +532,29 @@
 
 .frameworkGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-.infoCard, .frameworkCard {
-  
+/* Impact = editorial blocks (no boxes), divided by a strong top rule */
+.infoCard {
+  padding: 32px 0 0;
+  background: transparent;
+  border: none;
+  border-top: 2px solid var(--color-ink);
+  border-radius: 0;
+}
+
+/* Framework = genuine stage cards, kept sharp + elevated */
+.frameworkCard {
   padding: 28px;
-  background: var(--color-surface);
   background: #ffffff;
   border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-primary);
   border-radius: 0;
+  box-shadow: var(--shadow-sm);
   transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
 }
 
-.infoCard:hover, .frameworkCard:hover {
-  box-shadow: var(--shadow-md);
-  border-color: rgba(30, 90, 243, 0.22);
-  transform: translateY(-4px);
+.frameworkCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
 }
 
 /* CTA framework card */
