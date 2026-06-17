@@ -2,9 +2,9 @@
    FOOTER — deep navy, refined, organized
    ══════════════════════════════════════════ */
 .footer {
-  background: #06103c !important;
+  background: #0a1633 !important;
   color: rgba(255, 255, 255, 0.72);
-  padding: 72px 8% 28px;
+  padding: 80px 8% 28px;
   position: relative;
   overflow: hidden;
 }
@@ -40,46 +40,60 @@
   z-index: 1;
 }
 
-.brand { max-width: 280px; }
+.brand { max-width: 320px; }
+
+.brandLockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.brandLockup img {
+  width: 46px;
+  height: auto;
+  border-radius: 0;
+}
 
 .brand h2 {
   color: #ffffff;
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-bold);
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  margin: 0;
   line-height: 1.2;
 }
 
-.brand p {
+.brandMission {
   font-size: var(--fs-body-sm);
-  color: rgba(255, 255, 255, 0.54);
-  line-height: 1.7;
-  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.75;
+  margin-bottom: 4px;
 }
 
 .socials {
   display: flex;
-  gap: 8px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 22px;
 }
 
 .socials a {
-  width: 38px;
-  height: 38px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 44px;
+  height: 44px;
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   display: grid;
   place-items: center;
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.95rem;
-  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .socials a:hover {
   border-color: var(--color-accent);
-  background: rgba(255, 219, 36, 0.1);
+  background: rgba(255, 219, 36, 0.12);
   color: var(--color-accent);
+  transform: translateY(-2px);
 }
 
 .links {

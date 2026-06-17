@@ -13,6 +13,7 @@ import Carosel from './components/Carosel.jsx';
 import DonationForm from './components/DonationForm.jsx';
 import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
+import Reveal from './components/Reveal.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
 import RouteFallback from './components/RouteFallback.jsx';
@@ -67,14 +68,14 @@ function HomeContent() {
   return (
     <main className={styles.pageContent}>
       <Hero />
-      <CompanyMVV />
-      <Carosel />
-      <ActionCards />
-      <WhatWeDo />
-      <ImpactStats />
-      <Partners />
-      <DonationForm />
-      <EfficiencyBadge />
+      <Reveal><CompanyMVV /></Reveal>
+      <Reveal><Carosel /></Reveal>
+      <Reveal><ActionCards /></Reveal>
+      <Reveal><WhatWeDo /></Reveal>
+      <Reveal><ImpactStats /></Reveal>
+      <Reveal><Partners /></Reveal>
+      <Reveal><DonationForm /></Reveal>
+      <Reveal><EfficiencyBadge /></Reveal>
     </main>
   );
 }

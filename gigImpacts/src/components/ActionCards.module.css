@@ -34,7 +34,7 @@
   background: url('./../assets/sucesspath.jpg') center / cover no-repeat;
   color: #ffffff;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 0;
   max-height: 560px;
 }
 
@@ -94,20 +94,21 @@
   width: fit-content;
   padding: var(--btn-pad-y) var(--btn-pad-x);
   min-height: var(--btn-min-height);
-  background: var(--color-accent);
-  color: #181810;
+  background: var(--color-primary);
+  color: #ffffff;
   font-weight: var(--fw-bold);
-  border-radius: 12px;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  border-radius: 0;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
   font-size: var(--fs-button);
   margin-top: auto;
   letter-spacing: 0.03em;
-  box-shadow: var(--shadow-accent);
+  box-shadow: 0 14px 30px rgba(30, 90, 243, 0.34);
 }
 
 .primaryCta:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(255, 219, 36, 0.4);
+  background: var(--color-primary-bright);
+  box-shadow: 0 20px 44px rgba(30, 90, 243, 0.44);
 }
 
 .primaryArrow { transition: transform var(--transition-fast); }
@@ -123,7 +124,7 @@
 .card {
   background: #ffffff;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 28px;
   position: relative;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
@@ -131,6 +132,21 @@
   min-height: 260px;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base) var(--ease-out-expo);
+  z-index: 2;
 }
 
 /* Stagger layout */
@@ -166,21 +182,30 @@
   align-items: center;
   justify-content: center;
   min-width: 48px;
-  height: 32px;
-  padding: 0 10px;
+  height: 38px;
+  padding: 0 12px;
   background: var(--color-panel);
-  color: var(--color-primary-mid);
-  font-size: var(--fs-caption);
+  color: var(--color-primary-deep);
+  font-family: var(--font-display);
+  font-size: var(--fs-body-lg);
   font-weight: var(--fw-bold);
-  letter-spacing: 0.1em;
-  border-radius: 12px;
+  letter-spacing: 0.04em;
+  border-radius: 0;
+  border-bottom: 3px solid var(--color-accent);
+  transition: background var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+}
+
+.card:hover .index {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-bottom-color: var(--color-accent-deep);
 }
 
 .iconBackground {
   width: 42px;
   height: 42px;
   background: linear-gradient(135deg, var(--color-primary-mid), var(--color-navy-soft));
-  border-radius: var(--radius-icon);
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -221,22 +246,23 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
-  min-height: 42px;
-  background: var(--color-accent);
-  color: #181810;
-  font-weight: var(--fw-bold);
+  padding: 11px 18px;
+  min-height: 44px;
+  background: transparent;
+  color: var(--color-primary-deep);
+  font-weight: var(--fw-semibold);
   font-size: var(--fs-body-sm);
   text-decoration: none;
-  border-radius: 12px;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  box-shadow: 0 6px 18px rgba(255, 219, 36, 0.22);
+  border-radius: 0;
+  border: 1.5px solid var(--color-border-strong);
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
   letter-spacing: 0.02em;
 }
 
 .ctaButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(255, 219, 36, 0.34);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: var(--color-panel-soft);
 }
 
 .cardArrow { transition: transform var(--transition-fast); }

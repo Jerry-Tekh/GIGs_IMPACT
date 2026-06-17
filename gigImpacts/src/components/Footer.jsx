@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaInstagram, FaFacebook, FaLinkedin, FaYoutube, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import styles from "./Footer.module.css";
+import logo from "./../assets/logo.png";
 
 const Footer = () => {
   return (
@@ -19,20 +20,25 @@ const Footer = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         <motion.div className={styles.brand}>
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            GIGs Impact Community
-          </motion.h2>
+          <Link to="/" className={styles.brandLockup} aria-label="GIGs Impact Community — home">
+            <img src={logo} alt="GIGs Impact Community logo" />
+            <motion.h2
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              GIGs Impact Community
+            </motion.h2>
+          </Link>
+          <p className={styles.brandMission}>
+            Transforming mindsets and unlocking talent — building structured
+            pathways that move young people from potential to skill to lasting impact.
+          </p>
           <div className={styles.socials}>
-           <a href="https://youtube.com/@gigsimpact?si=H00lBKE5d-jW41R9"><FaInstagram /></a> 
-           <a href="https://www.facebook.com/profile.php?id=100091976651385"><FaFacebook /></a> 
-           <a href=""><FaLinkedin /></a> 
-           <a href="https://youtube.com/@gigsimpact?si=H00lBKE5d-jW41R9"> <FaYoutube /></a> 
-            
-      
+            <a href="https://youtube.com/@gigsimpact?si=H00lBKE5d-jW41R9" aria-label="Instagram"><FaInstagram /></a>
+            <a href="https://www.facebook.com/profile.php?id=100091976651385" aria-label="Facebook"><FaFacebook /></a>
+            <a href="https://www.linkedin.com" aria-label="LinkedIn"><FaLinkedin /></a>
+            <a href="https://youtube.com/@gigsimpact?si=H00lBKE5d-jW41R9" aria-label="YouTube"><FaYoutube /></a>
           </div>
         </motion.div>
         <div className={styles.links}>

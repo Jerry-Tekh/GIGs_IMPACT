@@ -46,7 +46,7 @@
   gap: 10px;
   padding: var(--btn-pad-y) var(--btn-pad-x);
   min-height: var(--btn-min-height);
-  border-radius: 12px;
+  border-radius: 0;
   background: var(--color-accent);
   color: #181810;
   font-weight: var(--fw-bold);
@@ -60,7 +60,7 @@
 
 .valueCard, .highlightPanel {
   padding: 26px;
-  border-radius: 12px;
+  border-radius: 0;
   border: 1px solid var(--color-border);
 }
 
@@ -71,28 +71,34 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-   border-radius: 12px;
+   border-radius: 0;
+  box-shadow: var(--shadow-sm);
   transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
 }
 
-.valueCard:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: rgba(30, 90, 243, 0.22); }
+.valueCard:hover { box-shadow: var(--shadow-lg); transform: translateY(-6px); border-color: rgba(30, 90, 243, 0.22); }
 
 .offsetCard { transform: translateY(22px); }
-.offsetCard:hover { transform: translateY(18px); }
+.offsetCard:hover { transform: translateY(16px); }
 
 .wideCard { grid-column: span 2; background: var(--color-panel); }
 
 .count {
   width: 48px; height: 48px;
-  border-radius: var(--radius-icon);
+  border-radius: 0;
   background: var(--color-panel);
-  color: var(--color-primary-mid);
+  color: var(--color-primary-deep);
   display: grid;
   place-items: center;
+  font-family: var(--font-display);
   font-weight: var(--fw-bold);
-  font-size: var(--fs-body);
+  font-size: var(--fs-h4);
   margin-bottom: 16px;
+  border-bottom: 3px solid var(--color-accent);
+  transition: background var(--transition-base), color var(--transition-base);
 }
+
+.valueCard:hover .count { background: var(--color-primary); color: #ffffff; }
 
 .valueCard h3 { color: var(--color-text); font-size: var(--fs-h4); margin-bottom: 10px; letter-spacing: -0.015em; }
 .valueCard p { color: var(--color-text-muted); line-height: 1.75; margin: 0; }
@@ -103,8 +109,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-   border-radius: 12px;
+   border-radius: 0;
+  border: none;
+  border-left: 4px solid var(--color-accent);
   min-height: 200px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.highlightPanel::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 219, 36, 0.16), transparent 70%);
+  pointer-events: none;
 }
 
 .highlightTag {
@@ -112,7 +135,7 @@
   width: fit-content;
   margin-bottom: 14px;
   padding: 7px 14px;
-  border-radius: 12px;
+  border-radius: 0;
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.18);
   font-size: var(--fs-caption);

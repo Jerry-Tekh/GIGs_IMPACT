@@ -10,7 +10,7 @@
   padding: 14px 24px;
   box-shadow: 0 2px 16px rgba(11, 29, 102, 0.07);
   border: 1px solid var(--color-border-soft);
-  border-radius: 2px;
+  border-radius: 0;
   position: relative;
   font-family: var(--font-base);
   backdrop-filter: blur(12px);
@@ -38,7 +38,7 @@
   color: var(--color-primary-mid);
   font-size: var(--fs-h4);
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 0;
   transition: background var(--transition-fast), border-color var(--transition-fast);
   display: none;
   align-items: center;
@@ -58,7 +58,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 0;
   transition: background var(--transition-fast);
   text-decoration: none;
   font-family: inherit;
@@ -79,9 +79,10 @@
 
 .title {
   margin: 0;
+  font-family: var(--font-display);
   color: var(--color-text);
-  font-size: var(--fs-h4);
-  font-weight: var(--fw-bold);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
   letter-spacing: -0.02em;
 }
 
@@ -100,7 +101,7 @@
   gap: 8px;
   padding: 10px 18px;
   min-height: 42px;
-  border-radius: 2px;
+  border-radius: 0;
   font-weight: var(--fw-semibold);
   cursor: pointer;
   transition: all var(--transition-fast);

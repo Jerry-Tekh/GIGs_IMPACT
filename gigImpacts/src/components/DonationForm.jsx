@@ -144,11 +144,11 @@ const DonationForm = () => {
           </p>
 
           <motion.form className={styles.form} onSubmit={handleSubmit}>
-            <input type="text" name="fullName" placeholder="Full Name" className={styles.input} value={formData.fullName} onChange={handleChange} required />
-            <input type="email" name="email" placeholder="Email" className={styles.input} value={formData.email} onChange={handleChange} required />
-            <input type="tel" name="phone" placeholder="Phone" className={styles.input} value={formData.phone} onChange={handleChange} required />
-            <input type="text" name="skills" placeholder="Skills" className={styles.input} value={formData.skills} onChange={handleChange} required />
-            <select name="contributionType" className={styles.input} value={formData.contributionType} onChange={handleChange}>
+            <input type="text" name="fullName" placeholder="Full Name" aria-label="Full name" className={styles.input} value={formData.fullName} onChange={handleChange} required />
+            <input type="email" name="email" placeholder="Email" aria-label="Email address" className={styles.input} value={formData.email} onChange={handleChange} required />
+            <input type="tel" name="phone" placeholder="Phone" aria-label="Phone number" className={styles.input} value={formData.phone} onChange={handleChange} required />
+            <input type="text" name="skills" placeholder="Skills" aria-label="Your skills" className={styles.input} value={formData.skills} onChange={handleChange} required />
+            <select name="contributionType" aria-label="How would you like to contribute?" className={styles.input} value={formData.contributionType} onChange={handleChange}>
               <option>How would you like to contribute?</option>
               <option>Trainers and facilitators</option>
               <option>Mentors and coaches</option>
@@ -186,7 +186,9 @@ const DonationForm = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className={styles.status}
+                role="status"
+                aria-live="polite"
+                className={`${styles.status} ${status.toLowerCase().includes('success') ? styles.statusSuccess : styles.statusError}`}
               >
                 {status}
               </motion.div>
@@ -196,7 +198,7 @@ const DonationForm = () => {
 
         <motion.aside className={styles.infoCol}>
           <h4>Volunteer Requirements</h4>
-          <img src={volunteer} alt="" />
+          <img src={volunteer} alt="GIGs Impact volunteers collaborating at a community session" />
           <ul>
             <li>Willingness to serve</li>
             <li>Commitment to growth</li>

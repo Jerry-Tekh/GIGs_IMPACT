@@ -44,12 +44,13 @@ const CompanyMVVss = () => {
       <div className={styles.gridContainer}>
         {mvvData.map((item) => (
           <article key={item.accent} className={styles.mvvColumn}>
-            {/*<div className={styles.cardTop}>
-              <div className={styles.iconWrap}>{item.icon}</div>
-            </div>*/}
+            <div className={styles.cardTop}>
+              <div className={styles.iconWrap} aria-hidden="true">{item.icon}</div>
+              <span className={styles.badge}>{item.accent}</span>
+            </div>
 
             <div className={styles.cardBody}>
-              <span className={styles.badge}>{item.accent}</span>
+              <p className={styles.eyebrowTop}>{item.title}</p>
               <p className={styles.eyebrow}>{item.shortLabel}</p>
               {/*<h3>{item.title}</h3>*/}
               <p className={styles.description}>{item.text}</p>

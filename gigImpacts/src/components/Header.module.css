@@ -13,13 +13,16 @@
 }
 
 .headerScrolled {
-  background: rgba(6, 16, 60, 0.88);
-  background: var(--color-surface);
+  background: rgba(255, 253, 249, 0.86);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 6px 28px rgba(10, 22, 51, 0.08);
+}
 
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 32px rgba(6, 16, 60, 0.24);
+/* Brand mark color — gold over dark hero, navy once scrolled on paper */
+.headerScrolled .brandLink img {
+  filter: none;
 }
 
 .navbar {
@@ -61,11 +64,10 @@
 
 .navLinks li a {
   position: relative;
-  color: rgba(255, 255, 255, 0.88);
-  color:  var(--color-accent);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 12px;
+  padding: 8px 15px;
+  border-radius: 0;
   letter-spacing: 0.02em;
   transition: color var(--transition-fast), background var(--transition-fast);
 }
@@ -73,29 +75,44 @@
 .navLinks li a::after {
   content: '';
   position: absolute;
-  bottom: 4px;
-  left: 14px;
-  right: 14px;
+  bottom: 2px;
+  left: 15px;
+  right: 15px;
   height: 2px;
   background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base) var(--ease-out-expo);
 }
 
 .navLinks li a:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .navLinks li a:hover::after { transform: scaleX(1); }
 
 .activeLink {
   color: var(--color-accent) !important;
-  background: rgba(255, 219, 36, 0.08) !important;
 }
 
 .activeLink::after { transform: scaleX(1) !important; }
+
+/* Scrolled (light) state — dark, high-contrast nav links */
+.headerScrolled .navLinks li a {
+  color: var(--color-navy-soft);
+}
+.headerScrolled .navLinks li a:hover {
+  color: var(--color-primary);
+  background: var(--color-panel);
+}
+.headerScrolled .activeLink {
+  color: var(--color-primary) !important;
+}
+.headerScrolled .hamburger {
+  border-color: var(--color-border-strong);
+  color: var(--color-navy-soft);
+}
 
 /* ── Hidden on desktop ── */
 .mobileMenuIntro, .mobileMenuBrand, .mobileNavIcon { display: none; }
@@ -104,7 +121,7 @@
   display: none;
   background: none;
   border: 1.5px solid rgba(255, 255, 255, 0.22);
-  border-radius: 4px;
+  border-radius: 0;
   padding: 8px 10px;
   font-size: 1.25rem;
   line-height: 1;
@@ -213,7 +230,7 @@
     padding: 12px 14px;
     font-weight: var(--fw-semibold);
     border: 1px solid transparent;
-    border-radius: 12px;
+    border-radius: 0;
     transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
   }
 

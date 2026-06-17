@@ -38,7 +38,7 @@
   margin: 0 auto;
   height: 480px;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 0;
   border-top: 3px solid var(--color-accent);
 }
 
