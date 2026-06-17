@@ -70,20 +70,22 @@
   --color-accent-soft: rgba(255, 219, 36, 0.18);
   --color-accent-strong: #e0531f;
 
-  --color-text: #0c142e;
-  --color-text-body: #232a44;
-  --color-text-muted: #5a6278;
-  --color-text-light: #8895ae;
+  --color-text: #0b1020;
+  --color-text-body: #2a3145;
+  --color-text-muted: #5d6577;
+  --color-text-light: #939bad;
 
-  --color-surface: #faf6ef;          /* warm paper canvas */
-  --color-surface-alt: #f3eee4;
-  --color-surface-creame: #fffdf9;
-  --color-panel: #eef3ff;
-  --color-panel-soft: #f7f9ff;
+  /* Clean, cool, white-dominant canvas (no warm tint) */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f4f6fa;      /* faint cool gray for the rare panel */
+  --color-surface-creame: #ffffff;
+  --color-panel: #eef3ff;            /* pale blue tint */
+  --color-panel-soft: #f6f9ff;
 
-  --color-border: rgba(12, 20, 46, 0.10);
-  --color-border-soft: rgba(12, 20, 46, 0.06);
-  --color-border-strong: rgba(12, 20, 46, 0.16);
+  --color-border: rgba(11, 16, 32, 0.10);
+  --color-border-soft: rgba(11, 16, 32, 0.07);
+  --color-border-strong: rgba(11, 16, 32, 0.16);
+  --color-rule: rgba(11, 16, 32, 0.12);
 
   /* ── Elevation — soft, layered, navy-tinted (restored from flat) ── */
   --shadow-xs: 0 1px 2px rgba(10, 22, 51, 0.05);
@@ -156,20 +158,7 @@ body {
   color: var(--color-text-body);
   font-size: var(--fs-body);
   line-height: 1.8;
-  background:
-    linear-gradient(180deg, #fffdf9 0%, #faf6ef 52%, #f3eee4 100%);
-}
-
-/* Subtle paper-warm page atmosphere */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 0% 0%, rgba(30, 90, 243, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 100% 100%, rgba(242, 183, 5, 0.06) 0%, transparent 52%);
-  z-index: -1;
+  background: #ffffff;
 }
 
 /* ── Typography ── */
@@ -296,6 +285,35 @@ section, article, main, aside, form { scroll-margin-top: 110px; }
   margin: 0 0 24px;
 }
 
+/* ── Editorial helpers (global) — for color-blocked, low-card layouts ── */
+.u-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-base);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary);
+}
+.u-kicker::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--color-accent);
+}
+.u-kicker--light { color: var(--color-accent); }
+.u-kicker--light::before { background: var(--color-accent); }
+
+/* Gold underline accent applied under a word/heading */
+.u-underline {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 0.32em;
+}
+
 /* ── Scroll-reveal utility (reduced-motion safe) ── */
 [data-reveal] {
   opacity: 0;
@@ -322,13 +340,13 @@ section, article, main, aside, form { scroll-margin-top: 110px; }
     --fs-label: 0.8rem;
     --fs-button: 0.86rem;
     --fs-body-sm: 0.86rem;
-    --fs-body: 0.93rem;
-    --fs-body-lg: 1rem;
-    --fs-h4: 1.16rem;
-    --fs-h3: 1.4rem;
-    --fs-h2: 1.86rem;
-    --fs-h1: 2.5rem;
-    --fs-display: 3.1rem;
+    --fs-body: 0.94rem;
+    --fs-body-lg: 1.04rem;
+    --fs-h4: 1.18rem;
+    --fs-h3: 1.46rem;
+    --fs-h2: 2rem;
+    --fs-h1: 2.7rem;
+    --fs-display: 3.4rem;
     --btn-pad-y: 14px;
     --btn-pad-x: 32px;
     --btn-min-height: 52px;
@@ -337,11 +355,12 @@ section, article, main, aside, form { scroll-margin-top: 110px; }
 
 @media (min-width: 1024px) {
   :root {
-    --fs-h2: 2.05rem;
-    --fs-h1: 2.95rem;
-    --fs-display: 3.7rem;
-    --btn-pad-y: 14px;
-    --btn-pad-x: 36px;
+    --fs-body-lg: 1.08rem;
+    --fs-h2: 2.3rem;
+    --fs-h1: 3.3rem;
+    --fs-display: 4.4rem;
+    --btn-pad-y: 15px;
+    --btn-pad-x: 38px;
   }
 }
 

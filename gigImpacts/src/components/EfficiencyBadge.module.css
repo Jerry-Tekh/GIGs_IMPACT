@@ -1,79 +1,31 @@
 /* ══════════════════════════════════════════
-   EFFICIENCY BADGE — Closing Statement
+   EFFICIENCY BADGE — closing statement band (no box)
    ══════════════════════════════════════════ */
 .badgeSection {
-  padding: 72px var(--section-pad-x);
-  background: var(--color-surface);
-  overflow: hidden;
+  padding: 84px var(--section-pad-x);
+  background: #ffffff;
+  border-top: 1px solid var(--color-rule);
 }
 
-.contentWrap::after { content: none; }
-
-
-
-/* ── Content wrapper ── */
 .contentWrap {
-  max-width: 1180px;
+  max-width: 1240px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 52px;
-  position: relative;
-  z-index: 1;
 }
 
-/* ── Section intro ── */
-.sectionIntro {
-  max-width: 800px;
-}
+.sectionIntro { display: none; }
 
-.sectionTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  color: var(--color-accent);
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-bold);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.sectionTag::before {
-  content: '';
-  display: inline-block;
-  width: 28px;
-  height: 2px;
-  background: var(--color-accent);
-}
-
-.sectionIntro h2 {
-  color: #ffffff;
-  
-  font-size: var(--fs-h1);
-  font-weight: var(--fw-bold);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-}
-
-/* ── Badge row ── premium closing card ── */
+/* ── Badge + statement row ── */
 .badgeRow {
   display: flex;
   align-items: center;
-  gap: 44px;
+  gap: 48px;
   flex-wrap: wrap;
-  background: var(--color-surface-creame);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--color-accent);
-  box-shadow: var(--shadow-md);
-  padding: 44px 48px;
 }
 
-/* ── Circular badge ── */
 .circle {
   flex-shrink: 0;
-  width: 116px;
-  height: 116px;
+  width: 132px;
+  height: 132px;
   border-radius: 50%;
   background: radial-gradient(circle at 32% 28%, #ffe566, var(--color-accent) 70%);
   box-shadow: var(--shadow-accent);
@@ -84,20 +36,19 @@
   gap: 4px;
   position: relative;
 }
-
-/* Inner ring */
 .circle::before {
   content: '';
   position: absolute;
-  inset: 5px;
+  inset: 6px;
   border-radius: 50%;
-  border: 1px solid rgba(24, 24, 16, 0.18);
+  border: 1px solid rgba(26, 21, 5, 0.2);
 }
 
 .num {
-  font-size: 1.25rem;
-  font-weight: var(--fw-bold);
-  color: #181810;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: var(--fw-semibold);
+  color: #1a1505;
   line-height: 1;
   letter-spacing: -0.04em;
 }
@@ -105,40 +56,32 @@
 .label {
   font-size: var(--fs-caption);
   font-weight: var(--fw-bold);
-  color: rgba(24, 24, 16, 0.72);
-  letter-spacing: 0.2em;
+  color: rgba(26, 21, 5, 0.75);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
-/* ── Paragraph next to badge ── */
 .badgeRow p {
   flex: 1;
-  min-width: 260px;
-  color: var(--color-text-body);
-  font-family: var(--font-display);
-  font-weight: var(--fw-medium);
-  font-size: var(--fs-h4);
-  line-height: 1.6;
-  letter-spacing: -0.01em;
-  padding-left: 0;
+  min-width: 280px;
   margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-medium);
+  color: var(--color-text);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
-/* ══ Responsive ══ */
 @media (max-width: 768px) {
   .badgeSection { padding: var(--section-pad-y-tablet) var(--section-pad-x-tablet); }
-  .contentWrap { gap: 36px; }
   .badgeRow { gap: 32px; }
-  .circle { width: 100px; height: 100px; }
-  .num { font-size: 1.55rem; }
-  .sectionIntro h2 { font-size: var(--fs-h2); }
-  .badgeRow p { font-size: var(--fs-body); padding-left: 18px; }
+  .circle { width: 112px; height: 112px; }
+  .num { font-size: 1.45rem; }
 }
 
 @media (max-width: 480px) {
   .badgeSection { padding: var(--section-pad-y-mobile) var(--section-pad-x-mobile); }
-  .badgeRow { flex-direction: column; align-items: flex-start; gap: 22px; padding: 28px 22px; }
-  .badgeRow p { min-width: unset; padding-left: 0; font-size: var(--fs-body-lg); }
-  .circle { width: 92px; height: 92px; }
-  .num { font-size: 1.4rem; }
+  .badgeRow { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .badgeRow p { min-width: unset; }
 }

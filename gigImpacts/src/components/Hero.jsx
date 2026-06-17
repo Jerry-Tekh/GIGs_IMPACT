@@ -41,68 +41,55 @@ const CountUpStat = ({ end, suffix = '' }) => {
   );
 };
 
+const heroStats = [
+  { end: 7, suffix: '', label: 'Stage transformation framework' },
+  { end: 4, suffix: '+', label: 'Volunteers building the mission' },
+  { end: 100, suffix: '%', label: 'Focused on real impact' }
+];
+
 const Hero = () => {
   return (
     <section className={styles.heroContainer}>
-      <motion.div
-        className={styles.content}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-      >
-        <p className={styles.kicker}>GIGs Impact Community</p>
-        <h1 className={styles.title}>
-          {siteData.hero.title[0]}
-          <br />
-          <span className={styles.accent}>{siteData.hero.title[1]}</span>
-          <br />
-          {siteData.hero.title[2]}
-        </h1>
-        <p className={styles.description}>{siteData.hero.subtitle}</p>
-        <div className={styles.buttonGroup}>
-          <Link to="/about" className={styles.primaryBtn}>
-            {siteData.hero.cta}
-          </Link>
-          <Link to="/programs" className={styles.videoBtn}>
-            <span className={styles.playIcon}>▶</span> View Programs
-          </Link>
-        </div>
-      </motion.div>
-
-      <motion.div
-        className={styles.imageGrid}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-      >
-        <div className={styles.mainImageWrapper}>
-          <div className={styles.mainImg}>
-            <p className={styles.panelLabel}>Transformation Pathway</p>
-            <h3>Potential to Skill to Value to Income</h3>
-            <p>
-              We create structured pathways where young people build competence,
-              confidence, and sustainable opportunities.
-            </p>
+      <div className={styles.inner}>
+        <motion.div
+          className={styles.content}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className={styles.kicker}>GIGs Impact Community</p>
+          <h1 className={styles.title}>
+            {siteData.hero.title[0]}{' '}
+            <span className={styles.accent}>{siteData.hero.title[1]}</span>{' '}
+            {siteData.hero.title[2]}
+          </h1>
+          <p className={styles.description}>{siteData.hero.subtitle}</p>
+          <div className={styles.buttonGroup}>
+            <Link to="/about" className={styles.primaryBtn}>
+              {siteData.hero.cta}
+            </Link>
+            <Link to="/programs" className={styles.videoBtn}>
+              <span className={styles.playIcon}>▶</span> View Programs
+            </Link>
           </div>
+        </motion.div>
 
-          <div className={styles.statBadge}>
-            <h3>
-              <CountUpStat end={4} suffix="+" />
-            </h3>
-            <p>Happy Volunteers</p>
-            <div className={styles.avatars}>
-              <div className={styles.avatar}>A</div>
-              <div className={styles.avatar}>B</div>
-              <div className={styles.avatar}>C</div>
+        <motion.div
+          className={styles.statStrip}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {heroStats.map((stat) => (
+            <div key={stat.label} className={styles.statItem}>
+              <span className={styles.statNumber}>
+                <CountUpStat end={stat.end} suffix={stat.suffix} />
+              </span>
+              <span className={styles.statLabel}>{stat.label}</span>
             </div>
-          </div>
-        </div>
-
-        <div className={styles.topImg}>
-          <h4>Focused Impact</h4>
-          <p>Talent development, enterprise growth, and leadership formation.</p>
-        </div>
-      </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 };
