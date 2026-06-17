@@ -13,11 +13,11 @@
 }
 
 .headerScrolled {
-  background: rgba(255, 253, 249, 0.86);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
   border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 6px 28px rgba(10, 22, 51, 0.08);
+  box-shadow: 0 6px 28px rgba(10, 20, 36, 0.08);
 }
 
 /* Brand mark color — gold over dark hero, navy once scrolled on paper */

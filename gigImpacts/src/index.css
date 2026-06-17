@@ -54,45 +54,60 @@
   --fw-semibold: 600;
   --fw-bold: 700;
 
-  /* ── Brand palette ── royal blue + golden accent, grounded by trust-navy
-        on a warm paper canvas, with a hopeful growth-green for impact ── */
-  --color-primary: #1e5af3;
-  --color-primary-deep: #123a9e;
+  /* ═══════════════════════════════════════════════════════════
+     GIGS IMPACT — "Momentum" design system
+     Ink-navy canvas for drama · electric blue for action ·
+     warm gold as the signature spark · coral for energy ·
+     growth-green for impact. Architectural & sharp.
+     ═══════════════════════════════════════════════════════════ */
+  --color-primary: #1e5af3;          /* electric brand blue — action */
+  --color-primary-deep: #1746c2;
   --color-primary-mid: #1e5af3;
-  --color-primary-bright: #3f74ff;
-  --color-navy: #0a1633;
-  --color-navy-soft: #16265c;
+  --color-primary-bright: #4f80ff;
+  --color-primary-soft: rgba(30, 90, 243, 0.10);
 
-  --color-secondary: #0f7a5a;        /* growth green — impact / success */
-  --color-secondary-soft: rgba(15, 122, 90, 0.12);
-  --color-accent: #ffdb24;
-  --color-accent-deep: #f2b705;
-  --color-accent-soft: rgba(255, 219, 36, 0.18);
-  --color-accent-strong: #e0531f;
+  --color-ink: #0a1424;              /* signature deep ink-navy */
+  --color-ink-2: #101f38;
+  --color-navy: #0a1424;             /* alias kept for existing modules */
+  --color-navy-soft: #16294f;
 
-  --color-text: #0b1020;
-  --color-text-body: #2a3145;
-  --color-text-muted: #5d6577;
-  --color-text-light: #939bad;
+  --color-secondary: #0e9b6e;        /* growth green — impact / success */
+  --color-secondary-soft: rgba(14, 155, 110, 0.12);
 
-  /* Clean, cool, white-dominant canvas (no warm tint) */
+  --color-accent: #ffce3a;           /* signature gold */
+  --color-accent-deep: #eaac00;
+  --color-accent-soft: rgba(255, 206, 58, 0.18);
+
+  --color-coral: #ff6a3d;            /* energy / highlight spark */
+  --color-coral-soft: rgba(255, 106, 61, 0.12);
+  --color-accent-strong: #ff6a3d;    /* alias kept for existing modules */
+
+  --color-text: #0a1424;
+  --color-text-body: #313a4f;
+  --color-text-muted: #626b7d;
+  --color-text-light: #97a0b2;
+  --color-on-dark: rgba(255, 255, 255, 0.82);
+  --color-on-dark-soft: rgba(255, 255, 255, 0.62);
+
+  /* Clean, cool, light canvas */
   --color-surface: #ffffff;
-  --color-surface-alt: #f4f6fa;      /* faint cool gray for the rare panel */
+  --color-surface-alt: #f3f5f9;      /* soft cool neutral panel */
   --color-surface-creame: #ffffff;
   --color-panel: #eef3ff;            /* pale blue tint */
   --color-panel-soft: #f6f9ff;
 
-  --color-border: rgba(11, 16, 32, 0.10);
-  --color-border-soft: rgba(11, 16, 32, 0.07);
-  --color-border-strong: rgba(11, 16, 32, 0.16);
-  --color-rule: rgba(11, 16, 32, 0.12);
+  --color-border: rgba(10, 20, 36, 0.10);
+  --color-border-soft: rgba(10, 20, 36, 0.07);
+  --color-border-strong: rgba(10, 20, 36, 0.18);
+  --color-rule: rgba(10, 20, 36, 0.12);
+  --color-border-on-dark: rgba(255, 255, 255, 0.16);
 
-  /* ── Elevation — soft, layered, navy-tinted (restored from flat) ── */
-  --shadow-xs: 0 1px 2px rgba(10, 22, 51, 0.05);
-  --shadow-sm: 0 2px 6px rgba(10, 22, 51, 0.06), 0 1px 2px rgba(10, 22, 51, 0.05);
-  --shadow-md: 0 10px 26px rgba(10, 22, 51, 0.09), 0 3px 8px rgba(10, 22, 51, 0.06);
-  --shadow-lg: 0 26px 60px rgba(10, 22, 51, 0.16), 0 8px 20px rgba(10, 22, 51, 0.08);
-  --shadow-accent: 0 14px 30px rgba(242, 183, 5, 0.30);
+  /* ── Elevation — soft, layered, ink-tinted ── */
+  --shadow-xs: 0 1px 2px rgba(10, 20, 36, 0.05);
+  --shadow-sm: 0 2px 8px rgba(10, 20, 36, 0.07), 0 1px 2px rgba(10, 20, 36, 0.05);
+  --shadow-md: 0 12px 30px rgba(10, 20, 36, 0.10), 0 4px 10px rgba(10, 20, 36, 0.06);
+  --shadow-lg: 0 30px 70px rgba(10, 20, 36, 0.18), 0 10px 24px rgba(10, 20, 36, 0.08);
+  --shadow-accent: 0 14px 34px rgba(234, 172, 0, 0.34);
 
   /* ── Sharp, architectural corners ── */
   --radius-xs: 0px;
@@ -312,6 +327,51 @@ section, article, main, aside, form { scroll-margin-top: 110px; }
   background-repeat: no-repeat;
   background-position: 0 88%;
   background-size: 100% 0.32em;
+}
+
+/* ── Signature buttons (global) ── sharp, confident, motion-ready ── */
+.u-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: var(--btn-min-height);
+  border: 1.5px solid transparent;
+  font-family: var(--font-base);
+  font-size: var(--fs-button);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 0;
+  transition: transform var(--transition-fast), background var(--transition-fast),
+    color var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+.u-btn svg { transition: transform var(--transition-fast); }
+.u-btn:hover svg { transform: translateX(4px); }
+
+.u-btn--gold { background: var(--color-accent); color: #1a1505; box-shadow: var(--shadow-accent); }
+.u-btn--gold:hover { background: var(--color-accent-deep); transform: translateY(-3px); }
+
+.u-btn--blue { background: var(--color-primary); color: #fff; }
+.u-btn--blue:hover { background: var(--color-primary-deep); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.u-btn--ink { background: var(--color-ink); color: #fff; }
+.u-btn--ink:hover { background: var(--color-ink-2); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.u-btn--ghost { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
+.u-btn--ghost:hover { border-color: var(--color-primary); color: var(--color-primary); transform: translateY(-3px); }
+
+.u-btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+.u-btn--ghost-light:hover { background: rgba(255,255,255,0.12); border-color: #fff; transform: translateY(-3px); }
+
+/* ── Section shell + dark band (global) ── */
+.u-band-dark {
+  background:
+    radial-gradient(circle at 86% 14%, rgba(30, 90, 243, 0.26), transparent 44%),
+    var(--color-ink);
+  color: #fff;
 }
 
 /* ── Scroll-reveal utility (reduced-motion safe) ── */
