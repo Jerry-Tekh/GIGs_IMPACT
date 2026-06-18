@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import styles from './Legal.module.css';
 import { siteData } from '../../SiteData.js';
 import { smoothScrollToY } from '../../utils/smoothScroll.js';
@@ -82,12 +81,7 @@ const LegalPage = ({ type = 'privacy' }) => {
         </div>
       </section>
 
-      <motion.section
-        className={styles.body}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <section className={styles.body}>
         <div className={styles.bodyInner}>
           <p className={styles.intro}>{data.intro}</p>
           {data.sections.map((s, i) => (
@@ -100,7 +94,7 @@ const LegalPage = ({ type = 'privacy' }) => {
             </article>
           ))}
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 };
