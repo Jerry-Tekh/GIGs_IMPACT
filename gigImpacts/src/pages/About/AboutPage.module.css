@@ -15,6 +15,8 @@
   padding: var(--section-pad-y) var(--section-pad-x);
 }
 
+.hero { padding-top: 150px; padding-bottom: 84px; }
+
 /* ── Hero ── */
 .hero {
   background:
@@ -32,12 +34,8 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(160deg, rgba(6, 16, 60, 0.82) 0%, rgba(30, 90, 243, 0.42) 100%);
-   background:
-    radial-gradient(circle at top right, rgba(0, 0, 0, 0.44), transparent 84%),
-    linear-gradient(140deg, rgba(0, 0, 0, 0.38), transparent 85%);
-
-    pointer-events: none;
+    linear-gradient(100deg, rgba(10, 20, 36, 0.92) 0%, rgba(16, 31, 56, 0.78) 42%, rgba(30, 90, 243, 0.4) 100%);
+  pointer-events: none;
 }
 
 
@@ -46,8 +44,9 @@
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-primary-mid), transparent);
+  height: 3px;
+  background: var(--color-accent);
+  z-index: 2;
 }
 
 .heroGrid, .storyGrid, .quoteShell {
@@ -66,28 +65,41 @@
 /* ── Label utilities ── */
 .eyebrow, .sectionTag, .sectionTagLight,
 .panelLabel, .panelCaption, .stageIndex {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   font-size: var(--fs-label);
   font-weight: var(--fw-semibold);
   position: relative;
   z-index: 2;
 }
 
-.eyebrow, .panelLabel, .sectionTagLight { color: var(--color-accent) ; position: relative;
-  z-index: 2; }
-.sectionTag, .panelCaption, .stageIndex { color: var(--color-primary-mid); }
+/* gold lead bar on the primary section eyebrows */
+.eyebrow::before, .sectionTag::before, .sectionTagLight::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.eyebrow, .panelLabel, .sectionTagLight { color: var(--color-accent); position: relative; z-index: 2; }
+.sectionTag { color: var(--color-primary); }
+.panelCaption, .stageIndex { color: var(--color-primary); }
 
 /* ── Hero copy ── */
 .heroCopy h1 {
-  margin: 18px 0;
+  font-family: var(--font-display);
+  margin: 20px 0;
   color: #ffffff;
   font-size: var(--fs-display);
-  line-height: 1.04;
+  font-weight: var(--fw-semibold);
+  line-height: 1.02;
   letter-spacing: -0.035em;
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgba(6, 16, 60, 0.45);
+  text-shadow: 0 2px 24px rgba(10, 20, 36, 0.45);
   position: relative;
   z-index: 2;
 }
@@ -111,39 +123,42 @@
 }
 
 .primaryBtn, .secondaryBtn {
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: var(--btn-pad-y) var(--btn-pad-x);
   min-height: var(--btn-min-height);
   font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   border-radius: 0;
-  letter-spacing: 0.03em;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  border: 1.5px solid transparent;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
 .primaryBtn {
   background: var(--color-accent);
-  color: #181810;
+  color: #1a1505;
   box-shadow: var(--shadow-accent);
 }
 
 .primaryBtn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(255, 219, 36, 0.38);
+  background: var(--color-accent-deep);
+  box-shadow: 0 18px 40px rgba(234, 172, 0, 0.4);
 }
 
 .secondaryBtn {
-  border: 1.5px solid rgba(220, 231, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.4);
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(8px);
+  background: transparent;
 }
 
 .secondaryBtn:hover {
   transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
 }
 
 /* ── Hero image panel ── */
@@ -207,58 +222,75 @@
   text-transform: uppercase;
 }
 
-/* ── Section containers ── */
-.main, .storySection, .impactSection, .frameworkSection {
+/* ── Section containers ── full-bleed bands, inner grids self-center ── */
+.main { width: 100%; }
+
+.storySection, .impactSection, .frameworkSection {
+  width: 100%;
+}
+.storyGrid, .impactGrid, .frameworkGrid, .sectionHeader {
   max-width: 1240px;
-  margin: 0 auto;
-  padding: 40px 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* ── Story section ── */
+/* ── Story section ── open band, no outer box ── */
 .storySection {
-  background: linear-gradient(180deg, var(--color-surface-alt) 0%, var(--color-surface) 100%);
+  background: var(--color-surface-alt);
   border-radius: 0;
-  padding: 48px 36px;
-  border: 1px solid var(--color-border-soft);
+  padding: var(--section-pad-y) var(--section-pad-x);
+  border: none;
 }
 
 .impactSection {
-  padding: 48px 0;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background: #ffffff;
 }
 
 .frameworkSection {
-  padding: 48px 0;
-  border-top: 1px solid var(--color-border-soft);
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background: var(--color-surface-alt);
+  border-top: none;
 }
 
-.storyGrid { gap: 48px; align-items: start; }
+.storyGrid { gap: 56px; align-items: start; }
 
 .sectionHeader {
   display: grid;
-  gap: 14px;
-  margin-bottom: 36px;
+  gap: 16px;
+  margin-bottom: 48px;
+  max-width: 820px;
 }
 
 .sectionHeader h2 {
+  font-family: var(--font-display);
   color: var(--color-text);
-  font-size: var(--fs-h2);
-  letter-spacing: -0.025em;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 .sectionHeader p {
   max-width: 760px;
+  font-size: var(--fs-body-lg);
   color: var(--color-text-muted);
-  line-height: 1.85;
+  line-height: 1.8;
 }
 
 /* ── Story copy ── */
 .storyCopy { display: grid; gap: 20px; }
 
 .storyCopy h2 {
+  font-family: var(--font-display);
   color: var(--color-text);
-  font-size: var(--fs-h2);
-  letter-spacing: -0.025em;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
+
+.storyCopy p, .tabPanel p { font-size: var(--fs-body); }
 
 .storyCopy p, .tabPanel p, .infoCard p, .pointList li {
   color: var(--color-text-muted);
@@ -288,21 +320,21 @@
   transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
-.tab:hover { background: var(--color-panel); border-color: var(--color-primary-mid); }
+.tab:hover { background: var(--color-panel); border-color: var(--color-primary); color: var(--color-primary); }
 
 .active {
-  background: var(--color-primary-mid) !important;
-  border-color: var(--color-primary-mid) !important;
+  background: var(--color-ink) !important;
+  border-color: var(--color-ink) !important;
   color: #ffffff !important;
 }
 
 .tabPanel {
-  padding: 28px;
-  background: var(--color-surface);
+  padding: 30px 32px;
   background: #ffffff;
   border: 1px solid var(--color-border);
   border-radius: 0;
-  border-top: 3px solid var(--color-primary-mid);
+  border-left: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ── Story visual / image ── */
@@ -344,12 +376,16 @@
 }
 
 .floatingCard h3, .infoCard h3, .frameworkCard h3 {
-  margin: 10px 0 12px;
+  font-family: var(--font-display);
+  margin: 12px 0 12px;
   color: var(--color-text);
   font-size: var(--fs-h3);
-  line-height: 1.25;
+  font-weight: var(--fw-semibold);
+  line-height: 1.18;
   letter-spacing: -0.02em;
 }
+
+.infoCard h3 { font-size: var(--fs-h2); }
 
 .storyAccordion {
   width: 100%;
@@ -563,9 +599,10 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 18px;
+  border-top: 3px solid var(--color-accent);
   background:
-    radial-gradient(circle at top right, rgba(255, 219, 36, 0.16), transparent 32%),
-    linear-gradient(135deg, var(--color-navy) 0%, var(--color-primary-mid) 100%);
+    radial-gradient(circle at top right, rgba(30, 90, 243, 0.3), transparent 42%),
+    var(--color-ink);
 }
 
 .frameworkCtaCard .stageIndex, .frameworkCtaCard h3, .frameworkCtaCard p { color: #ffffff; }
@@ -616,9 +653,11 @@
   border-color: var(--color-primary-mid);
 }
 
-/* ── Quote section ── */
+/* ── Quote section ── signature ink band ── */
 .quoteSection {
-  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-primary-mid) 100%);
+  background:
+    radial-gradient(circle at 86% 14%, rgba(30, 90, 243, 0.26), transparent 44%),
+    var(--color-ink);
   color: #ffffff;
   position: relative;
   overflow: hidden;
@@ -629,22 +668,26 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-accent), transparent);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary), transparent);
 }
 
-.quoteShell { display: grid; gap: 20px; justify-items: start; }
+.quoteShell { display: grid; gap: 24px; justify-items: start; }
 
 .quoteShell h2 {
+  font-family: var(--font-display);
   color: #ffffff;
-  max-width: 700px;
-  font-size: var(--fs-h2);
-  letter-spacing: -0.025em;
+  max-width: 820px;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 .quoteShell p {
   max-width: 760px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.85;
+  font-size: var(--fs-body-lg);
+  color: var(--color-on-dark);
+  line-height: 1.8;
 }
 
 /* ══ Responsive ══ */
