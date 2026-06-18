@@ -10,7 +10,7 @@
   flex-direction: column;
   transition: width 0.3s ease, transform 0.3s ease;
   z-index: 1000;
-  box-shadow: 2px 0 24px rgba(11, 29, 102, 0.07);
+  box-shadow: 2px 0 24px rgba(10, 20, 36, 0.07);
   border-right: 1px solid var(--color-border-soft);
   font-family: var(--font-base);
   padding: 18px 14px;
@@ -82,7 +82,7 @@
 .profileLabel {
   width: fit-content;
   padding: 4px 10px;
-  background: rgba(255, 219, 36, 0.18);
+  background: rgba(255, 206, 58, 0.18);
   color: var(--color-accent);
   font-size: var(--fs-caption);
   font-weight: var(--fw-bold);
@@ -223,25 +223,25 @@
 }
 
 .blogBtn {
-  background: rgba(255, 219, 36, 0.1);
-  border-color: rgba(255, 219, 36, 0.35);
-  color: #7a6a00;
+  background: rgba(255, 206, 58, 0.1);
+  border-color: rgba(255, 206, 58, 0.35);
+  color: var(--color-accent-deep);
 }
 
 .blogBtn:hover {
-  background: rgba(255, 219, 36, 0.2);
-  border-color: rgba(255, 219, 36, 0.55);
+  background: rgba(255, 206, 58, 0.2);
+  border-color: rgba(255, 206, 58, 0.55);
 }
 
 .logoutBtn {
-  background: rgba(221, 48, 39, 0.06);
-  border-color: rgba(221, 48, 39, 0.2);
-  color: #be3b32;
+  background: rgba(255, 106, 61, 0.06);
+  border-color: rgba(255, 106, 61, 0.2);
+  color: var(--color-coral);
 }
 
 .logoutBtn:hover {
-  background: rgba(221, 48, 39, 0.12);
-  border-color: rgba(221, 48, 39, 0.35);
+  background: rgba(255, 106, 61, 0.12);
+  border-color: rgba(255, 106, 61, 0.35);
   color: #a02b22;
 }
 
@@ -268,7 +268,7 @@
     width: min(88vw, 280px);
     height: 100vh;
     padding-top: 14px;
-    box-shadow: 4px 0 40px rgba(6, 16, 60, 0.2);
+    box-shadow: 4px 0 40px rgba(10, 20, 36, 0.2);
   }
   .sidebar:not(.collapsed) { transform: translateX(0); }
   .collapsed { width: min(88vw, 280px); }

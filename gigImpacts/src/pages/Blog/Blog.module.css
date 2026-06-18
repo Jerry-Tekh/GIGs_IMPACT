@@ -278,7 +278,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(6, 16, 60, 0.15) 0%, transparent 32%, rgba(8, 18, 52, 0.94) 100%);
+  background: linear-gradient(180deg, rgba(10, 20, 36, 0.15) 0%, transparent 32%, rgba(10, 20, 36, 0.94) 100%);
   pointer-events: none;
 }
 
@@ -330,7 +330,7 @@
   line-height: 1.22;
   color: #ffffff;
   letter-spacing: -0.01em;
-  text-shadow: 0 1px 10px rgba(4, 10, 35, 0.5);
+  text-shadow: 0 1px 10px rgba(10, 20, 36, 0.5);
 }
 
 .articleExcerpt {

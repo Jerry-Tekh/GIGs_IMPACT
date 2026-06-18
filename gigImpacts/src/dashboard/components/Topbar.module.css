@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  box-shadow: 0 2px 16px rgba(11, 29, 102, 0.07);
+  box-shadow: 0 2px 16px rgba(10, 20, 36, 0.07);
   border: 1px solid var(--color-border-soft);
   border-radius: 0;
   position: relative;
@@ -112,25 +112,25 @@
 }
 
 .blogBtn {
-  background: rgba(255, 219, 36, 0.1);
-  border-color: rgba(255, 219, 36, 0.35);
-  color: #7a6a00;
+  background: rgba(255, 206, 58, 0.1);
+  border-color: rgba(255, 206, 58, 0.35);
+  color: var(--color-accent-deep);
 }
 
 .blogBtn:hover {
-  background: rgba(255, 219, 36, 0.2);
-  border-color: rgba(255, 219, 36, 0.55);
+  background: rgba(255, 206, 58, 0.2);
+  border-color: rgba(255, 206, 58, 0.55);
 }
 
 .logoutBtn {
-  background: rgba(221, 48, 39, 0.06);
-  border-color: rgba(221, 48, 39, 0.2);
-  color: #be3b32;
+  background: rgba(255, 106, 61, 0.06);
+  border-color: rgba(255, 106, 61, 0.2);
+  color: var(--color-coral);
 }
 
 .logoutBtn:hover {
-  background: rgba(221, 48, 39, 0.12);
-  border-color: rgba(221, 48, 39, 0.35);
+  background: rgba(255, 106, 61, 0.12);
+  border-color: rgba(255, 106, 61, 0.35);
 }
 
 .blogBtn svg, .logoutBtn svg { font-size: var(--fs-body); }

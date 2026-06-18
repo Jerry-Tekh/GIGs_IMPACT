@@ -60,11 +60,11 @@
   font-size: var(--fs-h1);
   z-index: 2;
   cursor: pointer;
-  box-shadow: 0 16px 40px rgba(255, 219, 36, 0.36), 0 0 0 12px rgba(255, 219, 36, 0.14);
+  box-shadow: 0 16px 40px rgba(255, 206, 58, 0.36), 0 0 0 12px rgba(255, 206, 58, 0.14);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.playButton:hover { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 24px 56px rgba(255, 219, 36, 0.44), 0 0 0 18px rgba(255, 219, 36, 0.12); }
+.playButton:hover { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 24px 56px rgba(255, 206, 58, 0.44), 0 0 0 18px rgba(255, 206, 58, 0.12); }
 
 @media (max-width: 768px) {
   .videoSection { padding: var(--section-pad-y-mobile) 5% 0; }

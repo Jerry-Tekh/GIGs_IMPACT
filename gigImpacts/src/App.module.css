@@ -39,7 +39,7 @@ main > section {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6,16,60,0.35);
+  background: rgba(10, 20, 36,0.35);
   z-index: 1200;
 }
 

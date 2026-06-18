@@ -267,9 +267,9 @@
 }
 
 .stageStatus {
-  background: rgba(255, 219, 36, 0.12);
-  color: #7a6a00;
-  border: 1px solid rgba(255, 219, 36, 0.3);
+  background: rgba(255, 206, 58, 0.12);
+  color: var(--color-accent-deep);
+  border: 1px solid rgba(255, 206, 58, 0.3);
 }
 
 .comingSoonBadge {
