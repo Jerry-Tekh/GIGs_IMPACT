@@ -32,7 +32,7 @@
   color: var(--color-primary);
   margin-bottom: 22px;
 }
-.kicker::before { content: ''; width: 28px; height: 2px; background: var(--color-accent); }
+.kicker::before { content: none; }
 
 .heading {
   font-family: var(--font-display);

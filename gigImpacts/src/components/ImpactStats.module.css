@@ -39,7 +39,7 @@
   color: var(--color-accent);
   margin-bottom: 22px;
 }
-.sectionTag::before { content: ''; width: 28px; height: 2px; background: var(--color-accent); }
+.sectionTag::before { content: none; }
 
 .sectionTitle {
   font-family: var(--font-display);

@@ -55,11 +55,7 @@
 }
 
 .eyebrow::before, .sectionTag::before, .sectionTagLight::before {
-  content: '';
-  width: 28px;
-  height: 2px;
-  background: var(--color-accent);
-  flex-shrink: 0;
+  content: none;
 }
 
 .eyebrow, .panelLabel, .sectionTagLight { color: var(--color-accent); }

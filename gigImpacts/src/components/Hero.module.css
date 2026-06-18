@@ -43,10 +43,7 @@
   margin-bottom: 26px;
 }
 .kicker::before {
-  content: '';
-  width: 34px;
-  height: 2px;
-  background: var(--color-accent);
+  content: none;
 }
 
 .title {

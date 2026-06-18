@@ -44,11 +44,7 @@
 }
 
 .eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 2px;
-  background: var(--color-accent);
+  content: none;
 }
 
 .heroContent h1 {

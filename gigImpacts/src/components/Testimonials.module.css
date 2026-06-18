@@ -19,7 +19,7 @@
   color: var(--color-primary);
   margin-bottom: 20px;
 }
-.kicker::before { content: ''; width: 28px; height: 2px; background: var(--color-accent); }
+.kicker::before { content: none; }
 
 .title {
   font-family: var(--font-display);

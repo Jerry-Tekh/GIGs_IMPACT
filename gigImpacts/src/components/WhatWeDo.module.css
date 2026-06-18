@@ -27,7 +27,7 @@
   color: var(--color-primary);
   margin-bottom: 22px;
 }
-.subtitle::before { content: ''; width: 28px; height: 2px; background: var(--color-accent); }
+.subtitle::before { content: none; }
 
 .mainTitle {
   font-family: var(--font-display);

@@ -27,7 +27,7 @@
   color: var(--color-primary);
   margin-bottom: 22px;
 }
-.label::before { content: ''; width: 28px; height: 2px; background: var(--color-accent); }
+.label::before { content: none; }
 
 .intro h2 {
   font-family: var(--font-display);

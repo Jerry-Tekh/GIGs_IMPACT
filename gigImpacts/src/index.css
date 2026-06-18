@@ -346,14 +346,7 @@ section, article, main, aside, form { scroll-margin-top: 110px; }
   font-weight: var(--fw-semibold);
   color: var(--color-primary);
 }
-.u-kicker::before {
-  content: '';
-  width: 28px;
-  height: 2px;
-  background: var(--color-accent);
-}
 .u-kicker--light { color: var(--color-accent); }
-.u-kicker--light::before { background: var(--color-accent); }
 
 /* Gold underline accent applied under a word/heading */
 .u-underline {
