@@ -150,12 +150,12 @@ const ContactPage = () => {
   return (
     <div className={styles.page}>
       <motion.section className={styles.hero}>
-        <div className={styles.heroGrid}>
+        <div className={styles.heroInner}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
             <h1>Let&apos;s talk about ideas, collaboration, and building practical impact together.</h1>
             <p>
               Whether you want to join the community, explore a partnership, or ask a question, we are ready to
-              listen and respond.
+              listen and respond — usually within one business day.
             </p>
 
             <div className={styles.heroActions}>
@@ -166,26 +166,6 @@ const ContactPage = () => {
                 Email Us Directly
               </a>
             </div>
-          </motion.div>
-
-          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
-            <span className={styles.panelLabel}>Response Promise</span>
-            <h2>We aim to make every conversation clear and action-oriented.</h2>
-            <p>
-              Use the form below to reach us . We will respond within one business day
-              and guide you on the next steps to get your questions answered.
-            </p>
-
-            {/*<div className={styles.heroStats}>
-              <div>
-                <strong>One Day</strong>
-                <span>Effective Response</span>
-              </div>
-              <div>
-                <strong>Three</strong>
-                <span>Ways to connect</span>
-              </div>
-            </div>*/}
           </motion.div>
         </div>
       </motion.section>

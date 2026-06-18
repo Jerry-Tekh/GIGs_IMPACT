@@ -72,7 +72,7 @@ const About = () => {
   return (
     <div className={styles.page}>
       <motion.section className={styles.hero}>
-        <div className={styles.heroGrid}>
+        <div className={styles.heroInner}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
             <h1>We are building a movement that turns overlooked talent into structure, value, and impact.</h1>
             <p>
@@ -89,36 +89,6 @@ const About = () => {
               </Link>
             </div>
           </motion.div>
-
-          <motion.aside className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
-            <span className={styles.panelLabel}>What Drives Us</span>
-            <p className={styles.panelLead}>
-              People should not stay trapped in unused potential when structure can change the story.
-            </p>
-            <ul className={styles.heroPillars}>
-              <li>
-                <span className={styles.pillarNum}>01</span>
-                <div>
-                  <strong>Values formation</strong>
-                  <p>Character, integrity, and discipline come first.</p>
-                </div>
-              </li>
-              <li>
-                <span className={styles.pillarNum}>02</span>
-                <div>
-                  <strong>Practical capability</strong>
-                  <p>Skills that turn ability into real value.</p>
-                </div>
-              </li>
-              <li>
-                <span className={styles.pillarNum}>03</span>
-                <div>
-                  <strong>Opportunity pathways</strong>
-                  <p>Clear routes to income, leadership, and influence.</p>
-                </div>
-              </li>
-            </ul>
-          </motion.aside>
         </div>
       </motion.section>
 

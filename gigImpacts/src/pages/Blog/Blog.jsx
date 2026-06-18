@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './Blog.module.css';
 // import PageLoader from '../../components/PageLoader.jsx';
 import { formatReadableDate } from '../../utils/date.js';
-import { slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
+import { slideLeft, staggerGroup, viewport } from '../../utils/motion.js';
 import { smoothScrollToElement } from '../../utils/smoothScroll.js';
 
 const blogSectionReveal = {
@@ -134,7 +134,7 @@ const Blog = () => {
   return (
     <div className={styles.page}>
       <motion.section className={styles.hero}>
-        <div className={styles.heroGrid}>
+        <div className={styles.heroInner}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
             <h1>GIGs Impact Blog bring to you the latest updates and perspectives for growth, work, and impact.</h1>
             <p>
@@ -148,22 +148,6 @@ const Blog = () => {
               <NavLink to="/login" className={styles.secondaryBtn}>
                 Login
               </NavLink>
-            </div>
-          </motion.div>
-
-          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
-            <span className={styles.panelLabel}>Content Focus</span>
-            <h2>Knowledge that supports the same transformation path shown across the site.</h2>
-            <p>From mindset to practical execution, the blog is part of the broader GIGs Impact journey.</p>
-            <div className={styles.heroStats}>
-              <div>
-                <strong>{articles.length}</strong>
-                <span>Articles</span>
-              </div>
-              <div>
-                <strong>{categories.length || 1}</strong>
-                <span>Content categories</span>
-              </div>
             </div>
           </motion.div>
         </div>

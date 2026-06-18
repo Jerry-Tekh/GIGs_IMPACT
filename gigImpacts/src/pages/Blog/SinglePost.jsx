@@ -80,49 +80,16 @@ const SinglePost = () => {
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
-        <div className={styles.heroGrid}>
-         {/* <div className={styles.heroCopy}>
-            {/*<span className={styles.eyebrow}>Single Post</span>
-            <div className={styles.breadcrumb}>
-              <Link to="/blog">Blog</Link>
-              <span>-</span>
-              <span>{post.category || 'General'}</span>
-            </div>
+        <div className={styles.heroInner}>
+          <div className={styles.heroCopy}>
             <h1>{post.title}</h1>
             <p>{post.excerpt || 'A closer look at one of the ideas shaping growth, work, and impact.'}</p>
 
-            <div className={styles.metaRow}>
+            <div className={styles.heroMeta}>
               <span>By {post.author || 'GIGs Impact Team'}</span>
               <span>{publishedDate}</span>
-              <span>{post.read_time ||5} min read</span>
+              <span>{post.read_time || 5} min read</span>
             </div>
-          </div>*/}
-
-          <div className={styles.heroPanel}>
-            <span className={styles.panelLabel}>Article Snapshot</span>
-           {/* <h2>This story is part of the same editorial system powering the blog overview page.</h2>*/}
-            <p>
-              Read our blog on to get your mindset right and engineered for positive impact. We cover a range of topics related to the future of work, and how individuals can build the skills they need to thrive.
-            </p>
-
-            <div className={styles.heroStats}>
-             {/*<div>
-                <strong>{post.category || 'General'}</strong>
-                <span>category</span>
-              </div>*/}
-              <div>
-                <strong>{post.read_time || 5} min</strong>
-                <span>estimated read</span>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.heroCopy}>
-        
-            <h1>{post.title}</h1>
-            <p>{post.excerpt || 'A closer look at one of the ideas shaping growth, work, and impact.'}</p>
-
-
           </div>
         </div>
       </section>

@@ -15,41 +15,37 @@
   padding: var(--section-pad-y) var(--section-pad-x);
 }
 
-.hero { padding-top: 150px; padding-bottom: 84px; }
-
-/* ── Hero ── image-free ink band ── */
+/* ── Hero ── light, single-column, sharp ── */
 .hero {
+  padding: 150px var(--section-pad-x) 76px;
   background:
-    radial-gradient(circle at 92% 8%, rgba(30, 90, 243, 0.34), transparent 46%),
-    radial-gradient(circle at 4% 96%, rgba(255, 206, 58, 0.08), transparent 42%),
-    var(--color-ink);
-  color: #ffffff;
+    radial-gradient(circle at 96% 0%, var(--color-primary-soft), transparent 40%),
+    var(--color-surface);
+  color: var(--color-text);
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.hero::after {
+/* slim gold identity rule at the very top */
+.hero::before {
   content: '';
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
+  top: 0; left: 0; right: 0;
+  height: 4px;
   background: var(--color-accent);
+}
+
+.heroInner {
+  max-width: 920px;
+  margin: 0 auto;
+  position: relative;
   z-index: 2;
 }
 
 .heroGrid, .storyGrid, .quoteShell {
   max-width: 1240px;
   margin: 0 auto;
-}
-
-.heroGrid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 56px;
-  align-items: center;
-  padding: 10px 0;
-  position: relative;
-  z-index: 2;
 }
 
 .storyGrid {
@@ -74,7 +70,6 @@
   z-index: 2;
 }
 
-/* gold lead bar on the primary section eyebrows */
 .eyebrow::before, .sectionTag::before, .sectionTagLight::before {
   content: none;
 }
@@ -86,34 +81,27 @@
 /* ── Hero copy ── */
 .heroCopy h1 {
   font-family: var(--font-display);
-  margin: 20px 0;
-  color: #ffffff;
+  margin: 0 0 22px;
+  color: var(--color-text);
   font-size: var(--fs-display);
   font-weight: var(--fw-semibold);
-  line-height: 1.02;
+  line-height: 1.03;
   letter-spacing: -0.035em;
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgba(10, 20, 36, 0.45);
-  position: relative;
-  z-index: 2;
 }
 
-.heroCopy p, .heroPanel p {
-  line-height: 1.85;
-  color: rgba(255, 255, 255, 0.8);
-  position: relative;
-  z-index: 2;
-    position: relative;
-  z-index: 2;
+.heroCopy p {
+  line-height: 1.75;
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+  max-width: 60ch;
 }
 
 .heroActions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 30px;
-    position: relative;
-  z-index: 2;
+  margin-top: 34px;
 }
 
 .primaryBtn, .secondaryBtn {
@@ -132,86 +120,26 @@
 }
 
 .primaryBtn {
-  background: var(--color-accent);
-  color: #1a1505;
-  box-shadow: var(--shadow-accent);
+  background: var(--color-primary);
+  color: #ffffff;
 }
 
 .primaryBtn:hover {
   transform: translateY(-3px);
-  background: var(--color-accent-deep);
-  box-shadow: 0 18px 40px rgba(234, 172, 0, 0.4);
+  background: var(--color-primary-deep);
+  box-shadow: var(--shadow-md);
 }
 
 .secondaryBtn {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
   background: transparent;
 }
 
 .secondaryBtn:hover {
   transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.12);
-  border-color: #ffffff;
-}
-
-/* ── Hero pillar panel (image-free) ── */
-.heroPanel {
-  position: relative;
-  z-index: 2;
-  padding: 34px 34px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.panelLead {
-  font-family: var(--font-display);
-  font-size: var(--fs-h4);
-  font-weight: var(--fw-medium);
-  color: #ffffff;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  margin: 14px 0 22px;
-}
-
-.heroPillars {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-}
-
-.heroPillars li {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 18px;
-  align-items: start;
-  padding: 18px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.pillarNum {
-  font-family: var(--font-display);
-  font-size: var(--fs-h4);
-  font-weight: var(--fw-semibold);
-  color: var(--color-accent);
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.heroPillars strong {
-  display: block;
-  color: #ffffff;
-  font-size: var(--fs-body);
-  font-weight: var(--fw-semibold);
-  margin-bottom: 3px;
-}
-
-.heroPillars li p {
-  color: var(--color-on-dark-soft) !important;
-  font-size: var(--fs-body-sm);
-  line-height: 1.55;
-  margin: 0;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 /* ── Section containers ── full-bleed bands, inner grids self-center ── */

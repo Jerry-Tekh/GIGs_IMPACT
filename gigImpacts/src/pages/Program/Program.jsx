@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import styles from './Program.module.css';
 import { siteData } from '../../SiteData.js';
-import { slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
+import { slideLeft, staggerGroup, viewport } from '../../utils/motion.js';
 
 const programSectionReveal = {
   hidden: { y: 28 },
@@ -147,7 +147,7 @@ const Program = () => {
   return (
     <div className={styles.page}>
       <motion.section className={styles.hero}>
-        <div className={styles.heroGrid}>
+        <div className={styles.heroInner}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
             <h1>Our programs are built around the same 7-stage transformation system you see on the home page.</h1>
             <p>
@@ -163,20 +163,6 @@ const Program = () => {
               </a>
             </div>
           </motion.div>
-
-          <motion.aside className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
-            <span className={styles.panelLabel}>The Transformation Path</span>
-            <ol className={styles.pathway}>
-              <li><span className={styles.pathStep}>Potential</span></li>
-              <li><span className={styles.pathStep}>Skill</span></li>
-              <li><span className={styles.pathStep}>Value</span></li>
-              <li><span className={styles.pathStep}>Income</span></li>
-              <li><span className={styles.pathStep}>Influence</span></li>
-            </ol>
-            <p className={styles.pathwayNote}>
-              Every training experience sits inside this bigger development architecture — never outside it.
-            </p>
-          </motion.aside>
         </div>
       </motion.section>
 

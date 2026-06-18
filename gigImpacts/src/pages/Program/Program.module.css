@@ -12,34 +12,28 @@
   position: relative;
 }
 
-/* ── Hero ── image-free ink band ── */
+/* ── Hero ── light, single-column, sharp ── */
 .hero {
+  padding: 150px var(--section-pad-x) 76px;
   background:
-    radial-gradient(circle at 92% 8%, rgba(30, 90, 243, 0.34), transparent 46%),
-    radial-gradient(circle at 4% 96%, rgba(255, 206, 58, 0.08), transparent 42%),
-    var(--color-ink);
-  color: #ffffff;
+    radial-gradient(circle at 96% 0%, var(--color-primary-soft), transparent 40%),
+    var(--color-surface);
+  color: var(--color-text);
   overflow: hidden;
-  padding-top: 150px;
-  padding-bottom: 84px;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.hero::after {
+.hero::before {
   content: '';
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
+  top: 0; left: 0; right: 0;
+  height: 4px;
   background: var(--color-accent);
-  z-index: 2;
 }
 
-.heroGrid {
-  max-width: 1240px;
+.heroInner {
+  max-width: 920px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 56px;
-  align-items: center;
   position: relative;
   z-index: 2;
 }
@@ -67,25 +61,26 @@
 .heroCopy h1 {
   font-family: var(--font-display);
   font-size: var(--fs-display);
-  line-height: 1.02;
-  margin: 20px 0;
-  color: #ffffff;
+  line-height: 1.03;
+  margin: 0 0 22px;
+  color: var(--color-text);
   letter-spacing: -0.035em;
   font-weight: var(--fw-semibold);
   text-wrap: balance;
 }
 
 .heroCopy p {
-  max-width: 620px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.85;
+  max-width: 62ch;
+  color: var(--color-text-muted);
+  font-size: var(--fs-body-lg);
+  line-height: 1.75;
 }
 
 .heroActions, .ctaActions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 34px;
 }
 
 .primaryBtn, .secondaryBtn, .secondaryBtnLight, .enrollBtn {
@@ -104,14 +99,13 @@
 }
 
 .primaryBtn {
-  background: var(--color-accent);
-  color: #1a1505;
-  box-shadow: var(--shadow-accent);
+  background: var(--color-primary);
+  color: #ffffff;
 }
 .primaryBtn:hover {
   transform: translateY(-3px);
-  background: var(--color-accent-deep);
-  box-shadow: 0 18px 40px rgba(234, 172, 0, 0.4);
+  background: var(--color-primary-deep);
+  box-shadow: var(--shadow-md);
 }
 
 /* enroll on white cards = solid blue */
@@ -126,94 +120,28 @@
   box-shadow: var(--shadow-md);
 }
 
-.secondaryBtn, .secondaryBtnLight {
+/* secondary on light hero */
+.secondaryBtn {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+  background: transparent;
+}
+.secondaryBtn:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* secondaryBtnLight stays on the dark CTA band */
+.secondaryBtnLight {
   border-color: rgba(255, 255, 255, 0.4);
   color: #ffffff;
   background: transparent;
 }
-
-.secondaryBtn:hover, .secondaryBtnLight:hover {
+.secondaryBtnLight:hover {
   transform: translateY(-3px);
   background: rgba(255, 255, 255, 0.12);
   border-color: #ffffff;
-}
-
-/* ── Hero pathway panel (image-free) ── */
-.heroPanel {
-  position: relative;
-  z-index: 2;
-  padding: 34px;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-/* Vertical stepped pathway with a connecting spine */
-.pathway {
-  list-style: none;
-  margin: 22px 0 22px;
-  padding: 0;
-  counter-reset: pathstep;
-  position: relative;
-}
-
-.pathway li {
-  position: relative;
-  counter-increment: pathstep;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 12px 0;
-}
-
-/* number node */
-.pathway li::before {
-  content: counter(pathstep, decimal-leading-zero);
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  background: var(--color-ink);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: var(--color-accent);
-  font-family: var(--font-display);
-  font-size: var(--fs-body-sm);
-  font-weight: var(--fw-semibold);
-  position: relative;
-  z-index: 1;
-}
-
-/* connecting spine between nodes */
-.pathway li:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 18px;
-  top: 38px;
-  bottom: -12px;
-  width: 2px;
-  background: linear-gradient(var(--color-accent), rgba(255, 206, 58, 0.25));
-  z-index: 0;
-}
-
-.pathStep {
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
-  color: #ffffff;
-  letter-spacing: -0.025em;
-  line-height: 1;
-}
-
-.pathwayNote {
-  position: relative;
-  z-index: 2;
-  margin: 0;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--color-on-dark-soft);
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
 }
 
 /* ── Content sections ── full-bleed bands ── */
