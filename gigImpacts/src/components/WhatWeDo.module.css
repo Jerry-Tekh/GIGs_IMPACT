@@ -1,4 +1,4 @@
-/* ═══ WHAT WE DO — light band, editorial feature slider ═══ */
+/* ═══ WHAT WE DO — full 7-stage framework timeline ═══ */
 .section {
   padding: var(--section-pad-y) var(--section-pad-x);
   background: var(--color-surface-alt);
@@ -8,12 +8,14 @@
 
 .shell {
   display: grid;
-  grid-template-columns: 0.95fr 1.25fr;
-  gap: 64px;
-  align-items: center;
+  grid-template-columns: 0.85fr 1.35fr;
+  gap: 72px;
+  align-items: start;
 }
 
-/* ── Intro (left) ── */
+/* ── Intro (left, sticky) ── */
+.introPanel { position: sticky; top: 112px; }
+
 .subtitle {
   display: inline-flex;
   align-items: center;
@@ -32,22 +34,22 @@
   font-size: var(--fs-h1);
   font-weight: var(--fw-semibold);
   color: var(--color-text);
-  line-height: 1.06;
+  line-height: 1.05;
   letter-spacing: -0.03em;
   margin-bottom: 18px;
 }
+.mainTitle em { font-style: italic; color: var(--color-primary); }
 
 .introText {
   font-size: var(--fs-body-lg);
   color: var(--color-text-muted);
   line-height: 1.8;
   margin-bottom: 28px;
-  max-width: 46ch;
+  max-width: 44ch;
 }
 
 .pathwayCard {
   display: grid;
-  gap: 0;
   margin-bottom: 28px;
   border-top: 1px solid var(--color-rule);
 }
@@ -89,103 +91,104 @@
 .learnMore:hover { gap: 14px; color: var(--color-primary-deep); }
 .arrowIcon { transition: transform var(--transition-fast); }
 
-/* ── Stage slider (right) ── */
-.stageStream { display: grid; gap: 18px; }
+/* ── Timeline (right) ── all 7 stages, connected ── */
+.timeline {
+  position: relative;
+  display: grid;
+}
 
-.sliderMeta {
+.stageRow {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 26px;
+  padding: 0 0 36px;
+  position: relative;
+}
+.stageRow:last-of-type { padding-bottom: 8px; }
+
+/* connecting vertical line through the markers */
+.stageMarker {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
 }
-.sliderLabel {
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-semibold);
-  color: var(--color-text-muted);
+.stageMarker::before {
+  content: '';
+  position: absolute;
+  top: 56px;
+  bottom: -36px;
+  width: 2px;
+  background: var(--color-border-strong);
 }
-.sliderControls { display: flex; gap: 8px; }
-.sliderControlBtn {
-  width: 46px;
-  height: 46px;
+.stageRow:last-of-type .stageMarker::before { display: none; }
+
+.stageNum {
+  width: 56px;
+  height: 56px;
   display: grid;
   place-items: center;
-  background: #ffffff;
-  border: 1px solid var(--color-border-strong);
-  color: var(--color-primary);
-  cursor: pointer;
-  font-size: var(--fs-body);
-  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  background: var(--color-ink);
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: background var(--transition-base), transform var(--transition-base);
 }
-.sliderControlBtn:hover { background: var(--color-primary); color: #ffffff; transform: translateY(-2px); }
+.stageRow:hover .stageNum { background: var(--color-primary); color: #fff; transform: translateY(-2px); }
 
-.sliderViewport { overflow: hidden; }
-.sliderTrack { display: flex; }
-.slide { min-width: 100%; }
-
-.stageLink { display: block; }
-
-/* The single visible stage — a clean feature panel, not a boxy card */
-.card {
-  display: grid;
-  gap: 22px;
+.stageBody {
   background: #ffffff;
   border: 1px solid var(--color-border);
-  border-top: 4px solid var(--color-primary);
-  padding: 36px;
-  box-shadow: var(--shadow-md);
-  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  border-left: 3px solid var(--color-primary);
+  padding: 24px 26px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
 }
-.card:hover { box-shadow: var(--shadow-lg); }
+.stageRow:hover .stageBody {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
 
-.cardTop {
+.stageHead {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 16px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
 }
-.stageMeta { display: grid; gap: 4px; }
-.stageNumber {
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
-  color: var(--color-primary);
-  letter-spacing: -0.02em;
-}
-.stageEyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: var(--fs-caption);
-  color: var(--color-text-light);
-  font-weight: var(--fw-semibold);
-}
-.iconBadge {
-  width: 54px; height: 54px;
-  display: grid; place-items: center;
-  background: var(--color-panel);
-  color: var(--color-primary);
-  flex-shrink: 0;
-}
-.icon { font-size: var(--fs-h3); }
 
-.cardBody { display: grid; gap: 14px; }
-.cardTitle {
+.stageTitle {
   font-family: var(--font-display);
-  font-size: var(--fs-h2);
+  font-size: var(--fs-h4);
   font-weight: var(--fw-semibold);
   color: var(--color-text);
-  letter-spacing: -0.025em;
-  line-height: 1.1;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
-.cardText {
-  font-size: var(--fs-body);
+
+.stageOutcome {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  color: var(--color-secondary);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.stageSummary {
+  font-size: var(--fs-body-sm);
   color: var(--color-text-muted);
-  line-height: 1.75;
+  line-height: 1.7;
+  margin-bottom: 16px;
 }
 
 .focusList { display: flex; flex-wrap: wrap; gap: 8px; }
 .focusItem {
-  padding: 7px 13px;
+  padding: 6px 12px;
   background: var(--color-surface-alt);
   border: 1px solid var(--color-border);
   color: var(--color-text-body);
@@ -193,65 +196,32 @@
   font-weight: var(--fw-medium);
 }
 
-.cardFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 16px;
-  padding-top: 18px;
-  border-top: 1px solid var(--color-rule);
-}
-.outcomeBlock { display: grid; gap: 4px; }
-.outcomeLabel {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: var(--fs-caption);
-  color: var(--color-text-light);
-  font-weight: var(--fw-semibold);
-}
-.outcomeBlock strong {
-  font-size: var(--fs-body);
-  color: var(--color-text);
-  font-weight: var(--fw-semibold);
-}
-.cardCta {
+.timelineCta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin-left: 82px;
+  margin-top: 4px;
   color: var(--color-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-body-sm);
-  white-space: nowrap;
+  transition: gap var(--transition-fast), color var(--transition-fast);
 }
-.arrowButton {
-  width: 32px; height: 32px;
-  display: grid; place-items: center;
-  background: var(--color-accent);
-  color: #1a1505;
-  transition: transform var(--transition-fast);
-}
-.card:hover .arrowButton { transform: translateX(3px); }
-.arrowIconCard { font-size: 0.8rem; }
-
-.sliderDots { display: flex; gap: 8px; }
-.dot, .activeDot {
-  width: 28px;
-  height: 4px;
-  background: var(--color-border-strong);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: background var(--transition-fast), width var(--transition-fast);
-}
-.activeDot { background: var(--color-primary); width: 44px; }
+.timelineCta:hover { gap: 14px; color: var(--color-primary-deep); }
 
 @media (max-width: 980px) {
   .section { padding: var(--section-pad-y-tablet) var(--section-pad-x-tablet); }
-  .shell { grid-template-columns: 1fr; gap: 40px; }
+  .shell { grid-template-columns: 1fr; gap: 44px; }
+  .introPanel { position: static; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 560px) {
   .section { padding: var(--section-pad-y-mobile) var(--section-pad-x-mobile); }
-  .card { padding: 26px 20px; }
-  .cardFooter { flex-direction: column; align-items: flex-start; }
+  .stageRow { grid-template-columns: auto 1fr; gap: 16px; }
+  .stageNum { width: 46px; height: 46px; }
+  .stageMarker::before { top: 46px; }
+  .stageBody { padding: 18px 18px; }
+  .stageHead { gap: 6px; }
+  .stageOutcome { white-space: normal; }
+  .timelineCta { margin-left: 0; }
 }
