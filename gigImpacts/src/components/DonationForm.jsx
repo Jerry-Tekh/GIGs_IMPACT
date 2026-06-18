@@ -198,7 +198,7 @@ const DonationForm = () => {
 
         <motion.aside className={styles.infoCol}>
           <h4>Volunteer Requirements</h4>
-          <img src={volunteer} alt="GIGs Impact volunteers collaborating at a community session" />
+          <img src={volunteer} alt="GIGs Impact volunteers collaborating at a community session" loading="lazy" decoding="async" />
           <ul>
             <li>Willingness to serve</li>
             <li>Commitment to growth</li>

@@ -132,7 +132,7 @@ const SinglePost = () => {
           <article className={styles.articleCard}>
             {post.featured_image ? (
               <div className={styles.coverWrap}>
-                <img src={post.featured_image} alt={post.title} className={styles.coverImage} />
+                <img src={post.featured_image} alt={post.title} className={styles.coverImage} loading="lazy" decoding="async" />
               </div>
             ) : null}
 

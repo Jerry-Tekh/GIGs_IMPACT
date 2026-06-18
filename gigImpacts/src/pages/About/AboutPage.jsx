@@ -158,7 +158,7 @@ const About = () => {
 
             <motion.div className={styles.storyVisual} id="founder-story" variants={slideRight}>
               <div className={styles.imageShell}>
-                <img src={founderImage} alt="Founder of GIGs Impact Community" className={styles.profileImg} />
+                <img src={founderImage} alt="Founder of GIGs Impact Community" className={styles.profileImg} loading="lazy" decoding="async" />
                 <div className={styles.floatingCard}>
                   <span className={styles.panelCaption}>Founder Story</span>
                   <h3>"You don't need everything to start. You just need to start with what you have."</h3>
