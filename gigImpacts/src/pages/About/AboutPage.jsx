@@ -91,25 +91,35 @@ const About = () => {
             </div>
           </motion.div>
 
-          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
+          <motion.aside className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
             <span className={styles.panelLabel}>What Drives Us</span>
-            <h2>People should not stay trapped in unused potential when structure can change the story.</h2>
-            <p>
-              We combine values formation, practical capability, and opportunity pathways so growth becomes
-              visible in everyday life.
+            <p className={styles.panelLead}>
+              People should not stay trapped in unused potential when structure can change the story.
             </p>
-
-            {/*<div className={styles.heroStats}>
-              <div>
-                <strong>Three</strong>
-                <span>core anchors</span>
-              </div>
-              <div>
-                <strong>Seven</strong>
-                <span>growth stages</span>
-              </div>
-            </div>*/}
-          </motion.div>
+            <ul className={styles.heroPillars}>
+              <li>
+                <span className={styles.pillarNum}>01</span>
+                <div>
+                  <strong>Values formation</strong>
+                  <p>Character, integrity, and discipline come first.</p>
+                </div>
+              </li>
+              <li>
+                <span className={styles.pillarNum}>02</span>
+                <div>
+                  <strong>Practical capability</strong>
+                  <p>Skills that turn ability into real value.</p>
+                </div>
+              </li>
+              <li>
+                <span className={styles.pillarNum}>03</span>
+                <div>
+                  <strong>Opportunity pathways</strong>
+                  <p>Clear routes to income, leadership, and influence.</p>
+                </div>
+              </li>
+            </ul>
+          </motion.aside>
         </div>
       </motion.section>
 

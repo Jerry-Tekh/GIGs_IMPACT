@@ -165,24 +165,19 @@ const Program = () => {
             </div>
           </motion.div>
 
-          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
-            <span className={styles.panelLabel}>Transformation Path</span>
-            <h2>Potential to Skill to Value to Income to Influence</h2>
-            <p>
-              Every training experience is designed to sit inside a bigger development architecture, not outside
-              it.
+          <motion.aside className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
+            <span className={styles.panelLabel}>The Transformation Path</span>
+            <ol className={styles.pathway}>
+              <li><span className={styles.pathStep}>Potential</span></li>
+              <li><span className={styles.pathStep}>Skill</span></li>
+              <li><span className={styles.pathStep}>Value</span></li>
+              <li><span className={styles.pathStep}>Income</span></li>
+              <li><span className={styles.pathStep}>Influence</span></li>
+            </ol>
+            <p className={styles.pathwayNote}>
+              Every training experience sits inside this bigger development architecture — never outside it.
             </p>
-           {/* <div className={styles.heroStats}>
-              <div>
-                <strong>Seven</strong>
-                <span>framework stages</span>
-              </div>
-              <div>
-                <strong>Six Plus</strong>
-                <span>program tracks</span>
-              </div>
-            </div>*/}
-          </motion.div>
+          </motion.aside>
         </div>
       </motion.section>
 
