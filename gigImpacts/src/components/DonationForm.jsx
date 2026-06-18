@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './DonationForm.module.css';
 import { loadRecaptchaScript, RECAPTCHA_SITE_KEY } from '../utils/recaptcha.js';
 
-import volunteer from './../assets/volunteer3.png';
-
 const honeypotStyles = {
   position: 'absolute',
   left: '-9999px',
@@ -128,17 +126,35 @@ const DonationForm = () => {
   return (
     <motion.section id="volunteer" className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.sectionIntro}>
-          <span className={styles.sectionTag}>Volunteer With Us</span>
-          <h2>Join the people helping us build opportunities, structure, and real community impact.</h2>
-          <p>
-            This section is for contributors who want to give time, skill, and energy to the mission.
+        <motion.aside className={styles.infoCol}>
+          <span className={styles.sectionTag}>Get Involved</span>
+          <h2>Lend your time and skill to a mission that is building real community impact.</h2>
+          <p className={styles.infoLead}>
+            GIGs Impact runs on people who give time, skill, and energy. If you believe talent should
+            never go to waste, there is a place for you here.
           </p>
-        </div>
+
+          <div className={styles.waysBlock}>
+            <span className={styles.waysLabel}>Ways to contribute</span>
+            <ul className={styles.waysList}>
+              <li><span>01</span> Trainers &amp; facilitators</li>
+              <li><span>02</span> Mentors &amp; coaches</li>
+              <li><span>03</span> Event organizers</li>
+              <li><span>04</span> Content &amp; social media</li>
+            </ul>
+          </div>
+
+          <ul className={styles.requirements}>
+            <li>Willingness to serve</li>
+            <li>Commitment to growth</li>
+            <li>Alignment with our values</li>
+            <li>Passion for impact</li>
+          </ul>
+        </motion.aside>
 
         <motion.div className={styles.formCard}>
-          <p className={styles.kicker}>Volunteer</p>
-          <h3>Volunteer With Us</h3>
+          <p className={styles.kicker}>Volunteer Application</p>
+          <h3>Tell us how you would like to help.</h3>
           <p>
             Be part of a mission that is transforming lives and shaping the future of Nigeria and Africa.
           </p>
@@ -195,17 +211,6 @@ const DonationForm = () => {
             )}
           </AnimatePresence>
         </motion.div>
-
-        <motion.aside className={styles.infoCol}>
-          <h4>Volunteer Requirements</h4>
-          <img src={volunteer} alt="GIGs Impact volunteers collaborating at a community session" loading="lazy" decoding="async" />
-          <ul>
-            <li>Willingness to serve</li>
-            <li>Commitment to growth</li>
-            <li>Alignment with our values</li>
-            <li>Passion for impact</li>
-          </ul>
-        </motion.aside>
       </div>
     </motion.section>
   );

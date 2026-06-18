@@ -74,7 +74,6 @@ const About = () => {
       <motion.section className={styles.hero}>
         <div className={styles.heroGrid}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
-            <span className={styles.eyebrow}>About Us</span>
             <h1>We are building a movement that turns overlooked talent into structure, value, and impact.</h1>
             <p>
               GIGs Impact Community exists to help people move from potential to clarity, skill, income,

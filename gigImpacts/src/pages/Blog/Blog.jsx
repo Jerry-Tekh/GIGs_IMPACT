@@ -136,7 +136,6 @@ const Blog = () => {
       <motion.section className={styles.hero}>
         <div className={styles.heroGrid}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
-            <span className={styles.eyebrow}>Insights</span>
             <h1>GIGs Impact Blog bring to you the latest updates and perspectives for growth, work, and impact.</h1>
             <p>
               Explore ideas, stories, and practical insight designed to help ambitious people grow in mindset,

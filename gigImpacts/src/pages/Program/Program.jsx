@@ -149,7 +149,6 @@ const Program = () => {
       <motion.section className={styles.hero}>
         <div className={styles.heroGrid}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
-            <span className={styles.eyebrow}>Programs</span>
             <h1>Our programs are built around the same 7-stage transformation system you see on the home page.</h1>
             <p>
               We do not offer disconnected trainings. We build a guided pathway that moves people from

@@ -28,21 +28,6 @@
   overflow: hidden;
 }
 
-/* faint editorial grid lines for depth (no image) */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 64px 64px;
-  pointer-events: none;
-  mask-image: radial-gradient(circle at 80% 20%, #000 0%, transparent 70%);
-  -webkit-mask-image: radial-gradient(circle at 80% 20%, #000 0%, transparent 70%);
-}
-
 .hero::after {
   content: '';
   position: absolute;
@@ -177,7 +162,6 @@
   padding: 34px 34px 12px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-top: 3px solid var(--color-accent);
 }
 
 .panelLead {

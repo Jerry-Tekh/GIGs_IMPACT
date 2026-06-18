@@ -152,7 +152,6 @@ const ContactPage = () => {
       <motion.section className={styles.hero}>
         <div className={styles.heroGrid}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
-            <span className={styles.eyebrow}>Contact</span>
             <h1>Let&apos;s talk about ideas, collaboration, and building practical impact together.</h1>
             <p>
               Whether you want to join the community, explore a partnership, or ask a question, we are ready to
