@@ -114,6 +114,33 @@
   color: var(--color-navy-soft);
 }
 
+/* ── Get Involved CTA (desktop) ── */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 22px;
+  min-height: 44px;
+  background: var(--color-accent);
+  color: #1a1505;
+  font-family: var(--font-base);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--color-accent);
+  flex-shrink: 0;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.cta:hover {
+  background: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-accent);
+}
+
+.mobileCtaItem { display: none; }
+
 /* ── Hidden on desktop ── */
 .mobileMenuIntro, .mobileMenuBrand, .mobileNavIcon { display: none; }
 
@@ -155,6 +182,24 @@
   .header { padding: 0 5%; }
 
   .navbar { gap: 12px; }
+
+  /* desktop CTA hidden; drawer CTA shown */
+  .cta { display: none; }
+  .mobileCtaItem { display: block; width: 100%; margin-top: 12px; }
+  .ctaMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--color-accent);
+    color: #1a1505;
+    font-weight: var(--fw-bold);
+    font-size: 0.9375rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .ctaMobile:hover { background: var(--color-accent-deep); }
 
   .brandLink img { width: 60px; }
 

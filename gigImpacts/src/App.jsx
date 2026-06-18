@@ -14,6 +14,7 @@ import DonationForm from './components/DonationForm.jsx';
 import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
 import Reveal from './components/Reveal.jsx';
+import Breadcrumbs from './components/Breadcrumbs.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
 import RouteFallback from './components/RouteFallback.jsx';
@@ -86,10 +87,12 @@ function PublicPage({ children }) {
       <Header />
       <motion.div
         className={styles.publicPage}
+        style={{ position: 'relative' }}
         initial={{ opacity: 0, y: 26 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
+        <Breadcrumbs />
         {children}
       </motion.div>
       <Footer />

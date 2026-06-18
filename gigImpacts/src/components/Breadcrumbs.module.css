@@ -1,0 +1,41 @@
+/* Breadcrumb overlaid at the top of inner-page dark heroes */
+.crumbs {
+  position: absolute;
+  top: 96px;
+  left: 8%;
+  right: 8%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: var(--fs-caption);
+  letter-spacing: 0.04em;
+  pointer-events: auto;
+}
+
+.crumbGroup { display: inline-flex; align-items: center; gap: 4px; }
+
+.crumbLink {
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  transition: color var(--transition-fast);
+}
+.crumbLink:hover { color: var(--color-accent); }
+
+.sep {
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 6px;
+}
+
+.current {
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-weight: var(--fw-bold);
+}
+
+@media (max-width: 900px) {
+  .crumbs { top: 84px; left: 5%; right: 5%; }
+}

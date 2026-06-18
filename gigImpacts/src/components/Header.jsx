@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styles from './Header.module.css';
 import logo from './../assets/logo.png';
@@ -115,7 +115,16 @@ const Header = () => {
                 </li>
               );
             })}
+            <li className={styles.mobileCtaItem}>
+              <Link to="/#volunteer" className={styles.ctaMobile} onClick={closeMenu}>
+                Get Involved
+              </Link>
+            </li>
           </motion.ul>
+
+          <Link to="/#volunteer" className={styles.cta} onClick={closeMenu}>
+            Get Involved
+          </Link>
         </motion.nav>
       </motion.header>
     </>
