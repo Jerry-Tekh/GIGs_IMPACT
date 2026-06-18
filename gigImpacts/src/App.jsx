@@ -15,6 +15,7 @@ import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
 import Reveal from './components/Reveal.jsx';
 import Breadcrumbs from './components/Breadcrumbs.jsx';
+import Testimonials from './components/Testimonials.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
 import RouteFallback from './components/RouteFallback.jsx';
@@ -75,6 +76,7 @@ function HomeContent() {
       <Reveal><WhatWeDo /></Reveal>
       <Reveal><ImpactStats /></Reveal>
       <Reveal><Partners /></Reveal>
+      <Reveal><Testimonials /></Reveal>
       <Reveal><DonationForm /></Reveal>
       <Reveal><EfficiencyBadge /></Reveal>
     </main>
