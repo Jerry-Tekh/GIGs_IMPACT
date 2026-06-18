@@ -42,6 +42,7 @@ const Signup = lazy(() => import('./AuthPage/Signup.jsx'));
 const VerifyEmail = lazy(() => import('./AuthPage/VerifyEmail.jsx'));
 const ResetPassword = lazy(() => import('./AuthPage/ResetPassword.jsx'));
 const ContactPage = lazy(() => import('./pages/Contact/ContactPage.jsx'));
+const LegalPage = lazy(() => import('./pages/Legal/LegalPage.jsx'));
 
 function ScrollToHash() {
   const location = useLocation();
@@ -237,6 +238,22 @@ function AppRoutes() {
           element={withRouteSuspense(
             <PublicPage>
               <ContactPage />
+            </PublicPage>
+          )}
+        />
+        <Route
+          path="/privacy"
+          element={withRouteSuspense(
+            <PublicPage>
+              <LegalPage type="privacy" />
+            </PublicPage>
+          )}
+        />
+        <Route
+          path="/terms"
+          element={withRouteSuspense(
+            <PublicPage>
+              <LegalPage type="terms" />
             </PublicPage>
           )}
         />
