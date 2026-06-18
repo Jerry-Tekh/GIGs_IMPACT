@@ -64,7 +64,7 @@ const Header = () => {
           transition={{ duration: 0.3 }}
         />
       )}
-      <motion.header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`} initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <motion.header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''} ${location.pathname !== '/' && !isScrolled ? styles.headerOnLight : ''}`} initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
         <motion.nav className={styles.navbar} transition={{ duration: 0.3 }}>
           <div className={styles.logo}>
             <NavLink to="/" onClick={() => { closeMenu(); scrollToTop(); }} className={styles.brandLink}>

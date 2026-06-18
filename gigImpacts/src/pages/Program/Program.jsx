@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styles from './Program.module.css';
 import { siteData } from '../../SiteData.js';
@@ -131,7 +132,6 @@ const programs = [
 
 const Program = () => {
   const [activeTab, setActiveTab] = useState('all');
-  const [openStage, setOpenStage] = useState(1);
 
   const framework = useMemo(
     () =>
@@ -183,79 +183,43 @@ const Program = () => {
           </p>
         </motion.div>
 
-        <motion.div className={styles.frameworkFlow} variants={staggerGroup}>
-          {framework.map((stage, index) => (
-            <motion.article
-              key={stage.stage}
-              className={`${styles.stageCard} ${openStage === stage.stage ? styles.stageCardOpen : ''}`}
-              variants={programItemReveal}
-              whileHover={{ y: -6 }}
-            >
-              <button
-                type="button"
-                className={styles.stageToggle}
-                onClick={() => setOpenStage((current) => (current === stage.stage ? null : stage.stage))}
-                aria-expanded={openStage === stage.stage}
-                aria-controls={`stage-panel-${stage.stage}`}
-              >
-                <div className={styles.stageHead}>
-                  <span className={styles.stageIndex}>Stage {stage.stage}</span>
-                  <span className={styles.stageStatus}>Framework Phase</span>
+        <motion.div className={styles.timeline} variants={staggerGroup}>
+          {framework.map((stage) => (
+            <motion.div key={stage.stage} className={styles.tRow} variants={programItemReveal}>
+              <div className={styles.tMarker}>
+                <span className={styles.tNum}>{String(stage.stage).padStart(2, '0')}</span>
+              </div>
+
+              <div className={styles.tBody}>
+                <div className={styles.tHead}>
+                  <span className={styles.tStage}>Stage {stage.stage}</span>
+                  <h3 className={styles.tTitle}>{stage.title}</h3>
                 </div>
 
-                <div className={styles.stageToggleBody}>
-                  <div>
-                    <h3>{stage.title}</h3>
-                    <p className={styles.stageSummary}>{stage.summary}</p>
+                <p className={styles.tSummary}>{stage.summary}</p>
+                <p className={styles.tDetail}>{stage.detail}</p>
+
+                <div className={styles.tColumns}>
+                  <div className={styles.tCol}>
+                    <span className={styles.tColLabel}>Core focus</span>
+                    <div className={styles.tChips}>
+                      {stage.focus.map((item) => (
+                        <span key={item} className={styles.tChip}>{item}</span>
+                      ))}
+                    </div>
                   </div>
 
-                  <span
-                    className={`${styles.stageToggleIcon} ${
-                      openStage === stage.stage ? styles.stageToggleIconOpen : ''
-                    }`}
-                    aria-hidden="true"
-                  >
-                    <span />
-                    <span />
-                  </span>
-                </div>
-              </button>
-
-              <div
-                id={`stage-panel-${stage.stage}`}
-                className={`${styles.stagePanel} ${openStage === stage.stage ? styles.stagePanelOpen : ''}`}
-              >
-                <div className={styles.stagePanelInner}>
-                  <p className={styles.stageDetail}>{stage.detail}</p>
-
-                  <div className={styles.stageColumns}>
-                    <div>
-                      <span className={styles.columnLabel}>Core focus</span>
-                      <div className={styles.tokenList}>
-                        {stage.focus.map((item) => (
-                          <span key={item} className={styles.token}>
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className={styles.columnLabel}>Development outcomes</span>
-                      <div className={styles.tokenList}>
-                        {stage.deliverables.map((item) => (
-                          <span key={item} className={styles.token}>
-                            {item}
-                          </span>
-                        ))}
-                      </div>
+                  <div className={styles.tCol}>
+                    <span className={styles.tColLabel}>Development outcomes</span>
+                    <div className={styles.tChips}>
+                      {stage.deliverables.map((item) => (
+                        <span key={item} className={`${styles.tChip} ${styles.tChipOutcome}`}>{item}</span>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
-
-              {index < framework.length - 1 && <div className={styles.stageConnector} aria-hidden="true" />}
-            </motion.article>
+            </motion.div>
           ))}
         </motion.div>
       </motion.section>
@@ -304,33 +268,36 @@ const Program = () => {
             >
               <div className={styles.cardTop}>
                 <span className={styles.categoryBadge}>{program.category.toUpperCase()}</span>
-                <span className={styles.comingSoonBadge}>COMING SOON</span>
+                <span className={styles.comingSoonBadge}>Coming soon</span>
               </div>
 
               <h3>{program.name}</h3>
               <p className={styles.description}>{program.description}</p>
 
-              <div className={styles.programMeta}>
-                <span className={styles.metaItem}>
-                  <strong>Duration:</strong> {program.duration}
-                </span>
-                <span className={styles.metaItem}>
-                  <strong>Level:</strong> {program.level}
-                </span>
-              </div>
+              <dl className={styles.programMeta}>
+                <div className={styles.metaItem}>
+                  <dt>Duration</dt>
+                  <dd>{program.duration}</dd>
+                </div>
+                <div className={styles.metaItem}>
+                  <dt>Level</dt>
+                  <dd>{program.level}</dd>
+                </div>
+              </dl>
 
               <div className={styles.topics}>
-                <p className={styles.topicsTitle}>Key Topics</p>
-                <div className={styles.topicsList}>
+                <p className={styles.topicsTitle}>Key topics</p>
+                <ul className={styles.topicsList}>
                   {program.topics.map((topic) => (
-                    <span key={topic} className={styles.topic}>
-                      {topic}
-                    </span>
+                    <li key={topic} className={styles.topic}>{topic}</li>
                   ))}
-                </div>
+                </ul>
               </div>
 
-              <button className={styles.enrollBtn}>Explore Program</button>
+              <button className={styles.enrollBtn}>
+                Explore Program
+                <FaArrowRight aria-hidden="true" />
+              </button>
             </motion.article>
           ))}
         </motion.div>
