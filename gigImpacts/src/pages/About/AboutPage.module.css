@@ -290,25 +290,19 @@
 }
 .frameworkRow p { color: var(--color-text-muted); font-size: var(--fs-body-sm); line-height: 1.6; }
 
-/* ── Founder's message / CTA (ink band) ── */
+/* ── Founder's message / CTA (light) ── */
 .quoteSection {
   padding: var(--section-pad-y) var(--section-pad-x);
   background:
-    radial-gradient(circle at 86% 14%, rgba(30, 90, 243, 0.26), transparent 44%),
-    var(--color-ink);
-  color: #fff;
+    radial-gradient(circle at 92% 0%, var(--color-primary-soft), transparent 42%),
+    var(--color-surface);
+  color: var(--color-text);
   position: relative;
-}
-.quoteSection::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-primary), transparent);
+  border-top: 1px solid var(--color-border);
 }
 .quoteShell { max-width: 880px; margin: 0 auto; }
-.quoteShell h2 { color: #fff; margin: 0 0 18px; }
-.quoteShell p { color: var(--color-on-dark); font-size: var(--fs-body-lg); line-height: 1.8; max-width: 60ch; margin-bottom: 30px; }
+.quoteShell h2 { color: var(--color-text); margin: 0 0 18px; }
+.quoteShell p { color: var(--color-text-muted); font-size: var(--fs-body-lg); line-height: 1.8; max-width: 60ch; margin-bottom: 30px; }
 .quoteActions { display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* ══ Responsive ══ */

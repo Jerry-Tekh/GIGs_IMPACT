@@ -315,7 +315,7 @@ const Program = () => {
       >
         <motion.div className={styles.ctaShell} variants={staggerGroup}>
           <motion.div variants={programItemReveal}>
-            <span className={styles.sectionTagLight}>Next Step</span>
+            <span className={styles.sectionTag}>Next Step</span>
             <h2>Ready to grow through a structure that turns ability into measurable value?</h2>
           </motion.div>
 
@@ -323,7 +323,7 @@ const Program = () => {
             <Link to="/contact" className={styles.primaryBtn}>
               Talk To Us
             </Link>
-            <a href="#stage-framework" className={styles.secondaryBtnLight}>
+            <a href="#stage-framework" className={styles.secondaryBtn}>
               Revisit The Framework
             </a>
           </motion.div>

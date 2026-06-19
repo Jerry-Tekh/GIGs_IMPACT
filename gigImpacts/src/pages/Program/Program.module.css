@@ -465,21 +465,14 @@
   background: var(--color-primary);
 }
 
-/* ── CTA section ── ink band ── */
+/* ── CTA section ── light ── */
 .ctaSection {
   background:
-    radial-gradient(circle at 86% 16%, rgba(30, 90, 243, 0.28), transparent 44%),
-    var(--color-ink);
-  color: #ffffff;
+    radial-gradient(circle at 92% 0%, var(--color-primary-soft), transparent 42%),
+    var(--color-surface);
+  color: var(--color-text);
   overflow: hidden;
-}
-
-.ctaSection::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-primary), transparent);
+  border-top: 1px solid var(--color-border);
 }
 
 .ctaShell {
@@ -494,7 +487,7 @@
 .sectionTagLight { margin-bottom: 12px; }
 
 .ctaShell h2 {
-  color: #ffffff;
+  color: var(--color-text);
   letter-spacing: -0.025em;
 }
 

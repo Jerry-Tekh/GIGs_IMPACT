@@ -16,6 +16,7 @@ import Footer from './components/Footer.jsx';
 import Reveal from './components/Reveal.jsx';
 import Breadcrumbs from './components/Breadcrumbs.jsx';
 import Testimonials from './components/Testimonials.jsx';
+import GallerySection from './components/sections/GallerySection.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
 import RouteFallback from './components/RouteFallback.jsx';
@@ -79,6 +80,7 @@ function HomeContent() {
       <Reveal><ActionCards /></Reveal>
       <Reveal><WhatWeDo /></Reveal>
       <Reveal><ImpactStats /></Reveal>
+      <Reveal><GallerySection /></Reveal>
       <Reveal><Partners /></Reveal>
       <Reveal><Testimonials /></Reveal>
       <Reveal><DonationForm /></Reveal>

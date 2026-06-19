@@ -251,15 +251,15 @@ const About = () => {
         {/* ── Founder's message / CTA ── */}
         <section className={styles.quoteSection}>
           <div className={styles.quoteShell}>
-            <span className={styles.sectionTagLight}>Founder&apos;s Message</span>
+            <span className={styles.sectionTag}>Founder&apos;s Message</span>
             <h2>Change will come from building.</h2>
             <p>
               The work of this community starts with a simple belief: people do not need perfect conditions
               to begin. They need clarity, structure, and the courage to start with what they already have.
             </p>
             <div className={styles.quoteActions}>
-              <Link to="/get-involved" className={styles.primaryBtnLight}>Get Involved</Link>
-              <Link to="/contact" className={styles.secondaryBtnLight}>Connect With Us</Link>
+              <Link to="/get-involved" className={styles.primaryBtn}>Get Involved</Link>
+              <Link to="/contact" className={styles.secondaryBtn}>Connect With Us</Link>
             </div>
           </div>
         </section>

@@ -307,26 +307,6 @@ const Blog = () => {
           </button>
         ))}
       </motion.div>
-
-      <motion.section
-        className={styles.newsletterSection}
-        variants={blogSectionReveal}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewport}
-      >
-        <motion.div className={styles.newsletterShell} variants={staggerGroup}>
-          <motion.div variants={blogItemReveal}>
-            <span className={styles.sectionTagLight}>Newsletter</span>
-            <h2>Get ideas and updates that support growth, work, and leadership.</h2>
-          </motion.div>
-
-          <motion.form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()} variants={blogItemReveal}>
-            <input type="email" placeholder="Your email address" required />
-            <button type="submit">Subscribe</button>
-          </motion.form>
-        </motion.div>
-      </motion.section>
     </div>
   );
 };
