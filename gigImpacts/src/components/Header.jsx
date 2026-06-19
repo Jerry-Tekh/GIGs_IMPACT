@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styles from './Header.module.css';
 import logo from './../assets/logo.png';
-import { FaBookOpen, FaEnvelope, FaHome, FaInfoCircle, FaLayerGroup } from 'react-icons/fa';
+import { FaBookOpen, FaEnvelope, FaHome, FaInfoCircle, FaLayerGroup, FaPhoneAlt, FaInstagram, FaFacebook, FaYoutube } from 'react-icons/fa';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { MdClose } from 'react-icons/md';
 import { smoothScrollToY } from '../utils/smoothScroll.js';
@@ -16,10 +16,15 @@ const navItems = [
   { to: '/contact', label: 'Contact', icon: FaEnvelope, scrollToTop: true }
 ];
 
+const AUTH_ROUTE_PREFIXES = ['/login', '/signup', '/verify-email', '/reset-password', '/forgot'];
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  const isAuthRoute = AUTH_ROUTE_PREFIXES.some((prefix) => location.pathname.startsWith(prefix));
+  const isHome = location.pathname === '/';
 
   const closeMenu = () => setIsOpen(false);
 
@@ -64,7 +69,7 @@ const Header = () => {
           transition={{ duration: 0.3 }}
         />
       )}
-      <motion.header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''} ${location.pathname !== '/' && !isScrolled ? styles.headerOnLight : ''}`} initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <motion.header className={`${styles.header} ${(isScrolled || isAuthRoute) ? styles.headerScrolled : ''} ${!isHome && !isAuthRoute && !isScrolled ? styles.headerOnLight : ''}`} initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
         <motion.nav className={styles.navbar} transition={{ duration: 0.3 }}>
           <div className={styles.logo}>
             <NavLink to="/" onClick={() => { closeMenu(); scrollToTop(); }} className={styles.brandLink}>
@@ -119,6 +124,19 @@ const Header = () => {
               <Link to="/#volunteer" className={styles.ctaMobile} onClick={closeMenu}>
                 Get Involved
               </Link>
+            </li>
+            <li className={styles.mobileMenuFooter}>
+              <a href="mailto:gigsimpact@gmail.com" className={styles.mobileContact}>
+                <FaEnvelope aria-hidden="true" /> gigsimpact@gmail.com
+              </a>
+              <a href="tel:08146163211" className={styles.mobileContact}>
+                <FaPhoneAlt aria-hidden="true" /> 08146163211
+              </a>
+              <div className={styles.mobileSocials}>
+                <a href="https://www.instagram.com" aria-label="Instagram"><FaInstagram /></a>
+                <a href="https://www.facebook.com/profile.php?id=100091976651385" aria-label="Facebook"><FaFacebook /></a>
+                <a href="https://youtube.com/@gigsimpact?si=H00lBKE5d-jW41R9" aria-label="YouTube"><FaYoutube /></a>
+              </div>
             </li>
           </motion.ul>
 
