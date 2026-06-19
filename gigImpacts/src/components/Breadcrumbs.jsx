@@ -9,7 +9,9 @@ const LABELS = {
   blog: 'Blog',
   contact: 'Contact',
   privacy: 'Privacy Policy',
-  terms: 'Terms of Use'
+  terms: 'Terms of Use',
+  donate: 'Donate',
+  'get-involved': 'Get Involved'
 };
 
 const Breadcrumbs = () => {

@@ -22,7 +22,7 @@ const Footer = () => {
             <span className={styles.ctaKicker}>Join the movement</span>
             <h2 className={styles.ctaTitle}>Help us turn overlooked talent into lasting impact.</h2>
           </div>
-          <Link to="/#volunteer" className={styles.ctaBtn}>
+          <Link to="/get-involved" className={styles.ctaBtn}>
             Get Involved <FaArrowRight aria-hidden="true" />
           </Link>
         </div>
@@ -67,9 +67,9 @@ const Footer = () => {
           <div className={styles.linkCol}>
             <h4>Get Involved</h4>
             <ul>
-              <li><Link to="/#volunteer">Volunteer</Link></li>
-              <li><Link to="/#bridge">Partner With Us</Link></li>
-              <li><Link to="/programs#stage-framework">7-Stage Framework</Link></li>
+              <li><Link to="/get-involved">Volunteer</Link></li>
+              <li><Link to="/donate">Donate</Link></li>
+              <li><Link to="/get-involved">Partner With Us</Link></li>
               <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>

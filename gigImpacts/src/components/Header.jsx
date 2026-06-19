@@ -121,7 +121,7 @@ const Header = () => {
               );
             })}
             <li className={styles.mobileCtaItem}>
-              <Link to="/#volunteer" className={styles.ctaMobile} onClick={closeMenu}>
+              <Link to="/get-involved" className={styles.ctaMobile} onClick={closeMenu}>
                 Get Involved
               </Link>
             </li>
@@ -140,7 +140,7 @@ const Header = () => {
             </li>
           </motion.ul>
 
-          <Link to="/#volunteer" className={styles.cta} onClick={closeMenu}>
+          <Link to="/get-involved" className={styles.cta} onClick={closeMenu}>
             Get Involved
           </Link>
         </motion.nav>

@@ -43,6 +43,9 @@ const VerifyEmail = lazy(() => import('./AuthPage/VerifyEmail.jsx'));
 const ResetPassword = lazy(() => import('./AuthPage/ResetPassword.jsx'));
 const ContactPage = lazy(() => import('./pages/Contact/ContactPage.jsx'));
 const LegalPage = lazy(() => import('./pages/Legal/LegalPage.jsx'));
+const DonatePage = lazy(() => import('./pages/Donate/DonatePage.jsx'));
+const GetInvolvedPage = lazy(() => import('./pages/GetInvolved/GetInvolvedPage.jsx'));
+const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage.jsx'));
 
 function ScrollToHash() {
   const location = useLocation();
@@ -258,12 +261,28 @@ function AppRoutes() {
           )}
         />
         <Route
-          path="*"
-          element={
+          path="/donate"
+          element={withRouteSuspense(
             <PublicPage>
-              <HomeContent />
+              <DonatePage />
             </PublicPage>
-          }
+          )}
+        />
+        <Route
+          path="/get-involved"
+          element={withRouteSuspense(
+            <PublicPage>
+              <GetInvolvedPage />
+            </PublicPage>
+          )}
+        />
+        <Route
+          path="*"
+          element={withRouteSuspense(
+            <PublicPage>
+              <NotFoundPage />
+            </PublicPage>
+          )}
         />
       </Routes>
     </div>
