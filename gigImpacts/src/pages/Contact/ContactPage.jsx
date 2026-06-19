@@ -4,6 +4,7 @@ import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import styles from './ContactPage.module.css';
 import { riseItem, sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
 import { loadRecaptchaScript, RECAPTCHA_SITE_KEY } from '../../utils/recaptcha.js';
+import FaqSection from '../../components/sections/FaqSection.jsx';
 
 const honeypotStyles = {
   position: 'absolute',
@@ -292,6 +293,8 @@ const ContactPage = () => {
           </motion.form>
         </motion.div>
       </motion.section>
+
+      <FaqSection />
     </div>
   );
 };

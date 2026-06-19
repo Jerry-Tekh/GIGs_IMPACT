@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './Program.module.css';
 import { siteData } from '../../SiteData.js';
 import { slideLeft, staggerGroup, viewport } from '../../utils/motion.js';
+import EventsSection from '../../components/sections/EventsSection.jsx';
 
 const programSectionReveal = {
   hidden: { y: 28 },
@@ -302,6 +303,8 @@ const Program = () => {
           ))}
         </motion.div>
       </motion.section>
+
+      <EventsSection />
 
       <motion.section
         className={styles.ctaSection}

@@ -7,6 +7,8 @@ import { siteData } from '../../SiteData.js';
 import styles from './AboutPage.module.css';
 import { smoothScrollToElement, smoothScrollToY } from '../../utils/smoothScroll.js';
 import { sectionFade, slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
+import TeamSection from '../../components/sections/TeamSection.jsx';
+import PartnersSection from '../../components/sections/PartnersSection.jsx';
 
 const approachItems = [
   {
@@ -158,6 +160,9 @@ const About = () => {
           </div>
         </section>
 
+        {/* ── Team / Leadership ── */}
+        <TeamSection />
+
         {/* ── Mission / Vision / Values ── */}
         <motion.section
           className={styles.mvvSection}
@@ -239,6 +244,9 @@ const About = () => {
             </div>
           </div>
         </motion.section>
+
+        {/* ── Partners & Supporters ── */}
+        <PartnersSection />
 
         {/* ── Founder's message / CTA ── */}
         <section className={styles.quoteSection}>
