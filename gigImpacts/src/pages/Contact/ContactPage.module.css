@@ -249,7 +249,7 @@
   border-left: 3px solid var(--color-primary-mid);
   color: var(--color-text-body);
   border-radius: 0;
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
 }
 
 .form {

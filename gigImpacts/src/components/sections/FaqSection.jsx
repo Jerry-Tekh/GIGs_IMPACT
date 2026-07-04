@@ -20,8 +20,8 @@ const FAQS = [
     a: 'Visit the Get Involved page to apply as a volunteer, mentor, or partner organization. We welcome trainers, facilitators, mentors, event organizers, and content collaborators.'
   },
   {
-    q: 'How are donations used?',
-    a: 'Support goes directly into program delivery, opportunity and enterprise pathways, and the systems that let us sustain and scale our impact. See the Donate page for the breakdown.'
+    q: 'How is support used?',
+    a: 'Support goes directly into program delivery, opportunity and enterprise pathways, and the systems that let us sustain and scale our impact.'
   },
   {
     q: 'Where is GIGs Impact based?',

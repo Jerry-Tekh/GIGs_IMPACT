@@ -261,7 +261,7 @@
 }
 .tDetail {
   color: var(--color-text-muted);
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   line-height: 1.7;
   margin-bottom: 22px;
 }
@@ -400,7 +400,7 @@
 .description {
   color: var(--color-text-muted);
   line-height: 1.7;
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   margin-bottom: 20px;
 }
 
@@ -453,7 +453,7 @@
   padding: 9px 0 9px 20px;
   border-top: 1px solid var(--color-border-soft);
   color: var(--color-text-body);
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
 }
 .topic:first-child { border-top: none; }
 .topic::before {

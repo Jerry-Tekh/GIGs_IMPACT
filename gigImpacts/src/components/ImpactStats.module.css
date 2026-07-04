@@ -91,7 +91,7 @@
 }
 
 .statSub {
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   color: rgba(255, 255, 255, 0.62);
   line-height: 1.5;
 }

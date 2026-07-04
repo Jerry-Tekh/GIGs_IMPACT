@@ -44,7 +44,6 @@ const VerifyEmail = lazy(() => import('./AuthPage/VerifyEmail.jsx'));
 const ResetPassword = lazy(() => import('./AuthPage/ResetPassword.jsx'));
 const ContactPage = lazy(() => import('./pages/Contact/ContactPage.jsx'));
 const LegalPage = lazy(() => import('./pages/Legal/LegalPage.jsx'));
-const DonatePage = lazy(() => import('./pages/Donate/DonatePage.jsx'));
 const GetInvolvedPage = lazy(() => import('./pages/GetInvolved/GetInvolvedPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage.jsx'));
 
@@ -259,14 +258,6 @@ function AppRoutes() {
           element={withRouteSuspense(
             <PublicPage>
               <LegalPage type="terms" />
-            </PublicPage>
-          )}
-        />
-        <Route
-          path="/donate"
-          element={withRouteSuspense(
-            <PublicPage>
-              <DonatePage />
             </PublicPage>
           )}
         />

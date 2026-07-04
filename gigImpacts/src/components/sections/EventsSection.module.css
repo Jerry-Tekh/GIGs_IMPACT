@@ -69,7 +69,7 @@
   margin-bottom: 6px;
   letter-spacing: -0.01em;
 }
-.eventText { color: var(--color-text-muted); font-size: var(--fs-body-sm); line-height: 1.65; }
+.eventText { color: var(--color-text-muted); font-size: var(--fs-body); line-height: 1.65; }
 
 .action { display: grid; gap: 10px; justify-items: end; }
 .status {

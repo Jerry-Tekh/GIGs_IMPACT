@@ -203,7 +203,7 @@
   letter-spacing: -0.02em;
   margin-bottom: 12px;
 }
-.mvvCard p { color: var(--color-text-muted); font-size: var(--fs-body-sm); line-height: 1.8; }
+.mvvCard p { color: var(--color-text-muted); font-size: var(--fs-body); line-height: 1.8; }
 
 /* ── Approach (ink band) ── */
 .approachSection {
@@ -238,7 +238,7 @@
   margin-bottom: 8px;
   letter-spacing: -0.01em;
 }
-.approachStep p { color: var(--color-on-dark-soft); font-size: var(--fs-body-sm); line-height: 1.7; }
+.approachStep p { color: var(--color-on-dark-soft); font-size: var(--fs-body); line-height: 1.7; }
 
 /* ── Framework snapshot ── */
 .frameworkSection { padding: var(--section-pad-y) var(--section-pad-x); background: var(--color-surface-alt); }
@@ -288,7 +288,7 @@
   margin-bottom: 4px;
   letter-spacing: -0.01em;
 }
-.frameworkRow p { color: var(--color-text-muted); font-size: var(--fs-body-sm); line-height: 1.6; }
+.frameworkRow p { color: var(--color-text-muted); font-size: var(--fs-body); line-height: 1.6; }
 
 /* ── Founder's message / CTA (light) ── */
 .quoteSection {

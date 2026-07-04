@@ -411,18 +411,29 @@
   transform: none;
 }
 
-/* Loading spinner inside button */
+/* Loading mark inside button */
 .loadingSpinner {
   display: inline-block;
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
-  animation: auth-spin 0.75s linear infinite;
+  width: 24px;
+  height: 16px;
+  border-radius: 0;
+  border: 0;
+  background:
+    linear-gradient(#ffffff, #ffffff) 0 100% / 4px 45% no-repeat,
+    linear-gradient(#ffffff, #ffffff) 10px 100% / 4px 75% no-repeat,
+    linear-gradient(#ffffff, #ffffff) 20px 100% / 4px 100% no-repeat;
+  animation: authLoadBars 1s ease-in-out infinite;
   flex-shrink: 0;
 }
 
-@keyframes auth-spin { to { transform: rotate(360deg); } }
+@keyframes authLoadBars {
+  0%, 100% {
+    background-size: 4px 45%, 4px 75%, 4px 100%;
+  }
+  50% {
+    background-size: 4px 100%, 4px 45%, 4px 75%;
+  }
+}
 
 /* ════════════════════════════════
    STATUS / FEEDBACK MESSAGES

@@ -147,7 +147,7 @@
 
 .formCard > p {
   color: var(--color-text-muted);
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   line-height: 1.75;
   margin-bottom: 24px;
 }

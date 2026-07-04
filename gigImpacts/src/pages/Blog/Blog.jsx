@@ -177,7 +177,11 @@ const Blog = () => {
             <div className={styles.categoriesContainer}>
               {isCategoryLoading ? (
                 <div className={styles.inlineLoader}>
-                  <span className={styles.inlineSpinner} />
+                  <span className={styles.inlineLoaderMark} aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
                   <p>Loading categories...</p>
                 </div>
               ) : (
@@ -221,7 +225,11 @@ const Blog = () => {
               exit="exit"
               className={styles.inlineLoader}
             >
-              <span className={styles.inlineSpinner} />
+              <span className={styles.inlineLoaderMark} aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
               <p>Loading blog articles...</p>
             </motion.div>
           ) : error ? (
@@ -252,29 +260,38 @@ const Blog = () => {
                   variants={blogItemReveal}
                   initial="hidden"
                   animate="show"
-                  whileHover={{ y: -8, scale: 1.01 }}
+                  whileHover={{ y: -4 }}
                   layout
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, rgba(0, 22, 74, 0.14), rgba(0, 22, 74, 0.92)), url(${article.featured_image || ''})`,
-                    marginTop: index % 3 === 1 || index % 3 === 2 ? '16px' : '0'
-                  }}
                 >
+                  <div className={styles.articleMedia}>
+                    {article.featured_image ? (
+                      <img src={article.featured_image} alt="" loading="lazy" />
+                    ) : (
+                      <div className={styles.articleMediaFallback} aria-hidden="true">
+                        <span>{String(index + 1).padStart(2, '0')}</span>
+                      </div>
+                    )}
+                  </div>
+
                   <div className={styles.articleContent}>
-                    <span className={styles.categoryTag}>{article.category || 'General'}</span>
+                    <div className={styles.articleTopline}>
+                      <span className={styles.articleNumber}>{String(index + 1).padStart(2, '0')}</span>
+                      <span className={styles.categoryTag}>{article.category || 'General'}</span>
+                    </div>
 
                     <div className={styles.articleMeta}>
                       <span>{formatReadableDate(article.published_at)}</span>
-                      <span>{article.read_time} min read</span>
+                      {article.read_time && <span>{article.read_time} min read</span>}
                     </div>
 
                     <h2 className={styles.articleTitle}>{article.title}</h2>
                     <p className={styles.articleExcerpt}>{article.excerpt}</p>
+                  </div>
 
-                    <div className={styles.articleFooter}>
-                      <Link to={`/blog/${article.id}`} className={styles.readMoreBtn}>
-                        Read Article
-                      </Link>
-                    </div>
+                  <div className={styles.articleFooter}>
+                    <Link to={`/blog/${article.id}`} className={styles.readMoreBtn}>
+                      Read Article
+                    </Link>
                   </div>
                 </motion.article>
               ))}

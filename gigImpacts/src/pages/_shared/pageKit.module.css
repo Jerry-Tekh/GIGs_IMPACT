@@ -160,7 +160,7 @@
   line-height: 1.2;
   margin-bottom: 10px;
 }
-.cardText { color: var(--color-text-muted); font-size: var(--fs-body-sm); line-height: 1.7; }
+.cardText { color: var(--color-text-muted); font-size: var(--fs-body); line-height: 1.7; }
 
 /* ── Numbered editorial rows ── */
 .numList { display: grid; border-top: 1px solid var(--color-rule); }
@@ -188,7 +188,7 @@
   margin-bottom: 6px;
   letter-spacing: -0.01em;
 }
-.numText { color: var(--color-text-muted); font-size: var(--fs-body-sm); line-height: 1.7; }
+.numText { color: var(--color-text-muted); font-size: var(--fs-body); line-height: 1.7; }
 
 /* ── Chips ── */
 .chips { display: flex; flex-wrap: wrap; gap: 10px; }

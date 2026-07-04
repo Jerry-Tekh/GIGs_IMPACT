@@ -68,7 +68,6 @@ const Footer = () => {
             <h4>Get Involved</h4>
             <ul>
               <li><Link to="/get-involved">Volunteer</Link></li>
-              <li><Link to="/donate">Donate</Link></li>
               <li><Link to="/get-involved">Partner With Us</Link></li>
               <li><Link to="/contact">Contact</Link></li>
             </ul>

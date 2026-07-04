@@ -96,7 +96,7 @@
 }
 
 .valueCard p {
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
   color: var(--color-text-muted);
   line-height: 1.65;
 }

@@ -152,12 +152,13 @@
   --radius-pill: 0px;
 
   /* Type scale */
+  --fs-root: 0.88rem;
   --fs-caption: 0.7rem;
   --fs-label: 0.76rem;
   --fs-button: 0.82rem;
-  --fs-body-sm: 0.82rem;
-  --fs-body: 0.88rem;
-  --fs-body-lg: 0.94rem;
+  --fs-body-sm: 0.9rem;
+  --fs-body: 1rem;
+  --fs-body-lg: 1.08rem;
   --fs-h4: 1.06rem;
   --fs-h3: 1.2rem;
   --fs-h2: 1.46rem;
@@ -194,7 +195,7 @@ html, body, #root {
 }
 
 html {
-  font-size: var(--fs-body);
+  font-size: var(--fs-root);
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
   -webkit-font-smoothing: antialiased;
@@ -423,12 +424,13 @@ section, article, main, aside, form { scroll-margin-top: 110px; }
 /* ── Responsive type scale ── */
 @media (min-width: 641px) {
   :root {
+    --fs-root: 0.94rem;
     --fs-caption: 0.74rem;
     --fs-label: 0.8rem;
     --fs-button: 0.86rem;
-    --fs-body-sm: 0.86rem;
-    --fs-body: 0.94rem;
-    --fs-body-lg: 1.04rem;
+    --fs-body-sm: 0.96rem;
+    --fs-body: 1.02rem;
+    --fs-body-lg: 1.14rem;
     --fs-h4: 1.18rem;
     --fs-h3: 1.46rem;
     --fs-h2: 2rem;
@@ -442,7 +444,9 @@ section, article, main, aside, form { scroll-margin-top: 110px; }
 
 @media (min-width: 1024px) {
   :root {
-    --fs-body-lg: 1.08rem;
+    --fs-body-sm: 0.98rem;
+    --fs-body: 1.04rem;
+    --fs-body-lg: 1.18rem;
     --fs-h2: 2.3rem;
     --fs-h1: 3.3rem;
     --fs-display: 4.4rem;

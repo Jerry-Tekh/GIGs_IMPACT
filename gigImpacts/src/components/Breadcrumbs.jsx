@@ -10,7 +10,6 @@ const LABELS = {
   contact: 'Contact',
   privacy: 'Privacy Policy',
   terms: 'Terms of Use',
-  donate: 'Donate',
   'get-involved': 'Get Involved'
 };
 
