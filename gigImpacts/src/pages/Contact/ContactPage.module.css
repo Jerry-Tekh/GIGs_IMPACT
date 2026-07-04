@@ -332,14 +332,20 @@
 
 /* ══ Responsive ══ */
 @media (max-width: 980px) {
-  .hero, .infoSection, .formSection {
+  .hero {
+    padding: 150px var(--section-pad-x-tablet) 76px;
+  }
+  .infoSection, .formSection {
     padding: var(--section-pad-y-tablet) var(--section-pad-x-tablet);
   }
   .heroGrid, .infoGrid, .formGrid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
-  .hero, .infoSection, .formSection {
+  .hero {
+    padding: 150px var(--section-pad-x-mobile) 76px;
+  }
+  .infoSection, .formSection {
     padding: var(--section-pad-y-mobile) var(--section-pad-x-mobile);
   }
   .heroPanel, .infoCard, .copyCard, .form { padding: 22px 18px; }

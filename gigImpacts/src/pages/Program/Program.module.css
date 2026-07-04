@@ -493,7 +493,10 @@
 
 /* ══ Responsive ══ */
 @media (max-width: 980px) {
-  .hero, .frameworkSection, .catalogSection, .ctaSection {
+  .hero {
+    padding: 150px var(--section-pad-x-tablet) 76px;
+  }
+  .frameworkSection, .catalogSection, .ctaSection {
     padding: var(--section-pad-y-tablet) var(--section-pad-x-tablet);
   }
   .ctaShell, .programsGrid { grid-template-columns: 1fr; }
@@ -501,7 +504,10 @@
 }
 
 @media (max-width: 640px) {
-  .hero, .frameworkSection, .catalogSection, .ctaSection {
+  .hero {
+    padding: 150px var(--section-pad-x-mobile) 76px;
+  }
+  .frameworkSection, .catalogSection, .ctaSection {
     padding: var(--section-pad-y-mobile) var(--section-pad-x-mobile);
   }
   .programCard { padding: 22px 18px; }
