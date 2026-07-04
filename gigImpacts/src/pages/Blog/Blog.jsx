@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './Blog.module.css';
 // import PageLoader from '../../components/PageLoader.jsx';
 import { formatReadableDate } from '../../utils/date.js';
-import { slideLeft, slideRight, staggerGroup, viewport } from '../../utils/motion.js';
+import { slideLeft, staggerGroup, viewport } from '../../utils/motion.js';
 import { smoothScrollToElement } from '../../utils/smoothScroll.js';
 
 const blogSectionReveal = {
@@ -134,9 +134,8 @@ const Blog = () => {
   return (
     <div className={styles.page}>
       <motion.section className={styles.hero}>
-        <div className={styles.heroGrid}>
+        <div className={styles.heroInner}>
           <motion.div className={styles.heroCopy} variants={slideLeft} initial="hidden" animate="show">
-            <span className={styles.eyebrow}>Insights</span>
             <h1>GIGs Impact Blog bring to you the latest updates and perspectives for growth, work, and impact.</h1>
             <p>
               Explore ideas, stories, and practical insight designed to help ambitious people grow in mindset,
@@ -149,22 +148,6 @@ const Blog = () => {
               <NavLink to="/login" className={styles.secondaryBtn}>
                 Login
               </NavLink>
-            </div>
-          </motion.div>
-
-          <motion.div className={styles.heroPanel} variants={slideRight} initial="hidden" animate="show">
-            <span className={styles.panelLabel}>Content Focus</span>
-            <h2>Knowledge that supports the same transformation path shown across the site.</h2>
-            <p>From mindset to practical execution, the blog is part of the broader GIGs Impact journey.</p>
-            <div className={styles.heroStats}>
-              <div>
-                <strong>{articles.length}</strong>
-                <span>Articles</span>
-              </div>
-              <div>
-                <strong>{categories.length || 1}</strong>
-                <span>Content categories</span>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -194,7 +177,11 @@ const Blog = () => {
             <div className={styles.categoriesContainer}>
               {isCategoryLoading ? (
                 <div className={styles.inlineLoader}>
-                  <span className={styles.inlineSpinner} />
+                  <span className={styles.inlineLoaderMark} aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
                   <p>Loading categories...</p>
                 </div>
               ) : (
@@ -238,7 +225,11 @@ const Blog = () => {
               exit="exit"
               className={styles.inlineLoader}
             >
-              <span className={styles.inlineSpinner} />
+              <span className={styles.inlineLoaderMark} aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
               <p>Loading blog articles...</p>
             </motion.div>
           ) : error ? (
@@ -269,29 +260,38 @@ const Blog = () => {
                   variants={blogItemReveal}
                   initial="hidden"
                   animate="show"
-                  whileHover={{ y: -8, scale: 1.01 }}
+                  whileHover={{ y: -4 }}
                   layout
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, rgba(0, 22, 74, 0.14), rgba(0, 22, 74, 0.92)), url(${article.featured_image || ''})`,
-                    marginTop: index % 3 === 1 || index % 3 === 2 ? '16px' : '0'
-                  }}
                 >
+                  <div className={styles.articleMedia}>
+                    {article.featured_image ? (
+                      <img src={article.featured_image} alt="" loading="lazy" />
+                    ) : (
+                      <div className={styles.articleMediaFallback} aria-hidden="true">
+                        <span>{String(index + 1).padStart(2, '0')}</span>
+                      </div>
+                    )}
+                  </div>
+
                   <div className={styles.articleContent}>
-                    <span className={styles.categoryTag}>{article.category || 'General'}</span>
+                    <div className={styles.articleTopline}>
+                      <span className={styles.articleNumber}>{String(index + 1).padStart(2, '0')}</span>
+                      <span className={styles.categoryTag}>{article.category || 'General'}</span>
+                    </div>
 
                     <div className={styles.articleMeta}>
                       <span>{formatReadableDate(article.published_at)}</span>
-                      <span>{article.read_time} min read</span>
+                      {article.read_time && <span>{article.read_time} min read</span>}
                     </div>
 
                     <h2 className={styles.articleTitle}>{article.title}</h2>
                     <p className={styles.articleExcerpt}>{article.excerpt}</p>
+                  </div>
 
-                    <div className={styles.articleFooter}>
-                      <Link to={`/blog/${article.id}`} className={styles.readMoreBtn}>
-                        Read Article
-                      </Link>
-                    </div>
+                  <div className={styles.articleFooter}>
+                    <Link to={`/blog/${article.id}`} className={styles.readMoreBtn}>
+                      Read Article
+                    </Link>
                   </div>
                 </motion.article>
               ))}
@@ -324,26 +324,6 @@ const Blog = () => {
           </button>
         ))}
       </motion.div>
-
-      <motion.section
-        className={styles.newsletterSection}
-        variants={blogSectionReveal}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewport}
-      >
-        <motion.div className={styles.newsletterShell} variants={staggerGroup}>
-          <motion.div variants={blogItemReveal}>
-            <span className={styles.sectionTagLight}>Newsletter</span>
-            <h2>Get ideas and updates that support growth, work, and leadership.</h2>
-          </motion.div>
-
-          <motion.form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()} variants={blogItemReveal}>
-            <input type="email" placeholder="Your email address" required />
-            <button type="submit">Subscribe</button>
-          </motion.form>
-        </motion.div>
-      </motion.section>
     </div>
   );
 };

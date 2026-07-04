@@ -13,13 +13,26 @@
 }
 
 .headerScrolled {
-  background: rgba(6, 16, 60, 0.88);
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 6px 28px rgba(10, 20, 36, 0.08);
+}
 
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 32px rgba(6, 16, 60, 0.24);
+/* Brand mark color — gold over dark hero, navy once scrolled on paper */
+.headerScrolled .brandLink img {
+  filter: none;
+}
+
+/* ── Light-hero pages (not home, not yet scrolled): dark nav on transparent ── */
+.headerOnLight .navLinks li a { color: var(--color-navy-soft); }
+.headerOnLight .navLinks li a:hover { color: var(--color-primary); background: var(--color-panel); }
+.headerOnLight .activeLink { color: var(--color-primary) !important; }
+.headerOnLight .brandLink img { filter: none; }
+.headerOnLight .hamburger {
+  border-color: var(--color-border-strong);
+  color: var(--color-navy-soft);
 }
 
 .navbar {
@@ -61,11 +74,10 @@
 
 .navLinks li a {
   position: relative;
-  color: rgba(255, 255, 255, 0.88);
-  color:  var(--color-accent);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 12px;
+  padding: 8px 15px;
+  border-radius: 0;
   letter-spacing: 0.02em;
   transition: color var(--transition-fast), background var(--transition-fast);
 }
@@ -73,38 +85,80 @@
 .navLinks li a::after {
   content: '';
   position: absolute;
-  bottom: 4px;
-  left: 14px;
-  right: 14px;
+  bottom: 2px;
+  left: 15px;
+  right: 15px;
   height: 2px;
   background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base) var(--ease-out-expo);
 }
 
 .navLinks li a:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .navLinks li a:hover::after { transform: scaleX(1); }
 
 .activeLink {
   color: var(--color-accent) !important;
-  background: rgba(255, 219, 36, 0.08) !important;
 }
 
 .activeLink::after { transform: scaleX(1) !important; }
 
+/* Scrolled (light) state — dark, high-contrast nav links */
+.headerScrolled .navLinks li a {
+  color: var(--color-navy-soft);
+}
+.headerScrolled .navLinks li a:hover {
+  color: var(--color-primary);
+  background: var(--color-panel);
+}
+.headerScrolled .activeLink {
+  color: var(--color-primary) !important;
+}
+.headerScrolled .hamburger {
+  border-color: var(--color-border-strong);
+  color: var(--color-navy-soft);
+}
+
+/* ── Get Involved CTA (desktop) ── */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 22px;
+  min-height: 44px;
+  background: var(--color-accent);
+  color: #1a1505;
+  font-family: var(--font-base);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--color-accent);
+  flex-shrink: 0;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.cta:hover {
+  background: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-accent);
+}
+
+.mobileCtaItem { display: none; }
+
 /* ── Hidden on desktop ── */
-.mobileMenuIntro, .mobileMenuBrand, .mobileNavIcon { display: none; }
+.mobileMenuIntro, .mobileMenuBrand, .mobileNavIcon, .mobileMenuFooter { display: none; }
 
 .hamburger {
   display: none;
   background: none;
   border: 1.5px solid rgba(255, 255, 255, 0.22);
-  border-radius: 4px;
+  border-radius: 0;
   padding: 8px 10px;
   font-size: 1.25rem;
   line-height: 1;
@@ -119,13 +173,13 @@
 .hamburger:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
-  background: rgba(255, 219, 36, 0.08);
+  background: rgba(255, 206, 58, 0.08);
 }
 
 .backdrop {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(6, 16, 60, 0.54);
+  background: rgba(10, 20, 36, 0.54);
   backdrop-filter: blur(4px);
   z-index: 999;
   display: none;
@@ -139,49 +193,68 @@
 
   .navbar { gap: 12px; }
 
+  /* desktop CTA hidden; drawer CTA shown */
+  .cta { display: none; }
+  .mobileCtaItem { display: block; width: 100%; margin-top: 12px; }
+  .ctaMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--color-accent);
+    color: #1a1505;
+    font-weight: var(--fw-bold);
+    font-size: 0.9375rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .ctaMobile:hover { background: var(--color-accent-deep); }
+
   .brandLink img { width: 60px; }
 
+  /* ── Side drawer ── */
   .navLinks {
     position: fixed;
-    top: 0; left: 0;
-    width: min(88vw, 250px);
-    height: 100vh;
-    background: #ffffff;
+    top: 0; right: 0;
+    width: min(86vw, 340px);
+    height: 100dvh;
     background: var(--color-surface);
     flex-direction: column;
-    align-items: flex-start;
-    padding: 14px 14px 28px;
-    gap: 4px;
-    border-right: 1px solid var(--color-border-soft);
-    box-shadow: 4px 0 40px rgba(6, 16, 60, 0.2);
+    align-items: stretch;
+    padding: 0 0 24px;
+    gap: 0;
+    border-left: 1px solid var(--color-border);
+    box-shadow: -12px 0 48px rgba(10, 20, 36, 0.28);
     z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease-out-expo);
     overflow-y: auto;
   }
 
   .navLinks.open { transform: translateX(0); }
 
-  .navLinks li, .navLinks li a { width: 100%; }
+  .navLinks li { width: 100%; }
 
-  /* Mobile menu header */
+  /* Drawer header (ink band) */
   .mobileMenuIntro {
     display: block;
     width: 100%;
-    padding: 10px 12px 18px;
-    border-bottom: 1px solid var(--color-border-soft);
+    padding: 22px 22px 20px;
     margin-bottom: 8px;
+    background:
+      radial-gradient(circle at 90% 0%, rgba(30, 90, 243, 0.34), transparent 60%),
+      var(--color-ink);
   }
 
   .mobileMenuBrand {
     display: flex;
     align-items: center;
     gap: 12px;
-    
   }
 
   .mobileMenuBrand img {
-    width: 34px;
+    width: 40px;
     height: auto;
     object-fit: contain;
     flex-shrink: 0;
@@ -189,49 +262,44 @@
 
   .mobileMenuBrand div { display: grid; gap: 3px; }
 
-  .mobileMenuIntro strong {
-    color: var(--color-navy-soft);
-    font-size: 0.9375rem;
-    letter-spacing: 0.06em;
-  }
-
   .mobileMenuIntro p {
     margin: 0;
-    color: var(--color-primary-mid);
-    font-size: 0.72rem;
+    color: var(--color-accent);
+    font-size: 0.7rem;
     font-weight: var(--fw-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.2em;
   }
 
   .navLinks li a {
     display: flex;
     align-items: center;
-    color: var(--color-text-muted);
-    gap: 12px;
-    font-size: 0.9375rem;
-    padding: 12px 14px;
+    color: var(--color-text-body);
+    gap: 16px;
+    font-size: 1rem;
+    padding: 17px 22px;
     font-weight: var(--fw-semibold);
-    border: 1px solid transparent;
-    border-radius: 12px;
-    transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+    border: none;
+    border-bottom: 1px solid var(--color-border-soft);
+    border-radius: 0;
+    transition: color var(--transition-fast), background var(--transition-fast), padding-left var(--transition-fast);
   }
 
   .navLinks li a::after { display: none; }
 
   .navLinks li a:hover {
-    color: var(--color-navy-soft);
-    background: var(--color-surface-alt);
-    border-color: var(--color-border-soft);
+    color: var(--color-primary);
+    background: var(--color-panel);
+    padding-left: 28px;
   }
 
   .mobileNavIcon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    min-width: 20px;
-    color: var(--color-primary-mid);
+    width: 22px;
+    min-width: 22px;
+    color: var(--color-primary);
     flex-shrink: 0;
     font-size: var(--fs-h4);
   }
@@ -239,15 +307,62 @@
   .hamburger { display: flex; align-items: center; justify-content: center; }
 
   .activeLink {
-    color: #ffffff !important;
-    background: linear-gradient(135deg, var(--color-navy), var(--color-primary-mid)) !important;
-    border-color: transparent !important;
-    box-shadow: 0 8px 20px rgba(11, 29, 102, 0.16);
+    color: var(--color-primary) !important;
+    background: var(--color-panel) !important;
+    box-shadow: inset 4px 0 0 var(--color-accent);
   }
 
-  .activeLink .mobileNavIcon {
-    color: #ffffff;
+  .activeLink .mobileNavIcon { color: var(--color-primary); }
+
+  /* Drawer CTA */
+  .mobileCtaItem { display: block; width: 100%; padding: 22px 22px 0; }
+  .ctaMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 18px;
+    min-height: 52px;
+    background: var(--color-accent);
+    color: #1a1505;
+    font-weight: var(--fw-bold);
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: background var(--transition-fast);
   }
+  .ctaMobile:hover { background: var(--color-accent-deep); }
+
+  /* Drawer footer: contact + socials */
+  .mobileMenuFooter {
+    display: grid;
+    gap: 12px;
+    padding: 26px 22px 6px;
+    margin-top: 8px;
+    border-top: 1px solid var(--color-border-soft);
+  }
+  .mobileContact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-text-muted);
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-medium);
+    transition: color var(--transition-fast);
+  }
+  .mobileContact:hover { color: var(--color-primary); }
+  .mobileContact svg { color: var(--color-primary); font-size: 0.9rem; flex-shrink: 0; }
+
+  .mobileSocials { display: flex; gap: 10px; margin-top: 6px; }
+  .mobileSocials a {
+    width: 42px; height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-navy-soft);
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  }
+  .mobileSocials a:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-panel); }
 }
 
 @media (max-width: 480px) {

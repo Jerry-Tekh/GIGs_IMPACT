@@ -23,7 +23,7 @@
   min-width: 180px;
   width: 290px;
   background: var(--color-surface);
-  border-radius: 2px;
+  border-radius: 0;
   padding: 12px;
   flex-shrink: 0;
   text-align: center;
@@ -40,7 +40,7 @@
   width: 240px;
   height: 140px;
   margin: 0 auto 12px;
-  border-radius: 2px;
+  border-radius: 0;
   overflow: hidden;
   background: var(--color-panel);
 }
@@ -64,12 +64,12 @@
 }
 
 .card h3 { margin: 8px 0 6px; font-size: var(--fs-caption); font-weight: var(--fw-semibold); color: var(--color-text); line-height: 1.35; }
-.card p { margin: 0; color: var(--color-text-muted); font-size: var(--fs-caption); line-height: 1.45; }
+.card p { margin: 0; color: var(--color-text-muted); font-size: var(--fs-body); line-height: 1.5; }
 
 .arrowButton {
   position: relative;
   width: 44px; height: 44px;
-  border-radius: 2px;
+  border-radius: 0;
   background: var(--color-surface);
   border: 1.5px solid var(--color-border);
   color: var(--color-navy-soft);
@@ -105,7 +105,7 @@
 }
 
 .dot:hover { background: var(--color-text-light); transform: scale(1.2); }
-.dot.active { background: var(--color-primary-mid); width: 22px; border-radius: 4px; }
+.dot.active { background: var(--color-primary-mid); width: 22px; border-radius: 0; }
 
 @media (max-width: 900px) {
   .header, .carouselWrapper, .dotsContainer { padding: 0 6%; }

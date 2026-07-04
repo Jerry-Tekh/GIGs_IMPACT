@@ -39,33 +39,108 @@ main > section {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(6,16,60,0.35);
+  padding: 24px;
+  background: rgba(10, 20, 36, 0.46);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   z-index: 1200;
 }
 
 .routeFallbackCard {
-  display: flex;
+  width: min(90vw, 360px);
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 14px;
-  padding: 18px 22px;
+  gap: 16px;
+  padding: 24px 26px 22px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-top: 3px solid var(--color-accent);
+  border-radius: 0;
   box-shadow: var(--shadow-lg);
 }
 
-.routeFallbackSpinner {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 4px solid rgba(0,0,0,0.08);
-  border-top-color: var(--color-primary-mid);
-  animation: routeSpin 1s linear infinite;
+.routeFallbackMark {
+  width: 56px;
+  height: 42px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  gap: 6px;
+  padding: 6px;
+  background: var(--color-ink);
 }
 
-@keyframes routeSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.routeFallbackMark span {
+  display: block;
+  width: 100%;
+  min-height: 10px;
+  transform-origin: bottom;
+  animation: routeMarkPulse 1.05s ease-in-out infinite;
+}
+
+.routeFallbackMark span:nth-child(1) {
+  height: 42%;
+  background: var(--color-primary);
+}
+
+.routeFallbackMark span:nth-child(2) {
+  height: 72%;
+  background: var(--color-accent);
+  animation-delay: 0.14s;
+}
+
+.routeFallbackMark span:nth-child(3) {
+  height: 100%;
+  background: var(--color-secondary);
+  animation-delay: 0.28s;
+}
+
+.routeFallbackCopy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.routeFallbackCopy strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.routeFallbackCopy span {
+  font-size: var(--fs-body-sm);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.routeFallbackRail {
+  grid-column: 1 / -1;
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.routeFallbackRail span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 42%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  animation: routeRailMove 1.25s var(--ease-out-expo) infinite;
+}
+
+@keyframes routeMarkPulse {
+  0%, 100% { transform: scaleY(0.65); opacity: 0.78; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes routeRailMove {
+  0% { transform: translateX(-105%); }
+  100% { transform: translateX(245%); }
 }
 
 /* visually hidden (accessible) */

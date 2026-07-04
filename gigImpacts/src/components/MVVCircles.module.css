@@ -41,7 +41,7 @@
 
 .textDisplay { margin-top: 20px; border-left: 3px solid var(--color-accent); padding-left: 20px; }
 .textDisplay h3 { font-size: var(--fs-h4); color: #a32a29; margin-bottom: 10px; }
-.textDisplay p { font-size: var(--fs-body-sm); color: var(--color-text-muted); line-height: 1.7; }
+.textDisplay p { font-size: var(--fs-body); color: var(--color-text-muted); line-height: 1.7; }
 
 @media (max-width: 600px) {
   .diagramContainer { height: 290px; }

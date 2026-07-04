@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /author/
+Disallow: /reader/
+Disallow: /login
+Disallow: /signup
+
+Sitemap: https://gigsimpact.org/sitemap.xml

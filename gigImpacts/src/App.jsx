@@ -13,6 +13,10 @@ import Carosel from './components/Carosel.jsx';
 import DonationForm from './components/DonationForm.jsx';
 import EfficiencyBadge from './components/EfficiencyBadge.jsx';
 import Footer from './components/Footer.jsx';
+import Reveal from './components/Reveal.jsx';
+import Breadcrumbs from './components/Breadcrumbs.jsx';
+import Testimonials from './components/Testimonials.jsx';
+import GallerySection from './components/sections/GallerySection.jsx';
 import CompanyMVV from './components/OrgMissionVison.jsx';
 import RoleProtectedRoute from './components/RoleProtectedRoute.jsx';
 import RouteFallback from './components/RouteFallback.jsx';
@@ -39,6 +43,9 @@ const Signup = lazy(() => import('./AuthPage/Signup.jsx'));
 const VerifyEmail = lazy(() => import('./AuthPage/VerifyEmail.jsx'));
 const ResetPassword = lazy(() => import('./AuthPage/ResetPassword.jsx'));
 const ContactPage = lazy(() => import('./pages/Contact/ContactPage.jsx'));
+const LegalPage = lazy(() => import('./pages/Legal/LegalPage.jsx'));
+const GetInvolvedPage = lazy(() => import('./pages/GetInvolved/GetInvolvedPage.jsx'));
+const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage.jsx'));
 
 function ScrollToHash() {
   const location = useLocation();
@@ -67,14 +74,16 @@ function HomeContent() {
   return (
     <main className={styles.pageContent}>
       <Hero />
-      <CompanyMVV />
-      <Carosel />
-      <ActionCards />
-      <WhatWeDo />
-      <ImpactStats />
-      <Partners />
-      <DonationForm />
-      <EfficiencyBadge />
+      <Reveal><CompanyMVV /></Reveal>
+      <Reveal><Carosel /></Reveal>
+      <Reveal><ActionCards /></Reveal>
+      <Reveal><WhatWeDo /></Reveal>
+      <Reveal><ImpactStats /></Reveal>
+      <Reveal><GallerySection /></Reveal>
+      <Reveal><Partners /></Reveal>
+      <Reveal><Testimonials /></Reveal>
+      <Reveal><DonationForm /></Reveal>
+      <Reveal><EfficiencyBadge /></Reveal>
     </main>
   );
 }
@@ -85,10 +94,12 @@ function PublicPage({ children }) {
       <Header />
       <motion.div
         className={styles.publicPage}
+        style={{ position: 'relative' }}
         initial={{ opacity: 0, y: 26 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
+        <Breadcrumbs />
         {children}
       </motion.div>
       <Footer />
@@ -235,12 +246,36 @@ function AppRoutes() {
           )}
         />
         <Route
-          path="*"
-          element={
+          path="/privacy"
+          element={withRouteSuspense(
             <PublicPage>
-              <HomeContent />
+              <LegalPage type="privacy" />
             </PublicPage>
-          }
+          )}
+        />
+        <Route
+          path="/terms"
+          element={withRouteSuspense(
+            <PublicPage>
+              <LegalPage type="terms" />
+            </PublicPage>
+          )}
+        />
+        <Route
+          path="/get-involved"
+          element={withRouteSuspense(
+            <PublicPage>
+              <GetInvolvedPage />
+            </PublicPage>
+          )}
+        />
+        <Route
+          path="*"
+          element={withRouteSuspense(
+            <PublicPage>
+              <NotFoundPage />
+            </PublicPage>
+          )}
         />
       </Routes>
     </div>
